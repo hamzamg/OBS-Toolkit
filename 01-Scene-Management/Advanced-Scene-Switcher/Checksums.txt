@@ -1,5 +1,5 @@
 517b6aaa0ef5f9db0b3e6dae5ddb8c95744b15ab1d8132dfd0e4c0599390e2cd  01-Scene-Management/Advanced-Scene-Switcher/Downloads/1.37.2/advanced-scene-switcher-1.37.2-windows-x64-Installer.exe
-4fa9969f58ba3459e32be8dfc9e1bb663b096e73a2dcefe854cf6676046d8418  01-Scene-Management/Advanced-Scene-Switcher/Documentation/LICENSE
-12769471d9168fc5d19b7c945fa0d579cf77d3153e9f1081ff08574a5ea3e19d  01-Scene-Management/Advanced-Scene-Switcher/Documentation/README.snapshot.md
-6f9b3b482448a7dc892ac4563d2cacc2cf23e933435421522d1236a57ea4abfd  01-Scene-Management/Advanced-Scene-Switcher/Documentation/RELEASE_NOTES_1.37.2.md
+db296f2f7f35bca3a174efb0eb392b3b17bd94b341851429a3dff411b1c2fc73  01-Scene-Management/Advanced-Scene-Switcher/Documentation/LICENSE
+d61b53cf1c14ab0733ed41539fd59566332b6aa6b14f8365423acd132094f38c  01-Scene-Management/Advanced-Scene-Switcher/Documentation/README.snapshot.md
+9ef652ebf45235d4c7a3b36c2eb83da074795201e5f914391db524fcbd365b91  01-Scene-Management/Advanced-Scene-Switcher/Documentation/RELEASE_NOTES_1.37.2.md
 

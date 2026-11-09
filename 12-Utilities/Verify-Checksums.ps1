@@ -77,7 +77,7 @@ try {
             $findings.Add([pscustomobject]@{ kind = 'missing'; path = $rel; detail = 'listed in SHA256SUMS.txt but not on disk' })
             continue
         }
-        $actual = (Get-FileHash -LiteralPath $full -Algorithm SHA256).Hash.ToLower()
+        $actual = Get-ToolkitFileHash -Path $full
         if ($actual -ne $expected) {
             $findings.Add([pscustomobject]@{ kind = 'mismatch'; path = $rel; detail = "expected $expected got $actual" })
         }

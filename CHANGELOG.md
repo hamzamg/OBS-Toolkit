@@ -35,12 +35,15 @@ per change, newest first. It records library changes, not OBS changes.
 - `Test-Library.ps1` Check 9: the `13-Logs/cache` exclusion is now
   separator-agnostic (it never matched on Linux, which scanned the evidence
   cache and false-positived on a documented finding).
-- `Test-Library.ps1` Check 10: the OBS tripwire is now **SKIP** on CI runners
-  (no OBS install there by definition); on the user's machine it stays a hard
-  failure, exactly as before.
-- `Test-Library.ps1` Check 9: a Windows username that appears only inside a
-  URL (for example the public GitHub handle in the Star History chart link) is
-  no longer a finding; names outside URLs are still reported.
+- `Test-Library.ps1`: Check 9 also ignores a username that appears only inside
+  URLs (the public GitHub handle in the Star History chart link); names outside
+  URLs are still reported. Check 10 (OBS tripwire) skips on CI runners
+  (`$env:CI` set) so the gate can run on ubuntu-latest.
+- Checksum hashing is now line-ending independent: the shared
+  `Get-ToolkitFileHash` hashes LF-normalized content for text files (git blobs
+  are LF, while Windows checkouts are CRLF), and exact bytes for binaries.
+  `SHA256SUMS.txt` and per-tool `Checksums.txt` were regenerated; asset
+  provenance (vs `MANIFEST.json`) is unchanged.
 - `12-Utilities/Download-Missing.ps1`: restores files that are missing locally.
   A fresh clone lacks the two git-excluded files (SceneSwitcher installer,
   105.20 MB, and an upstream psd, 93.86 MB) because GitHub rejects files over

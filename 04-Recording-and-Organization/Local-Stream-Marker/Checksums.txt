@@ -1,5 +1,5 @@
 777c2ed5e1c237d0b3384eca01a8c52e156237a3577c8efd549c9e8a81db954b  04-Recording-and-Organization/Local-Stream-Marker/Downloads/v1.13/local-stream-marker.1.13.zip
-28223f077ed5859e8eb3f91759c22ab6ca92d3ab36f734418c2cd86339406e23  04-Recording-and-Organization/Local-Stream-Marker/Documentation/LICENSE
-f61d07736083e0c49e36848096160b4096edb301bce4d26b16e00ac545a799c6  04-Recording-and-Organization/Local-Stream-Marker/Documentation/README.snapshot.md
-5b0aef18cc1f84440241ddf88d01ca7da05e645dbfa6b3f6b5f90e3a440a599c  04-Recording-and-Organization/Local-Stream-Marker/Documentation/RELEASE_NOTES_v1.13.md
+3b4d219da3bdec337fe12cb9b61c70b8af36f641df43ed2cf3d7c9cc353605dc  04-Recording-and-Organization/Local-Stream-Marker/Documentation/LICENSE
+5bfce3d0dca21ed10e3c366984814c88103a65f8042dfb218329e3812d1ecd24  04-Recording-and-Organization/Local-Stream-Marker/Documentation/README.snapshot.md
+f037795b3071a1eb4253ec048103ba1d9a8f7181e1f35f10cfedc4c43af9e1c3  04-Recording-and-Organization/Local-Stream-Marker/Documentation/RELEASE_NOTES_v1.13.md
 

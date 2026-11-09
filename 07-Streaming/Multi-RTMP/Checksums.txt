@@ -1,5 +1,5 @@
 601c014a2962261429f736826c441192e3da6f5ceebc7807f10907e8be3326d5  07-Streaming/Multi-RTMP/Downloads/0.7.4/obs-multi-rtmp-0.7.4.0-windows-x64.zip
-189b1af95d661151e054cea10c91b3d754e4de4d3fecfb074c1fb29476f7167b  07-Streaming/Multi-RTMP/Documentation/LICENSE
-d3de33dbaa948f6b6415e792b9ccde58523d860c14658aded73148de9e676fd7  07-Streaming/Multi-RTMP/Documentation/README.snapshot.md
-3ba2634f2140166a1d7b4dfa6b0d6473d3d7524202550a99fc6982f784ecb743  07-Streaming/Multi-RTMP/Documentation/RELEASE_NOTES_0.7.4.md
+8177f97513213526df2cf6184d8ff986c675afb514d4e68a404010521b880643  07-Streaming/Multi-RTMP/Documentation/LICENSE
+4b99048b646c3657b801aaf90a835500453a16d3f1c79b205dddfe068399fdcd  07-Streaming/Multi-RTMP/Documentation/README.snapshot.md
+402fee4e1c28b9685c6ea820550696cbd70314464caffc5254018012db9616be  07-Streaming/Multi-RTMP/Documentation/RELEASE_NOTES_0.7.4.md
 

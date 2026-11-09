@@ -142,7 +142,7 @@ try {
             foreach ($rel in $targets) {
                 $full = Resolve-ToolkitPath -RelativePath $rel
                 if (-not (Test-Path -LiteralPath $full)) { continue }
-                $hash = (Get-FileHash -LiteralPath $full -Algorithm SHA256).Hash.ToLower()
+                $hash = Get-ToolkitFileHash -Path $full
                 $lines.Add("$hash  $rel")
                 $sumLines.Add("$hash  $rel")
             }
@@ -154,7 +154,7 @@ try {
         }
 
         foreach ($name in @('MANIFEST.json', 'MANIFEST.schema.json')) {
-            $hash = (Get-FileHash -LiteralPath (Join-Path $root $name) -Algorithm SHA256).Hash.ToLower()
+            $hash = Get-ToolkitFileHash -Path (Join-Path $root $name)
             $sumLines.Add("$hash  $name")
         }
 
