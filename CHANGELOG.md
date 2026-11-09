@@ -24,6 +24,10 @@ per change, newest first. It records library changes, not OBS changes.
 
 ### Changed
 
+- CI (`ci.yml`): removed the `actions/setup-pwsh` step — that action does not
+  exist; `pwsh` ships preinstalled on `ubuntu-latest` runners. Also fixed the
+  invalid `Set-PSRepository -InstallationPolicy` value (`TrustedRepository` →
+  `Trusted`) in the PSScriptAnalyzer install step.
 - `Test-Library.ps1` Check 10: the OBS tripwire is now **SKIP** on CI runners
   (no OBS install there by definition); on the user's machine it stays a hard
   failure, exactly as before.

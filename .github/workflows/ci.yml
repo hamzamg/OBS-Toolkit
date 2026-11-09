@@ -18,10 +18,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Set up PowerShell
-        uses: actions/setup-pwsh@v2
-        with:
-          version: "7.6.*"
+      # pwsh ships preinstalled on ubuntu-latest GitHub-hosted runners
+      # (pwsh 7.x), so no setup step is needed. Steps below use `shell: pwsh`.
 
       - name: Run the Definition-of-Done gate
         shell: pwsh
@@ -34,7 +32,7 @@ jobs:
       - name: Install PSScriptAnalyzer
         shell: pwsh
         run: |
-          Set-PSRepository -Name PSGallery -InstallationPolicy TrustedRepository -ErrorAction SilentlyContinue
+          Set-PSRepository -Name PSGallery -InstallationPolicy Trusted -ErrorAction SilentlyContinue
           Install-Module PSScriptAnalyzer -Scope CurrentUser -Force -SkipPublisherCheck -AllowClobber
 
       - name: Lint PowerShell
