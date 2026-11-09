@@ -1,5 +1,5 @@
-16d02a018f47f9184104e4c8f7955fe1f27135364287065722ed4b8ceda067f0  08-Remote-Control-and-AI/OBS-WebSocket/Documentation/docs-README.md
-e8ea8cacd9afea46ea3411a837f23284ac6b3bacc6c51bc7825821a65c167da1  08-Remote-Control-and-AI/OBS-WebSocket/Documentation/LICENSE
-97174cc153edafd3a96a18530fe8a39351626c94e428b88a446b651e0398af78  08-Remote-Control-and-AI/OBS-WebSocket/Documentation/protocol.md
-9ebebf0d0b872b75e8857812fb5b73b52478e78443517038459e798e23449e6b  08-Remote-Control-and-AI/OBS-WebSocket/Documentation/README.snapshot.md
+3125551800ac1ee15f957aa8dfe7ff8144c647ff2787ac9db1a637697ce50f53  08-Remote-Control-and-AI/OBS-WebSocket/Documentation/docs-README.md
+db296f2f7f35bca3a174efb0eb392b3b17bd94b341851429a3dff411b1c2fc73  08-Remote-Control-and-AI/OBS-WebSocket/Documentation/LICENSE
+09a4ea80e0caa0dfd86882d1bc73ef9e002c48905c661adc2f7e62fb3d8636fb  08-Remote-Control-and-AI/OBS-WebSocket/Documentation/protocol.md
+fa2566eb6a2c7992ceb0a79d132c20d077921a698c2ed504a1d24181b44a838b  08-Remote-Control-and-AI/OBS-WebSocket/Documentation/README.snapshot.md
 

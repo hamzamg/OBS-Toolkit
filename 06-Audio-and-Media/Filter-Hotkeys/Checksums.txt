@@ -1,4 +1,4 @@
-2684de17300e0a434686f1ec7f8af6045207a4b457a3fe04b2b9ce655e7c5d50  06-Audio-and-Media/Filter-Hotkeys/Documentation/LICENSE
-08503fc60fe34fd345ebf2f9c77d4099f7777b7c2cda989ab1683839bcdd6261  06-Audio-and-Media/Filter-Hotkeys/Documentation/README.snapshot.md
-e1aefe5dd0f6c6d81a93b5bc3a5d48eb74bace7ba0605a9f24260f282d2487d0  06-Audio-and-Media/Filter-Hotkeys/Documentation/RELEASE_NOTES_1.0.2.md
+1f256ecad192880510e84ad60474eab7589218784b9a50bc7ceee34c2b91f1d5  06-Audio-and-Media/Filter-Hotkeys/Documentation/LICENSE
+2c1f149b5d26426263dc070bab44f954418f3b7c23693c1a348bbf00aa841794  06-Audio-and-Media/Filter-Hotkeys/Documentation/README.snapshot.md
+216bbcb152b18636eed2228b1deecbcb151ad161b9950401804c467d9078ea26  06-Audio-and-Media/Filter-Hotkeys/Documentation/RELEASE_NOTES_1.0.2.md
 

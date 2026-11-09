@@ -1,5 +1,5 @@
 8df66dea65fa07a7e87479fda2961efaed6600c0b3e3cfd87c439f2030562ba9  03-Timers-and-Counters/Advanced-Timer/Downloads/6.0.0/advanced-timer.lua
-189b1af95d661151e054cea10c91b3d754e4de4d3fecfb074c1fb29476f7167b  03-Timers-and-Counters/Advanced-Timer/Documentation/LICENSE
-6b3a18f71f6ae254016809d16ce77627f1a2fe5bed91d4ee46f36c2de02298a4  03-Timers-and-Counters/Advanced-Timer/Documentation/README.snapshot.md
-c352713d074f81cc4b170e04fa781c09ce73e3a2e5233b4ea58c4ac064e754d9  03-Timers-and-Counters/Advanced-Timer/Documentation/RELEASE_NOTES_6.0.0.md
+8177f97513213526df2cf6184d8ff986c675afb514d4e68a404010521b880643  03-Timers-and-Counters/Advanced-Timer/Documentation/LICENSE
+96034acd6e4fbee3706b998ff3ff7a650cc38408779fa770e6ed8baa819b13c4  03-Timers-and-Counters/Advanced-Timer/Documentation/README.snapshot.md
+2018c588a1b30dc8cf7d16a7c10c3355c6dd2ba0350c0994f430fdc9825c4c32  03-Timers-and-Counters/Advanced-Timer/Documentation/RELEASE_NOTES_6.0.0.md
 

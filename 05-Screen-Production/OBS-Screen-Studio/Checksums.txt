@@ -1,3 +1,3 @@
-5ca2920d4f56954100c8f365461aba7b6c6154da49734f7b2703d9275ad49d11  05-Screen-Production/OBS-Screen-Studio/Documentation/LICENSE
-d4bca363a78498ffc89c0e04ff9014bdb656e25cfe4967fa4a9b761ea22750f0  05-Screen-Production/OBS-Screen-Studio/Documentation/README.snapshot.md
+1126322e2cc8d165adc4c792eeb195717de2bcc7b39be1ce77959d78e87ef685  05-Screen-Production/OBS-Screen-Studio/Documentation/LICENSE
+d06f767a186ee0560d95ecef5b68694453913aa3e032065b8cc1d236c73da86f  05-Screen-Production/OBS-Screen-Studio/Documentation/README.snapshot.md
 

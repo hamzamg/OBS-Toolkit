@@ -623,7 +623,11 @@ function Invoke-SecretsCheck {
         $dir = Join-Path $Root $dirName
         if (-not (Test-Path -LiteralPath $dir)) { continue }
         foreach ($f in (Get-ChildItem -LiteralPath $dir -Recurse -File -Force)) {
-            if ($f.FullName -like '*\13-Logs\cache\*') { continue }
+            # Normalize to forward slashes so this also matches on Linux CI,
+            # where FullName uses '/' (evidence cache holds copied upstream
+            # findings and must never be re-scanned).
+            $forward = $f.FullName -replace '\\', '/'
+            if ($forward -like '*/13-Logs/cache/*') { continue }
             if ($f.Extension -in $extensions) { $files.Add($f.FullName) }
         }
     }

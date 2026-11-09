@@ -232,6 +232,61 @@ function Write-ToolkitError {
     }
 }
 
+function Get-ToolkitFileHash {
+    <#
+    .SYNOPSIS
+        Computes SHA-256 of a file, normalizing CRLF to LF for text files.
+
+    .DESCRIPTION
+        SHA256SUMS.txt must be identical on every machine. Git stores text
+        files as LF in blobs, but a Windows checkout (core.autocrlf=true)
+        produces CRLF on disk, so hashing raw disk bytes differs per platform.
+        This helper hashes LF-normalized content for text files (detected by the
+        NUL-byte heuristic git itself uses) and exact bytes for binaries.
+
+        Download provenance is stricter and lives elsewhere: Download-Missing.ps1
+        and the manifest cross-checks hash the exact downloaded bytes and never
+        normalize, so a tampered binary can never slip through.
+
+    .PARAMETER Path
+        Absolute file path.
+
+    .PARAMETER Raw
+        Hash the exact bytes (no text normalization). Used for manifest assets.
+
+    .EXAMPLE
+        Get-ToolkitFileHash 'MANIFEST.json'
+    #>
+    [CmdletBinding()]
+    [OutputType([string])]
+    param(
+        [Parameter(Mandatory)][string]$Path,
+        [Parameter()][switch]$Raw
+    )
+
+    $bytes = [System.IO.File]::ReadAllBytes($Path)
+    if (-not $Raw) {
+        $isText = $true
+        foreach ($b in $bytes) {
+            if ($b -eq 0) { $isText = $false; break }
+        }
+        if ($isText) {
+            $text = [System.Text.Encoding]::UTF8.GetString($bytes)
+            $normalized = $text -replace "`r`n", "`n"
+            $bytes = [System.Text.Encoding]::UTF8.GetBytes($normalized)
+        }
+    }
+
+    $hasher = [System.Security.Cryptography.SHA256]::Create()
+    try {
+        $digest = $hasher.ComputeHash($bytes)
+    }
+    finally {
+        $hasher.Dispose()
+    }
+    return ($digest | ForEach-Object { $_.ToString('x2') } | Join-String -Separator '')
+}
+
 function Protect-ToolkitText {
     <#
     .SYNOPSIS
@@ -259,4 +314,4 @@ function Protect-ToolkitText {
 
 Export-ModuleMember -Function Get-ToolkitRoot, Get-ToolkitTimestamp, Format-ByteSize, `
     Resolve-ToolkitPath, Test-PathUnder, Get-ToolkitManifest, Write-ToolkitLog, `
-    Write-ToolkitError, Protect-ToolkitText
+    Write-ToolkitError, Protect-ToolkitText, Get-ToolkitFileHash

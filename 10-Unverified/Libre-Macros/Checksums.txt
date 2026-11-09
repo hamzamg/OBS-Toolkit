@@ -1,4 +1,4 @@
-f4a648b42eaeac7633821057af1a0f1f6e6108490069fbae86600745b5440879  10-Unverified/Libre-Macros/Documentation/LICENSE.md
-fa52e0aa2b459c7ff30fb0e51172dc1908d5196ee34775da48be8692b86f85fe  10-Unverified/Libre-Macros/Documentation/README.snapshot.md
-b79b1ec2ec485991e4b57820f64b52b47aac0b47088ca0164191e55c8b7d9230  10-Unverified/Libre-Macros/Documentation/RELEASE_NOTES_4.2.0.md
+ad858d53cae05eed9531ecd4c467440803acffe34c69de7b88e03affc5b6a1bd  10-Unverified/Libre-Macros/Documentation/LICENSE.md
+0ccc72e8970ae5e73772662bbd6789676541f86642ba91beefa081be511496b1  10-Unverified/Libre-Macros/Documentation/README.snapshot.md
+c09f8c78e98afa341e2aaf990429e3daa60b959afc7dddb1548ce19451cdc238  10-Unverified/Libre-Macros/Documentation/RELEASE_NOTES_4.2.0.md
 
