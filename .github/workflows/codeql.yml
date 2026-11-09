@@ -1,0 +1,34 @@
+name: CodeQL
+
+# Static analysis for GitHub Actions workflows only. The PowerShell utilities
+# are linted by PSScriptAnalyzer (see ci.yml); CodeQL does not analyze
+# PowerShell. This scan covers the Actions language (script injection,
+# untrusted-input interpolation) — the remaining attack surface of this repo.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  schedule:
+    - cron: "0 6 * * 1"
+
+permissions:
+  contents: read
+  security-events: write
+  actions: read
+
+jobs:
+  analyze:
+    name: Analyze (Actions)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v3
+        with:
+          languages: actions
+
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v3

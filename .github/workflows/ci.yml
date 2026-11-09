@@ -32,6 +32,10 @@ jobs:
         shell: pwsh
         run: ./12-Utilities/Test-Library.ps1
 
+      - name: Confirm restore completeness
+        shell: pwsh
+        run: ./12-Utilities/Download-Missing.ps1
+
       - name: Verify checksums
         shell: pwsh
         run: ./12-Utilities/Verify-Checksums.ps1
