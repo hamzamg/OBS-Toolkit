@@ -18,6 +18,9 @@ per change, newest first. It records library changes, not OBS changes.
   (`.pre-commit-config.yaml` + `.pre-commit-hooks/`). Also a project-local
   `opencode.json` with GitHub + Context7 MCP servers, and a "Local checks"
   section in `README.md`.
+- Governance files: `SECURITY.md` (supported versions, private vulnerability
+  reporting, scope) and `.github/pull_request_template.md` (QA checklist aligned
+  with `Test-Library.ps1`).
 
 ### Changed
 

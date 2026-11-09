@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-11-09T19:34:22Z",
+  "generated_at_utc": "2026-11-09T20:04:03Z",
   "library_root": "<library>",
   "tools": 16,
   "assets": 1,
@@ -55,7 +55,7 @@
       "id": 7,
       "name": "Markdown links, tables and fences",
       "status": "PASS",
-      "detail": "files=36",
+      "detail": "files=37",
       "findings": []
     },
     {
@@ -69,7 +69,7 @@
       "id": 9,
       "name": "Secrets and username scan",
       "status": "PASS",
-      "detail": "files-scanned=61 patterns=4",
+      "detail": "files-scanned=62 patterns=4",
       "findings": []
     },
     {
@@ -83,7 +83,7 @@
       "id": 11,
       "name": "Execution log shows nothing downloaded was run and nothing was installed",
       "status": "PASS",
-      "detail": "lines=100 parsed=100 distinct-actions=31",
+      "detail": "lines=102 parsed=102 distinct-actions=31",
       "findings": []
     },
     {
