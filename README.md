@@ -109,7 +109,7 @@ OBS-Toolkit/
 ├── 09-Optional-Tools/            only user-approved extras; empty today
 ├── 10-Unverified/                unresolved license or security (same layout)
 ├── 11-Checksums/                 SHA256SUMS.txt  VERIFICATION_REPORT.md
-├── 12-Utilities/                 Common.psm1 + 7 PowerShell scripts
+├── 12-Utilities/                 Common.psm1 + 8 PowerShell scripts
 └── 13-Logs/                      execution.log  state.json  obs-baseline.json
                                   cache/  dated reports
 ```
