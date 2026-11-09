@@ -825,6 +825,7 @@ function Invoke-ScriptCheck {
         'Verify-Checksums.ps1'  = 'verify-checksums'
         'Generate-Manifest.ps1' = 'generate-manifest'
         'Update-Library.ps1'    = 'update-library'
+        'Download-Missing.ps1'  = 'download-missing'
         'Backup-OBS.ps1'        = 'backup-obs'
         'Test-Library.ps1'      = 'test-library'
         'Open-README.ps1'       = 'open-readme'

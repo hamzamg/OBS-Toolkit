@@ -10,6 +10,13 @@ per change, newest first. It records library changes, not OBS changes.
 - `AGENTS.md`: project workflow rules — update before working, one branch per
   task, plan and approval before starting, verify then push and open a PR, and
   merge only after an explicit yes.
+- `12-Utilities/Download-Missing.ps1`: restores files that are missing locally.
+  A fresh clone lacks the two git-excluded files (SceneSwitcher installer,
+  105.20 MB, and an upstream psd, 93.86 MB) because GitHub rejects files over
+  100 MB. Read-only by default; downloads with `-Apply` only from the URLs
+  recorded in `MANIFEST.json`, verifies SHA-256 before keeping a file, never
+  overwrites a mismatch, and reports the psd's pinned-commit provenance
+  explicitly (it has no hash in the manifest).
 
 ### Changed
 
