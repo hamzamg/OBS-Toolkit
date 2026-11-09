@@ -3,6 +3,14 @@
 All dates are UTC. This file follows the spirit of Keep a Changelog: one entry
 per change, newest first. It records library changes, not OBS changes.
 
+## [Unreleased]
+
+### Added
+
+- `AGENTS.md`: project workflow rules — update before working, one branch per
+  task, plan and approval before starting, verify then push and open a PR, and
+  merge only after an explicit yes.
+
 ## [2026-11-09] Phase 5 - final gate
 
 ### Added
