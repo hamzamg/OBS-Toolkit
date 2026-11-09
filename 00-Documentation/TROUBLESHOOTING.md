@@ -171,12 +171,12 @@ Get-NetTCPConnection -LocalPort 4455 -ErrorAction SilentlyContinue |
   Select-Object LocalAddress,LocalPort,State
 ```
 
-3. **Password** — authentication is on by default; a wrong password looks like a
+1. **Password** — authentication is on by default; a wrong password looks like a
    connection failure in most clients.
-4. **Firewall** — a local connection to `127.0.0.1` does not need a rule. If you
+2. **Firewall** — a local connection to `127.0.0.1` does not need a rule. If you
    are connecting from another machine, stop: do not open the port. Use a local
    client instead.
-5. **Protocol version** — clients written for WebSocket 4.x do not speak 5.x.
+3. **Protocol version** — clients written for WebSocket 4.x do not speak 5.x.
    OBS 32 bundles 5.6.3; see
    `08-Remote-Control-and-AI/OBS-WebSocket/Documentation/protocol.md`.
 

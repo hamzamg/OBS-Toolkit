@@ -148,4 +148,3 @@ Last release: none. Last commit: 2026-04-19T12:05:19Z. Archived: False. Fork: Fa
 - The commit pin is the identity here; there is no release asset to re-download later.
 
 Anything not confirmed above is `UNKNOWN`. Nothing in this library was installed, executed, or runtime-tested.
-

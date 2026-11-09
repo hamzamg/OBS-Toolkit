@@ -12,6 +12,21 @@ per change, newest first. It records library changes, not OBS changes.
   merge only after an explicit yes.
 - `AGENTS.md` scope rule: the library root is the only work boundary; never
   search or read outside the project without the user's explicit approval.
+- Environment baseline (format/lint/CI): `.editorconfig`, `.gitattributes`,
+  `PSScriptAnalyzerSettings.psd1`, `.markdownlint.json`, CI workflow
+  (`.github/workflows/ci.yml`, ubuntu + pwsh), and pre-commit hooks
+  (`.pre-commit-config.yaml` + `.pre-commit-hooks/`). Also a project-local
+  `opencode.json` with GitHub + Context7 MCP servers, and a "Local checks"
+  section in `README.md`.
+
+### Changed
+
+- `Test-Library.ps1` Check 10: the OBS tripwire is now **SKIP** on CI runners
+  (no OBS install there by definition); on the user's machine it stays a hard
+  failure, exactly as before.
+- `Test-Library.ps1` Check 9: a Windows username that appears only inside a
+  URL (for example the public GitHub handle in the Star History chart link) is
+  no longer a finding; names outside URLs are still reported.
 - `12-Utilities/Download-Missing.ps1`: restores files that are missing locally.
   A fresh clone lacks the two git-excluded files (SceneSwitcher installer,
   105.20 MB, and an upstream psd, 93.86 MB) because GitHub rejects files over
@@ -19,9 +34,6 @@ per change, newest first. It records library changes, not OBS changes.
   recorded in `MANIFEST.json`, verifies SHA-256 before keeping a file, never
   overwrites a mismatch, and reports the psd's pinned-commit provenance
   explicitly (it has no hash in the manifest).
-
-### Changed
-
 - Two files larger than GitHub's 100 MB per-file limit are excluded from git
   via `.gitignore` and remain only in the local library (they are still
   verified by `Test-Library.ps1`): the SceneSwitcher 1.37.2 installer

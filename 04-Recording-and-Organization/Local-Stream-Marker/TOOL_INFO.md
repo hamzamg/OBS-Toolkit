@@ -146,4 +146,3 @@ Last release: 2026-06-13T20:31:11Z. Last commit: 2026-06-13T20:31:11Z. Archived:
 - Which output folder should the CSV use? Leaving it blank writes next to the script file.
 
 Anything not confirmed above is `UNKNOWN`. Nothing in this library was installed, executed, or runtime-tested.
-

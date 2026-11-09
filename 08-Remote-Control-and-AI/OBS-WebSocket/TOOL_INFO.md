@@ -140,4 +140,3 @@ Last release: none. Last commit: 2026-10-08T19:32:45Z. Archived: False. Fork: Fa
 - Which client will connect (OBS-MCP, a phone remote, a custom script)? Each one needs its own credential handling.
 
 Anything not confirmed above is `UNKNOWN`. Nothing in this library was installed, executed, or runtime-tested.
-

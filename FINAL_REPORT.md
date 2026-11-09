@@ -184,4 +184,3 @@ check-only mode; nothing was downloaded by it.
 | OBS tripwire baseline | `13-Logs/obs-baseline.json` |
 | QA result | `13-Logs/qa-result.json` |
 | Action log | `13-Logs/execution.log` |
-

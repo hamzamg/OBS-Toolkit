@@ -151,4 +151,3 @@ Last release: 2025-03-22T21:30:27Z. Last commit: 2025-03-22T21:30:27Z. Archived:
 - Which text source should each counter write to? That mapping is per scene collection and is not configured here.
 
 Anything not confirmed above is `UNKNOWN`. Nothing in this library was installed, executed, or runtime-tested.
-

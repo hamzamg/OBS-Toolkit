@@ -1,0 +1,52 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  qa:
+    name: QA (Test-Library + checksums + PSScriptAnalyzer + markdownlint)
+    runs-on: ubuntu-latest
+    env:
+      CI: "true"
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up PowerShell
+        uses: actions/setup-pwsh@v2
+        with:
+          version: "7.6.*"
+
+      - name: Run the Definition-of-Done gate
+        shell: pwsh
+        run: ./12-Utilities/Test-Library.ps1
+
+      - name: Verify checksums
+        shell: pwsh
+        run: ./12-Utilities/Verify-Checksums.ps1
+
+      - name: Install PSScriptAnalyzer
+        shell: pwsh
+        run: |
+          Set-PSRepository -Name PSGallery -InstallationPolicy TrustedRepository -ErrorAction SilentlyContinue
+          Install-Module PSScriptAnalyzer -Scope CurrentUser -Force -SkipPublisherCheck -AllowClobber
+
+      - name: Lint PowerShell
+        shell: pwsh
+        run: |
+          $issues = Invoke-ScriptAnalyzer -Path ./12-Utilities -Settings ./PSScriptAnalyzerSettings.psd1 -Recurse
+          $bad = @($issues | Where-Object { $_.Severity -in @('Error', 'Warning') })
+          if ($bad.Count -gt 0) {
+            $bad | Format-Table -AutoSize RuleName, Message, Line | Out-String
+            exit 1
+          }
+          Write-Host "PSScriptAnalyzer: 0 findings"
+
+      - name: Lint Markdown
+        run: npx -y markdownlint-cli@0.45.0 "**/*.md" --config .markdownlint.json

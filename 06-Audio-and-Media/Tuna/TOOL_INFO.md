@@ -169,4 +169,3 @@ Last release: 2026-10-24T14:33:05Z. Last commit: 2026-10-24T13:05:25Z. Archived:
 - If the web server is needed, can it be bound to 127.0.0.1 instead of 0.0.0.0? That option was not verified in the UI.
 
 Anything not confirmed above is `UNKNOWN`. Nothing in this library was installed, executed, or runtime-tested.
-

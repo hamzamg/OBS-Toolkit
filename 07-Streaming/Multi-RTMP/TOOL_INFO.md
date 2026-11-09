@@ -160,4 +160,3 @@ Last release: 2026-03-27T15:18:07Z. Last commit: 2026-10-25T12:58:52Z. Archived:
 - How much upload headroom do you have for each additional target?
 
 Anything not confirmed above is `UNKNOWN`. Nothing in this library was installed, executed, or runtime-tested.
-

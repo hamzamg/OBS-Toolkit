@@ -143,4 +143,3 @@ Last release: 2021-03-27T05:15:46Z. Last commit: 2024-08-08T19:49:46Z. Archived:
 - Does the hold mode behave acceptably on OBS 32? That is the first thing to test after installing.
 
 Anything not confirmed above is `UNKNOWN`. Nothing in this library was installed, executed, or runtime-tested.
-
