@@ -652,7 +652,12 @@ function Invoke-SecretsCheck {
         $lineNo = 0
         foreach ($line in (Get-Content -LiteralPath $file)) {
             $lineNo++
-            if ($user -and $line -match [regex]::Escape($user)) {
+            # A username inside a URL is a deliberately public slug (for example
+            # the GitHub handle in a Star History chart link), not a leak of the
+            # machine account. Strip URLs before the username test; names outside
+            # URLs are still reported.
+            $withoutUrls = $line -replace 'https?://\S+', ''
+            if ($user -and $withoutUrls -match [regex]::Escape($user)) {
                 Add-Finding $c ("{0}:{1}: Windows username found" -f $rel, $lineNo)
             }
             foreach ($p in $patterns) {

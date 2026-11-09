@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-11-09T18:01:08Z",
+  "generated_at_utc": "2026-11-09T18:54:44Z",
   "library_root": "<library>",
   "tools": 16,
   "assets": 1,
@@ -55,7 +55,7 @@
       "id": 7,
       "name": "Markdown links, tables and fences",
       "status": "PASS",
-      "detail": "files=35",
+      "detail": "files=36",
       "findings": []
     },
     {
@@ -69,7 +69,7 @@
       "id": 9,
       "name": "Secrets and username scan",
       "status": "PASS",
-      "detail": "files-scanned=54 patterns=4",
+      "detail": "files-scanned=58 patterns=4",
       "findings": []
     },
     {
@@ -83,14 +83,14 @@
       "id": 11,
       "name": "Execution log shows nothing downloaded was run and nothing was installed",
       "status": "PASS",
-      "detail": "lines=94 parsed=94 distinct-actions=30",
+      "detail": "lines=99 parsed=99 distinct-actions=31",
       "findings": []
     },
     {
       "id": 12,
       "name": "PowerShell scripts parse and their run state is recorded",
       "status": "PASS",
-      "detail": "scripts=8 parsed=8 logged=7 not-logged=0",
+      "detail": "scripts=9 parsed=9 logged=8 not-logged=0",
       "findings": []
     }
   ]
