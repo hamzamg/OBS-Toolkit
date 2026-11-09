@@ -1,5 +1,5 @@
 {
-  "generated_at_utc": "2026-11-09T20:18:14Z",
+  "generated_at_utc": "2026-11-09T20:23:24Z",
   "library_root": "<library>",
   "tools": 16,
   "assets": 1,
@@ -83,7 +83,7 @@
       "id": 11,
       "name": "Execution log shows nothing downloaded was run and nothing was installed",
       "status": "PASS",
-      "detail": "lines=103 parsed=103 distinct-actions=31",
+      "detail": "lines=105 parsed=105 distinct-actions=31",
       "findings": []
     },
     {

@@ -21,6 +21,13 @@ jobs:
       # pwsh ships preinstalled on ubuntu-latest GitHub-hosted runners
       # (pwsh 7.x), so no setup step is needed. Steps below use `shell: pwsh`.
 
+      # Fresh checkouts lack the two git-excluded files (>100 MB limit).
+      # Restore them from the URLs recorded in MANIFEST.json first; this also
+      # dogfoods Download-Missing.ps1 on every run.
+      - name: Restore git-excluded files
+        shell: pwsh
+        run: ./12-Utilities/Download-Missing.ps1 -Apply
+
       - name: Run the Definition-of-Done gate
         shell: pwsh
         run: ./12-Utilities/Test-Library.ps1

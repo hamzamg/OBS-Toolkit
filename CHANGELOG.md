@@ -28,6 +28,13 @@ per change, newest first. It records library changes, not OBS changes.
   exist; `pwsh` ships preinstalled on `ubuntu-latest` runners. Also fixed the
   invalid `Set-PSRepository -InstallationPolicy` value (`TrustedRepository` →
   `Trusted`) in the PSScriptAnalyzer install step.
+- CI now restores the two git-excluded files with
+  `Download-Missing.ps1 -Apply` before running the gate, so assets, checksums
+  and the library are fully verified on fresh checkouts (and the restore tool
+  is itself exercised on every run).
+- `Test-Library.ps1` Check 9: the `13-Logs/cache` exclusion is now
+  separator-agnostic (it never matched on Linux, which scanned the evidence
+  cache and false-positived on a documented finding).
 - `Test-Library.ps1` Check 10: the OBS tripwire is now **SKIP** on CI runners
   (no OBS install there by definition); on the user's machine it stays a hard
   failure, exactly as before.
