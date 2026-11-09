@@ -152,4 +152,3 @@ Last release: 2026-03-26T21:21:48Z. Last commit: 2026-07-05T06:12:20Z. Archived:
 - How many simultaneous source recordings do you need, and with which encoder? That determines whether the performance cost is acceptable.
 
 Anything not confirmed above is `UNKNOWN`. Nothing in this library was installed, executed, or runtime-tested.
-

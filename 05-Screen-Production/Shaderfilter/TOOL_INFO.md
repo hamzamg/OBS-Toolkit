@@ -154,4 +154,3 @@ Last release: 2026-10-24T19:08:51Z. Last commit: 2026-10-24T19:08:51Z. Archived:
 - Which example shaders do you actually need? Shipping all 165 is convenient but makes the license surface wider.
 
 Anything not confirmed above is `UNKNOWN`. Nothing in this library was installed, executed, or runtime-tested.
-

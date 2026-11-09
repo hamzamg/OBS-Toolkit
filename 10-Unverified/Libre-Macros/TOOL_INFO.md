@@ -154,4 +154,3 @@ Last release: 2025-11-15T07:17:17Z. Last commit: 2025-11-15T07:17:17Z. Archived:
 - If you keep it, rotate the WebSocket password referenced by the bundled helper and do not reuse it anywhere.
 
 Anything not confirmed above is `UNKNOWN`. Nothing in this library was installed, executed, or runtime-tested.
-

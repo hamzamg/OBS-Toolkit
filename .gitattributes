@@ -1,0 +1,19 @@
+# Consistent line endings everywhere (files I write here are LF;
+# PowerShell 7 handles LF fine on Windows).
+* text=auto
+
+*.ps1 text eol=lf
+*.psm1 text eol=lf
+*.json text eol=lf
+*.md text eol=lf
+*.yml text eol=lf
+*.yaml text eol=lf
+*.psd1 text eol=lf
+*.txt text eol=lf
+
+# Downloaded binaries: never normalize or diff.
+*.exe binary
+*.zip binary
+*.psd binary
+*.dll binary
+*.msi binary

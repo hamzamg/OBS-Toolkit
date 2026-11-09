@@ -147,4 +147,3 @@ Last release: 2023-04-11T08:47:22Z. Last commit: 2023-07-03T14:33:17Z. Archived:
 - Install the release asset (recommended, recorded hash) or the repository copy at the tag? They differ; this library records both.
 
 Anything not confirmed above is `UNKNOWN`. Nothing in this library was installed, executed, or runtime-tested.
-

@@ -169,4 +169,3 @@ Last release: 2026-10-26T12:28:34Z. Last commit: 2026-10-26T12:28:34Z. Archived:
 - Pre-install `pyparsing` yourself to avoid the script's first-run network install?
 
 Anything not confirmed above is `UNKNOWN`. Nothing in this library was installed, executed, or runtime-tested.
-

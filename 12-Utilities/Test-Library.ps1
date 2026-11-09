@@ -497,7 +497,6 @@ function Invoke-MarkdownCheck {
 
         $inTable = $false
         $tableCols = -1
-        $tableStart = 0
         for ($i = 0; $i -lt $lines.Count; $i++) {
             $line = $lines[$i]
             if ($fence.mask[$i]) {
@@ -506,7 +505,7 @@ function Invoke-MarkdownCheck {
             }
 
             if ($line -match '^\s*\|') {
-                if (-not $inTable) { $inTable = $true; $tableStart = $i + 1; $tableCols = -1 }
+                if (-not $inTable) { $inTable = $true; $tableCols = -1 }
                 if (Test-SeparatorRow $line) { continue }
                 $cells = Split-TableRow $line
                 if ($tableCols -lt 0) { $tableCols = $cells.Count }
@@ -698,7 +697,18 @@ function Invoke-TripwireCheck {
 
     $obsDir = [string]$baseline.obs_install_dir
     $dataDir = [string]$baseline.obs_data_dir
-    if (-not (Test-Path -LiteralPath $obsDir)) { Add-Finding $c "OBS install dir not present: $obsDir"; return $c }
+    if (-not (Test-Path -LiteralPath $obsDir)) {
+        # On CI runners there is no OBS installation at all: the tripwire is a
+        # machine-local check, so it is SKIPPED there. On the user's machine
+        # (no CI variable) it stays a hard failure so a missing install is
+        # never silently ignored.
+        if ($env:CI -and ($env:CI -ne 'false')) {
+            $c.Status = 'SKIP'
+            $c.Detail = 'no OBS install on this machine (CI); tripwire skipped'
+            return $c
+        }
+        Add-Finding $c "OBS install dir not present: $obsDir"; return $c
+    }
 
     # The baseline stores paths with the username replaced by <user>, so it can be
     # committed. Resolve it for the current account before comparing.

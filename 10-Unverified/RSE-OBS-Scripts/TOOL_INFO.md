@@ -155,4 +155,3 @@ Last release: none. Last commit: 2024-07-14T17:34:27Z. Archived: False. Fork: Fa
 - The license claim is in file headers only. Ask the author to add a LICENSE file, or accept the risk knowingly.
 
 Anything not confirmed above is `UNKNOWN`. Nothing in this library was installed, executed, or runtime-tested.
-

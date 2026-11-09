@@ -252,7 +252,6 @@ A Model Context Protocol server that exposes OBS control as AI-callable tools ov
 
 `INCLUDED` · `mcp-server` · `Apache-2.0` · `SUPPORTED` · risk `MEDIUM`
 
-
 ## 6. Recommended installation order
 
 Do not install everything. Pick a path and stop when you have what you need.
@@ -402,7 +401,6 @@ explicit "yes" from you, and each approval covers only that action.
 - Configuring an MCP client to control OBS
 - Letting the AI client start/stop streams or delete scenes
 
-
 Also requiring approval: installing or changing Python, installing any package,
 opening a firewall port, and any system-level change such as enabling Windows
 long paths.
@@ -429,7 +427,6 @@ Bundled with OBS since version 28 and already present in the detected OBS 32.0.1
 
 Location: `08-Remote-Control-and-AI/OBS-WebSocket`
 
-
 ### Unavailable
 
 None. Every repository in the registry resolved to an official GitHub repository
@@ -444,6 +441,28 @@ at research time.
 | Advanced Filename Formatter Replay Buffer features | Require OBS 33.0.0 or newer; unavailable on 32.0.1. |
 | Advanced Filename Formatter on this machine | Needs Python 3.10; no 3.10 x64 interpreter is installed. |
 | Libre Macros | `PENDING-USER`, `HIGH` risk; not downloaded as an asset (the release has none). |
+
+## Local checks
+
+Solid local checks that mirror CI (run these before pushing):
+
+```powershell
+pwsh -NoProfile -ExecutionPolicy Bypass -File .\12-Utilities\Test-Library.ps1
+pwsh -NoProfile -ExecutionPolicy Bypass -File .\12-Utilities\Verify-Checksums.ps1
+Install-Module PSScriptAnalyzer -Scope CurrentUser -Force
+Invoke-ScriptAnalyzer -Path .\12-Utilities -Settings .\PSScriptAnalyzerSettings.psd1 -Recurse
+npx -y markdownlint "**/*.md" --config .markdownlint.json
+```
+
+Pre-commit hooks (run the linter only on changed files, fast):
+
+```powershell
+pip install pre-commit   # or: pipx install pre-commit
+pre-commit install
+```
+
+CI (`.github/workflows/ci.yml`) runs the same checks on every push and pull
+request. Nothing installed or executed from `Downloads/` is involved.
 
 ## Verification and provenance
 
@@ -461,4 +480,3 @@ at research time.
 ## Star History
 
 [![Star History Chart](https://api.star-history.com/svg?repos=hamzamg/OBS-Toolkit&type=Date)](https://star-history.com/#hamzamg/OBS-Toolkit&Date)
-

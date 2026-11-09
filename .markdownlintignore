@@ -1,0 +1,4 @@
+# Third-party snapshots and evidence cache: upstream content, never lint it.
+13-Logs/cache/**
+**/Source/**
+**/Documentation/**

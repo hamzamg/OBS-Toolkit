@@ -1,0 +1,29 @@
+# Local pre-commit hooks for this library.
+# Install once:  pip install pre-commit   (or: pipx install pre-commit)
+#                pre-commit install
+# Requires: pwsh 7+ with PSScriptAnalyzer, and node/npx for markdownlint.
+# Hooks run only on changed files, so they stay fast.
+
+repos:
+  - repo: local
+    hooks:
+      - id: psscriptanalyzer
+        name: PSScriptAnalyzer (PowerShell lint)
+        entry: pwsh -NoProfile -ExecutionPolicy Bypass -File .pre-commit-hooks/Invoke-PSScriptAnalyzerHook.ps1
+        language: system
+        types: [file]
+        files: ^12-Utilities/.*\.(ps1|psm1)$
+      - id: markdownlint
+        name: markdownlint (Markdown lint)
+        entry: npx -y markdownlint-cli@0.45.0
+        language: system
+        types: [file]
+        files: \.md$
+        args: [--config, .markdownlint.json]
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v5.0.0
+    hooks:
+      - id: check-json
+        files: \.json$
+      - id: check-yaml
+        files: \.(yml|yaml)$

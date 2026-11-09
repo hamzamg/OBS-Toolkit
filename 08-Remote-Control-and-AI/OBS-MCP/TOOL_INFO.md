@@ -118,7 +118,7 @@ This library installs nothing. The steps below are for you to run later, after a
 }
 ```
 
-4. Confirm: the client lists the OBS tools and a read-only call (for example "get version") succeeds before you
+1. Confirm: the client lists the OBS tools and a read-only call (for example "get version") succeeds before you
    allow anything destructive.
 
 ### Portable OBS
@@ -170,4 +170,3 @@ Last release: 2026-07-25T22:17:35Z. Last commit: 2026-10-14T04:07:49Z. Archived:
 - Do you want every tool exposed, or a read-only subset first?
 
 Anything not confirmed above is `UNKNOWN`. Nothing in this library was installed, executed, or runtime-tested.
-

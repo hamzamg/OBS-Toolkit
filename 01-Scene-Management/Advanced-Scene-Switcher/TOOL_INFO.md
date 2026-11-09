@@ -173,4 +173,3 @@ Last release: 2026-11-01T18:29:40Z. Last commit: 2026-11-01T16:44:51Z. Archived:
 - The 110 MB installer was downloaded because the release notes recommend it for OBS 32; the 3 MB `windows-x64-obs32.zip` was not downloaded. Say if you prefer the zip.
 
 Anything not confirmed above is `UNKNOWN`. Nothing in this library was installed, executed, or runtime-tested.
-
