@@ -3,6 +3,22 @@
 All dates are UTC. This file follows the spirit of Keep a Changelog: one entry
 per change, newest first. It records library changes, not OBS changes.
 
+## [Unreleased]
+
+### Added
+
+- `AGENTS.md`: project workflow rules — update before working, one branch per
+  task, plan and approval before starting, verify then push and open a PR, and
+  merge only after an explicit yes.
+
+### Changed
+
+- Two files larger than GitHub's 100 MB per-file limit are excluded from git
+  via `.gitignore` and remain only in the local library (they are still
+  verified by `Test-Library.ps1`): the SceneSwitcher 1.37.2 installer
+  (105.20 MB, re-downloadable with `Update-Library.ps1`) and an upstream
+  design asset inside the OBS Screen Studio source snapshot (93.86 MB).
+
 ## [2026-11-09] Phase 5 - final gate
 
 ### Added
