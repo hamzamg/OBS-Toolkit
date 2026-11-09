@@ -16,7 +16,7 @@ jobs:
     env:
       CI: "true"
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       # pwsh ships preinstalled on ubuntu-latest GitHub-hosted runners
       # (pwsh 7.x), so no setup step is needed. Steps below use `shell: pwsh`.
