@@ -457,3 +457,8 @@ at research time.
 - `13-Logs/execution.log` is the append-only record of every operation.
 - `13-Logs/obs-baseline.json` is the OBS tripwire baseline; `FINAL_REPORT.md`
   records the comparison.
+
+## Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=hamzamg/OBS-Toolkit&type=Date)](https://star-history.com/#hamzamg/OBS-Toolkit&Date)
+
