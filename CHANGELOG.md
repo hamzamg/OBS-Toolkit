@@ -7,6 +7,12 @@ per change, newest first. It records library changes, not OBS changes.
 
 ### Added
 
+- Repository hygiene: `.gitignore` now excludes dated `13-Logs/verify-*.json`
+  reports (regenerable artifacts), Dependabot watches GitHub Actions weekly,
+  and a CodeQL workflow scans the Actions language only (PowerShell stays under
+  PSScriptAnalyzer — CodeQL does not analyze it). `ci.yml` gained a
+  "Confirm restore completeness" dry-run of `Download-Missing.ps1` after the
+  gate.
 - `AGENTS.md`: project workflow rules — update before working, one branch per
   task, plan and approval before starting, verify then push and open a PR, and
   merge only after an explicit yes.

@@ -7,5 +7,9 @@
 # 105.20 MB downloaded asset (SHA-256 recorded in MANIFEST.json)
 01-Scene-Management/Advanced-Scene-Switcher/Downloads/1.37.2/advanced-scene-switcher-1.37.2-windows-x64-Installer.exe
 
+# Dated verification reports (ephemeral, regenerated on demand by
+# Verify-Checksums.ps1; only the latest committed report is kept for history).
+13-Logs/verify-*.json
+
 # 93.86 MB upstream design asset inside a pinned source snapshot
 05-Screen-Production/OBS-Screen-Studio/Source/5739bc01f0d503f08b3fb21ddbfebfd42d387dcf/scene example/obs-zoom-blured-bg.psd
