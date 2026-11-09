@@ -1,0 +1,1817 @@
+--[[
+libre-macros - Scripting and macros hotkeys overhaul for OBS Studio
+Contact/URL https://www.github.com/upgradeQ/libre-macros
+Copyright (C) 2021-2025 upgradeQ
+Distributed under AGPL license <https://spdx.org/licenses/AGPL-3.0-or-later.html>
+]]
+_ver = "4.2.0"
+print('[+] libre-macros https://www.github.com/upgradeQ/libre-macros' .. ' ' .. _ver)
+--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~BOOKMARKSwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww
+-- localization - below
+-- bk_imports - all imported modules 
+-- bk_obs_api_interactions_functions - global general purpose functions - preloaded
+-- bk_console_instance_functions - t. == self. ; local functions for Console instance
+-- bk_console_snippets_code - snippets to get you started with Console
+-- bk_obs_source_definition - scripted source: UI, hotkeys, event loop
+-- bk_obs_script_definition - registration of scripted sources and UI
+--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww
+-- https://stackoverflow.com/a/8891620 by kikito
+local i18n = { locales = {} }
+
+local current_locale = 'en' -- the default language
+
+function i18n.set_locale(new_locale)
+  current_locale = new_locale
+  assert(i18n.locales[current_locale], ("The locale %q was unknown"):format(new_locale))
+end
+
+local function translate(id)
+  local result = i18n.locales[current_locale][id]
+  assert(result, ("The id %q was not found in the current locale (%q)"):format(id, current_locale))
+  return result
+end
+
+i18n.translate = translate
+
+setmetatable(i18n, {__call = function(_, ...) return translate(...) end})
+
+i18n.locales.en = {
+  select_lang = 'Select language',
+  execute = 'Execute!',
+  view_output = 'View output',
+  auto_run = 'Auto run',
+  s_mv1 = 'Move value variable[0, 1] 0.01',
+  s_mv2 = 'Move value variable[0, 100] 1',
+  hotreload = 'Hot reload expression',
+  p1 = 'Path 1',
+  p2 = 'Path 2',
+  p_group_name = 'Settings for interval use',
+  p_text_area2 = 'Text area for global multi action pipes',
+  p_dx_screenshot = 'Enable texture reading',
+  width = 'Width',
+  height = 'Height',
+  g2_restart = 'Restart required to enable/disable features                                           ', -- padding
+  ['Console (Timer)'] = 'Console (Timer)',
+  ['Console sceneitem custom'] = 'Console sceneitem custom source',
+  ['Console'] = 'Console',
+  interval = 'Console (Timer) interval per second',
+  _snippets ='Snippets',
+  _snip_select ='Select snippet',
+  _snip_confirm ='Confirm',
+  s_on_off_sceneitem = 'On/off sceneitem every 2.5 seconds',
+  s_loop_media  = 'Loop media source between start and end via hotkey',
+  s_browser_refresh = 'Update browser every 15 minutes',
+  s_render_delay = 'Overwrite maximum render delay limit',
+  sh_checkbox = 'Show/Hide ',
+  s_patch_err = '[patch] ERROR in console.lua',
+}
+
+i18n.locales.ru = {
+  select_lang = 'Выбрать язык',
+  execute = 'Выполнить!',
+  view_output = 'Посмотреть результат',
+  auto_run = 'Запускать автоматически',
+  s_mv1 = 'Перменная движения[0, 1] 0.01',
+  s_mv2 = 'Перменная движения[0, 100] 1',
+  hotreload = 'Выполнять выражение автоматически',
+  p1 = 'Путь 1',
+  p2 = 'Путь 2',
+  p_group_name = 'Внутренние настройки',
+  p_text_area2 = 'Поле текста для глобальных мульти последовательностей',
+  p_dx_screenshot = 'Включить чтение текстуры',
+  width = 'Ширина',
+  height = 'Высота',
+  g2_restart = 'Требуется перезапуск чтобы вкл/выкл функции                                           ',
+  ['Console (Timer)'] = 'Консоль (Таймер)',
+  ['Console sceneitem custom'] = 'Консоль специальный предмет (источник) сцены',
+  ['Console'] = 'Консоль',
+  interval = 'Консоль (Таймер) интервал раз в секунду',
+  _snippets ='Сниппеты',
+  _snip_select ='Выбрать сниппет',
+  _snip_confirm ='Подтвердить',
+  s_on_off_sceneitem = 'Вкл/выкл предмет сцены каждые 2.5 секунды',
+  s_loop_media  = 'Повтор медиа источника через сочетание клавиш',
+  s_browser_refresh = 'Обновлять браузер каждые 15 минут',
+  s_render_delay = 'Выставить сверхзначение задержки отображения',
+  sh_checkbox = 'Показать/Скрыть ',
+  s_patch_err = '[патч] ОШИБКА в console.lua',
+}
+--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww
+-- id - obs keyboard id , c - character , cs - character with shift pressed
+qwerty_minimal_keyboard_layout = {
+  {id="OBS_KEY_BACKSPACE", c="backspace", cs="backspace"},
+  {id="OBS_KEY_RETURN", c="enter", cs="enter"},
+  {id="OBS_KEY_TAB", c="tab", cs="tab"},
+  {id="OBS_KEY_ASCIITILDE", c="`", cs="~"},
+  {id ="OBS_KEY_COMMA", c=", ", cs="<"},
+  {id ="OBS_KEY_PLUS", c="=", cs="+"},
+  {id ="OBS_KEY_MINUS", c="-", cs="_"},
+  {id ="OBS_KEY_BRACKETLEFT", c="[", cs="{"},
+  {id ="OBS_KEY_BRACKETRIGHT", c="]", cs="}"},
+  {id ="OBS_KEY_PERIOD", c=".", cs=">"},
+  {id ="OBS_KEY_APOSTROPHE", c="'", cs='"'},
+  {id ="OBS_KEY_SEMICOLON", c=";", cs=":"},
+  {id ="OBS_KEY_SLASH", c="/", cs="?"},
+  {id ="OBS_KEY_SPACE", c=" ", cs=" "},
+  {id ="OBS_KEY_0", c="0", cs=")"},
+  {id ="OBS_KEY_1", c="1", cs="!"},
+  {id ="OBS_KEY_2", c="2", cs="@"},
+  {id ="OBS_KEY_3", c="3", cs="#"},
+  {id ="OBS_KEY_4", c="4", cs="$"},
+  {id ="OBS_KEY_5", c="5", cs="%"},
+  {id ="OBS_KEY_6", c="6", cs="^"},
+  {id ="OBS_KEY_7", c="7", cs="&"},
+  {id ="OBS_KEY_8", c="8", cs="*"},
+  {id ="OBS_KEY_9", c="9", cs="("},
+  {id ="OBS_KEY_A", c="a", cs="A"},
+  {id ="OBS_KEY_B", c="b", cs="B"},
+  {id ="OBS_KEY_C", c="c", cs="C"},
+  {id ="OBS_KEY_D", c="d", cs="D"},
+  {id ="OBS_KEY_E", c="e", cs="E"},
+  {id ="OBS_KEY_F", c="f", cs="F"},
+  {id ="OBS_KEY_G", c="g", cs="G"},
+  {id ="OBS_KEY_H", c="h", cs="H"},
+  {id ="OBS_KEY_I", c="i", cs="I"},
+  {id ="OBS_KEY_J", c="j", cs="J"},
+  {id ="OBS_KEY_K", c="k", cs="K"},
+  {id ="OBS_KEY_L", c="l", cs="L"},
+  {id ="OBS_KEY_M", c="m", cs="M"},
+  {id ="OBS_KEY_N", c="n", cs="N"},
+  {id ="OBS_KEY_O", c="o", cs="O"},
+  {id ="OBS_KEY_P", c="p", cs="P"},
+  {id ="OBS_KEY_Q", c="q", cs="Q"},
+  {id ="OBS_KEY_R", c="r", cs="R"},
+  {id ="OBS_KEY_S", c="s", cs="S"},
+  {id ="OBS_KEY_T", c="t", cs="T"},
+  {id ="OBS_KEY_U", c="u", cs="U"},
+  {id ="OBS_KEY_V", c="v", cs="V"},
+  {id ="OBS_KEY_W", c="w", cs="W"},
+  {id ="OBS_KEY_X", c="x", cs="X"},
+  {id ="OBS_KEY_Y", c="y", cs="Y"},
+  {id ="OBS_KEY_Z", c="z", cs="Z"},
+}
+--bk_imports~~~~~~~~~~~~~~~~~~~~~~~~~~wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww
+local function open_package(ns)
+  for n, v in pairs(ns) do _G[n] = v end
+end
+
+open_package(obslua)
+ffi = require "ffi" -- for native libs and C code access
+jit = require "jit" -- for C thread callback behavior change
+bit = require "bit" -- binary logic
+
+local C = ffi.C
+
+function try_load_library(alias, name)
+  if ffi.os == "OSX" then name = name .. ".0.dylib" end
+  ok, _G[alias] = pcall(ffi.load, name)
+  if not ok then 
+    print(("WARNING:%s:Has failed to load, %s is nil"):format(name, alias))
+  end
+end
+
+try_load_library("obsffi", "obs")
+--try_load_library("frontendC", "frontend-api")
+--try_load_library("openglC", "opengl")
+--try_load_library("scriptingC", "scripting")
+
+--bk_obs_api_interactions_functions~~~~~~wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww
+local Timer = {}
+function Timer:new(o)
+  o = o or {}
+  setmetatable(o, self)
+  self.__index = self
+  return o
+end
+
+function Timer:update(dt)
+  self.current_accumulated_time = self.current_accumulated_time + dt
+  if self.current_accumulated_time >= self.duration then
+    self.finished = true
+  end
+end
+
+function Timer:enter()
+  self.finished = false
+  self.current_accumulated_time = 0
+end
+
+function Timer:launch()
+  self:enter()
+  while not self.finished do
+    local dt = coroutine.yield()
+    self:update(dt)
+  end
+end
+
+function sleep(s)
+  local action = Timer:new{duration=s}
+  action:launch()
+end
+--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww
+function sname(source) return obs_source_get_name(source) end
+
+return_source_name = sname
+
+function print_source_name(source) print(obs_source_get_name(source)) end
+
+function get_scene_sceneitem(scene_name, scene_item_name)
+  local sceneitem;
+  local scenes = obs_frontend_get_scenes()
+  for _, scene in pairs(scenes) do
+    if sname(scene) == scene_name then
+      scene = obs_scene_from_source(scene)
+      sceneitem = obs_scene_find_source_recursive(scene, scene_item_name)
+    end
+  end
+  source_list_release(scenes)
+  return sceneitem
+end
+
+function print_settings(source)
+  local settings = obs_source_get_settings(source)
+  local psettings = obs_source_get_private_settings(source)
+  local dsettings = obs_data_get_defaults(settings); 
+  local pdsettings = obs_data_get_defaults(psettings); 
+  print("[---------- settings ----------")
+  print(obs_data_get_json(settings))
+  print("---------- private_settings ----------")
+  print(obs_data_get_json(psettings))
+  print("---------- default settings for this source type ----------")
+  print(obs_data_get_json(dsettings))
+  print("---------- default private settings for this source type ----------")
+  print(obs_data_get_json(pdsettings))
+  print(("----------%s----------]"):format(return_source_name(source)))
+  for _, s in pairs { settings, psettings, dsettings, pdsettings}
+    do obs_data_release(s) 
+  end
+end
+
+function print_settings2(source, filter_name)
+  local result = obs_source_enum_filters(source)
+  for _, f in pairs(result) do
+    if return_source_name(f) == filter_name then
+      print_settings(f)
+    end
+  end
+  source_list_release(result)
+end
+
+function print_settings_new(source)
+  local settings = obs_source_get_settings(source)
+  local psettings = obs_source_get_private_settings(source)
+  print("[---------- settings ----------")
+  print(obs_data_get_json_pretty_with_defaults(settings))
+  print("---------- private_settings ----------")
+  print(obs_data_get_json_pretty_with_defaults(psettings))
+  print(("----------%s----------]"):format(return_source_name(source)))
+  for _, s in pairs { settings, psettings}
+    do obs_data_release(s) 
+  end
+end
+
+
+function set_settings2(source, filter_name, opts)
+  local result = obs_source_enum_filters(source)
+  local settings = obs_data_create()
+  for _, f in pairs(result) do
+    if return_source_name(f) == filter_name then
+      _G[("obs_data_set_%s"):format(opts._type)](settings, opts._field, opts._value)
+      obs_source_update(f, settings)
+      obs_data_release(settings)
+    end
+  end
+  source_list_release(result)
+end
+
+function set_settings3(source, filter_name, json_string)
+  local result = obs_source_enum_filters(source)
+  local settings = obs_data_create_from_json(json_string)
+  for _, f in pairs(result) do
+    if return_source_name(f) == filter_name then
+      obs_source_update(f, settings)
+      obs_data_release(settings)
+    end
+  end
+  source_list_release(result)
+end
+
+function set_settings4(source, json_string)
+  local settings = obs_data_create_from_json(json_string)
+  obs_source_update(f, settings)
+  obs_data_release(settings)
+end
+
+function set_settings52(source, opts)
+  local settings = obs_source_get_settings(source)
+  _G[("obs_data_set_%s"):format(opts._type)](settings, opts._field, opts._value)
+  obs_source_update(source, settings)
+  obs_data_release(settings)
+end
+
+LMB, RMB, MOUSE_HOOKED = false, false, false
+function htk_1_cb(pressed) LMB = pressed end
+function htk_2_cb(pressed) RMB = pressed end
+function hook_mouse_buttons()
+  if MOUSE_HOOKED then return error('already hooked mouse') end
+  local key_1 = '{"htk_1_mouse": [ { "key": "OBS_KEY_MOUSE1" } ], '
+  local key_2 = '"htk_2_mouse": [ { "key": "OBS_KEY_MOUSE2" } ]}'
+  local json_s = key_1 .. key_2
+  local default_hotkeys = {
+    {id='htk_1_mouse', des='LMB state', callback=htk_1_cb},
+    {id='htk_2_mouse', des='RMB state', callback=htk_2_cb},
+  }
+  local s = obs_data_create_from_json(json_s)
+  for _, v in pairs(default_hotkeys) do
+    local a = obs_data_get_array(s, v.id)
+    h = obs_hotkey_register_frontend(v.id, v.des, v.callback)
+    obs_hotkey_load(h, a)
+    obs_data_array_release(a)
+  end
+  obs_data_release(s)
+  MOUSE_HOOKED = true
+end
+
+function get_modifiers(ctx)
+  local key_modifiers = ctx or {}
+  local shift = key_modifiers.shift or false
+  local control = key_modifiers.control or false
+  local alt = key_modifiers.alt or false
+  local command = key_modifiers.command or false
+  local modifiers = 0
+
+  if shift then modifiers = bit.bor(modifiers, INTERACT_SHIFT_KEY ) end
+  if control then modifiers = bit.bor(modifiers, INTERACT_CONTROL_KEY ) end
+  if alt then modifiers = bit.bor(modifiers, INTERACT_ALT_KEY ) end
+  if command then modifiers = bit.bor(modifiers, INTERACT_COMMAND_KEY ) end
+  return modifiers
+end
+
+function send_hotkey(hotkey_id_name, key_modifiers)
+  local combo = obs_key_combination()
+  combo.modifiers = get_modifiers(key_modifiers)
+  combo.key = obs_key_from_name(hotkey_id_name)
+
+  if not modifiers and -- there is should be OBS_KEY_NONE, but it is missing in obslua
+    (combo.key == 0 or combo.key >= OBS_KEY_LAST_VALUE) then
+    return error('invalid key-modifier combination')
+  end
+
+  obs_hotkey_inject_event(combo, false)
+  obs_hotkey_inject_event(combo, true)
+  obs_hotkey_inject_event(combo, false)
+end
+
+function char_to_obskey(char)
+  for _, row in pairs(qwerty_minimal_keyboard_layout) do
+    if char == row.c or char == row.cs then
+      return row.id
+    end
+  end
+  error('character not found within qwerty minimal table')
+end
+c2o = char_to_obskey
+
+function send_hotkey_tbs1(source, hotkey_id_name, key_up, key_modifiers)
+  local key = obs_key_from_name(hotkey_id_name)
+  local vk = obs_key_to_virtual_key(key)
+  local event = obs_key_event()
+  event.native_vkey = vk
+  event.modifiers = get_modifiers(key_modifiers)
+  event.native_modifiers = event.modifiers
+  event.native_scancode = vk
+  event.text = ""
+  obs_source_send_key_click(source, event, key_up)
+end
+
+function send_hotkey_tbs2(source, char, key_up, key_modifiers)
+  local event = obs_key_event()
+  event.native_vkey = 0
+  event.native_modifiers = 0
+  event.native_scancode = 0
+  event.modifiers = get_modifiers(key_modifiers)
+  event.text = char
+  obs_source_send_key_click(source, event, key_up)
+end
+
+function send_mouse_click_tbs(source, opts, key_modifiers)
+  local event = obs_mouse_event()
+  event.modifiers = get_modifiers(key_modifiers)
+  event.x = opts.x
+  event.y = opts.y
+  obs_source_send_mouse_click(
+    source, event, opts.button_type, opts.mouse_up, opts.click_count
+    )
+end
+
+function send_mouse_move_tbs(source, x, y, key_modifiers)
+  local event = obs_mouse_event()
+  event.modifiers = get_modifiers(key_modifiers)
+  event.x = x
+  event.y = y
+  obs_source_send_mouse_move(source, event, false) -- do not leave
+end
+
+-- depricated
+function send_mouse_wheel_tbs(source, x, y, x_delta, y_delta, key_modifiers)
+  local event = obs_mouse_event()
+  event.x = opts.x or 0
+  event.y = opts.y or 0
+  event.modifiers = get_modifiers(key_modifiers)
+  local x_delta = opts.x_delta or 0
+  local y_delta = opts.y_delta or 0
+  obs_source_send_mouse_wheel(source, event, x_delta, y_delta)
+end
+
+ffi.cdef[[
+typedef struct obs_hotkey obs_hotkey_t;
+typedef size_t obs_hotkey_id;
+
+const char *obs_hotkey_get_name(const obs_hotkey_t *key);
+typedef bool (*obs_hotkey_enum_func)(void *data, obs_hotkey_id id, obs_hotkey_t *key);
+void obs_enum_hotkeys(obs_hotkey_enum_func func, void *data);
+]]
+
+function trigger_from_hotkey_callback(description)
+  local htk_id;
+  function callback_htk(data, id, key)
+    local name = obsffi.obs_hotkey_get_name(key)
+    if ffi.string(name) == description then
+      htk_id = tonumber(id)
+      return false
+    else
+      return true
+    end
+  end
+  local cb = ffi.cast("obs_hotkey_enum_func", callback_htk)
+  obsffi.obs_enum_hotkeys(cb, nil)
+  if htk_id then
+    obs_hotkey_trigger_routed_callback(htk_id, false)
+    obs_hotkey_trigger_routed_callback(htk_id, true)
+    obs_hotkey_trigger_routed_callback(htk_id, false)
+  end
+end
+
+function read_private_data(data_type, field)
+  local s = obs_get_private_data()
+  local result = _G[("obs_data_get_%s"):format(data_type)](s, field)
+  obs_data_release(s)
+  return result
+end
+
+function write_private_data(data_type, field, result)
+  local s = obs_data_create()
+  _G[("obs_data_set_%s"):format(data_type)](s, field, result)
+  obs_apply_private_data(s)
+  obs_data_release(s)
+end
+
+function exec_py(string_, address)
+  local handshake;
+  if not address then 
+    handshake = "__py_dispatch"
+    address = "__py_registry"
+  else 
+    handshake = ("__py_dispatch%s"):format(address)
+    address = ("__py_registry%s"):format(address)
+  end
+  local s = obs_data_create()
+  obs_data_set_string(s, address, string_)
+  obs_data_set_bool(s, handshake, true)
+  obs_apply_private_data(s)
+  obs_data_release(s)
+end
+
+function get_code(address)
+  local handshake;
+  if not address then 
+    handshake = "__lua_dispatch"
+    address = "__lua_registry"
+  else 
+    handshake = ("__lua_dispatch%s"):format(address)
+    address = ("__lua_registry%s"):format(address)
+  end
+  local s = obs_get_private_data()
+  local string_ = obs_data_get_string(s, address)
+  local proceed = obs_data_get_bool(s, handshake)
+  obs_data_release(s)
+  return proceed, string_, handshake
+end
+-- https://stackoverflow.com/a/61269226 by Egor-Skriptunoff
+if ffi.os == 'Windows' then 
+ffi.cdef[[
+typedef struct _STARTUPINFOA {
+  uint32_t  cb;
+  void *    lpReserved;
+  void *    lpDesktop;
+  void *    lpTitle;
+  uint32_t  dwX;
+  uint32_t  dwY;
+  uint32_t  dwXSize;
+  uint32_t  dwYSize;
+  uint32_t  dwXCountChars;
+  uint32_t  dwYCountChars;
+  uint32_t  dwFillAttribute;
+  uint32_t  dwFlags;
+  uint16_t  wShowWindow;
+  uint16_t  cbReserved2;
+  void *    lpReserved2;
+  void **   hStdInput;
+  void **   hStdOutput;
+  void **   hStdError;
+} STARTUPINFOA, *LPSTARTUPINFOA;
+typedef struct _PROCESS_INFORMATION {
+  void **  hProcess;
+  void **  hThread;
+  uint32_t dwProcessId;
+  uint32_t dwThreadId;
+} PROCESS_INFORMATION, *LPPROCESS_INFORMATION;
+uint32_t CreateProcessA(
+  void *,
+  const char * commandLine,
+  void *,
+  void *,
+  uint32_t,
+  uint32_t,
+  void *,
+  const char * currentDirectory,
+  LPSTARTUPINFOA,
+  LPPROCESS_INFORMATION
+);
+uint32_t CloseHandle(void **);
+]]
+
+function execute(command_line, current_directory)
+   local si = ffi.new"STARTUPINFOA"
+   si.cb = ffi.sizeof(si)
+   si.lpReserved = nil;
+   si.lpDesktop = nil;
+   si.lpTitle = nil;
+   si.dwFlags = 1; -- STARTF_USESHOWWINDOW
+   si.wShowWindow = 0; -- SW_HIDE 
+   si.cbReserved2 = 0; -- must be zero
+   si.lpReserved2 = nil
+   local pi = ffi.new"PROCESS_INFORMATION"
+   local ok = ffi.C.CreateProcessA(nil, command_line, nil, nil, 0, 0, nil, current_directory, si, pi) ~= 0
+   if ok then
+      ffi.C.CloseHandle(pi.hProcess)
+      ffi.C.CloseHandle(pi.hThread)
+   end
+   return ok  -- true/false
+end
+end
+
+ffi.cdef[[
+struct os_process_pipe;
+typedef struct os_process_pipe os_process_pipe_t;
+os_process_pipe_t *os_process_pipe_create(const char *cmd_line, const char *type);
+size_t os_process_pipe_read(os_process_pipe_t *pp, uint8_t *data, size_t len);
+size_t os_process_pipe_read_err(os_process_pipe_t *pp, uint8_t *data, size_t len);
+size_t os_process_pipe_write(os_process_pipe_t *pp, const uint8_t *data, size_t len);
+int os_process_pipe_destroy(os_process_pipe_t *pp);
+]]
+
+function pp_execute(cmd_line)
+   local pp = obsffi.os_process_pipe_create(cmd_line, "r");
+   obsffi.os_process_pipe_destroy(pp)
+end
+
+function click_property(source, name)
+  local props = obs_source_properties(source)
+  local prop = obs_properties_get(props, name)
+  obs_property_button_clicked(prop, source)
+  obs_properties_destroy(props)
+end
+
+
+ffi.cdef[[
+
+struct obs_source;
+struct obs_properties;
+struct obs_property;
+typedef struct obs_source obs_source_t;
+typedef struct obs_properties obs_properties_t;
+typedef struct obs_property obs_property_t;
+
+obs_source_t *obs_get_source_by_name(const char *name);
+obs_source_t *obs_source_get_filter_by_name(obs_source_t *source, const char *name);
+obs_properties_t *obs_source_properties(const obs_source_t *source);
+obs_property_t *obs_properties_first(obs_properties_t *props);
+bool obs_property_button_clicked(obs_property_t *p, void *obj);
+
+bool obs_property_next(obs_property_t **p);
+
+const char *obs_property_name(obs_property_t *p);
+void obs_properties_destroy(obs_properties_t *props);
+void obs_source_release(obs_source_t *source);
+
+]]
+
+function click_property_filter_ffi(source, filter_name, prop_name)
+  local source_name = return_source_name(source)
+  local source = obsffi.obs_get_source_by_name(source_name)
+  if source then
+    local fSource = obsffi.obs_source_get_filter_by_name(source, filter_name)
+    if fSource then
+      local props = obsffi.obs_source_properties(fSource)
+      if props then
+        local prop = obsffi.obs_properties_first(props)
+        local name = obsffi.obs_property_name(prop)
+        if name then
+          local _p = ffi.new("obs_property_t *[1]", prop)
+          local foundProp = obsffi.obs_property_next(_p)
+          prop = ffi.new("obs_property_t *", _p[0])
+          while foundProp do
+            name = obsffi.obs_property_name(prop)
+            if ffi.string(name) == prop_name then
+              obsffi.obs_property_button_clicked(prop, fSource)
+            end
+            _p = ffi.new("obs_property_t *[1]", prop)
+            foundProp = obsffi.obs_property_next(_p)
+            prop = ffi.new("obs_property_t *", _p[0])
+          end
+        end
+        obsffi.obs_properties_destroy(props)
+      end
+      obsffi.obs_source_release(fSource)
+    end
+    obsffi.obs_source_release(source)
+  end
+end
+
+_js_patch_loaded = false
+
+function patch_bs_js(version_num) if not _js_patch_loaded then -- begin patch_bs_js 
+
+local C, ffi_new, ffi_copy, ffi_cast = ffi.C, ffi.new, ffi.copy, ffi.cast
+ffi.cdef[[
+int VirtualProtect(uintptr_t, unsigned long, unsigned long, unsigned long *);
+uint64_t GetModuleHandleA(const char*);
+enum { PAGE_READWRITE = 0x04 };
+]]
+
+local function find_offset(start_addr, length, signature)
+  local ptr = ffi_cast("uint8_t*", start_addr)
+  local sig_len = #signature
+  for i = 0, length - sig_len do
+    local match = true
+    for j = 1, sig_len do
+        if ptr[i + j - 1] ~= string.byte(signature, j) then
+            match = false
+            break
+        end
+    end
+    if match then
+        return start_addr + i
+    end
+  end
+  error("No matching signature found at this range")
+end
+
+local offsets = {
+  0x96B60, --[1] circa late 2024 - early 2025 ~31.0.0 
+  0x9A130, --[2] 2025_03_08 - version 31.0.2
+  0x9A190, --[3] 2025_11_15 - version 32.0.0
+}
+local offset;
+if version_num ~= 999 then
+  offset = offsets[version_num or #offsets] + 0x40
+else
+  local start = C.GetModuleHandleA("obs-browser.dll")
+  offset = find_offset(start, 0x9FFFF, "const obsCSS =")
+  offset = (offset - start) + 0x40
+end
+
+local function virtual_protect(address, size, new_protect)
+  local old_protect = ffi_new("unsigned long[1]")
+  address = ffi_cast("uintptr_t", address)
+  C.VirtualProtect(address, size, new_protect, old_protect)
+  return old_protect[0]
+end
+
+local function post_load_cb()
+  local sources = obs_enum_sources()
+  if sources ~= nil then
+    for _, source in ipairs(sources) do
+      local source_id = obs_source_get_unversioned_id(source)
+      if source_id == "browser_source" then
+        local settings = obs_source_get_settings(source)
+        obs_data_set_string(settings, "css", tostring(os.time()))
+        obs_source_update(source, settings)
+        obs_data_release(settings)
+      end
+    end
+  end
+  source_list_release(sources)
+  remove_current_callback()
+end
+
+local function patch_preloaded_js()
+  local js_code = "window.addEventListener('m',e=>eval(e.detail.k));//"
+  local len = #js_code
+  local buffer = ffi_new("char[?]", len)
+  ffi_copy(buffer, js_code)
+  local address = ffi_cast("void*", C.GetModuleHandleA("obs-browser.dll") + offset)
+  local old_protection = virtual_protect(address, len, C.PAGE_READWRITE)
+  ffi_copy(address, buffer, len)
+  virtual_protect(address, len, old_protection)
+end
+
+patch_preloaded_js()
+timer_add(post_load_cb, 1500)
+print('[+] patch_bs_js activated')
+end _js_patch_loaded = true
+end -- end patch_bs_js
+
+--bk_console_instance_functions~~~~~~~~~~wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww
+-- setfenv functions with nonlocal variable t(instance)
+-- tables creation in utils.some_table is prohibited! Use instance.some_table in SourceDef
+utils = {}
+
+function utils.send_js(code_str)
+  local json = obs_data_create()
+  obs_data_set_string(json, "k", code_str)
+  local cd = calldata_create()
+  local ph = obs_source_get_proc_handler(source)
+  calldata_set_string(cd, "eventName", "m")
+  calldata_set_string(cd, "jsonString", obs_data_get_json(json))
+  obs_data_release(json)
+  proc_handler_call(ph, "javascript_event", cd)
+  calldata_destroy(cd)
+end
+
+function utils.dx_screenshot(source_name)
+  if not t.created_dx_ctx then return end
+  obs_enter_graphics()
+  local my_source = obs_get_source_by_name(source_name)
+  local cx, cy = MAX_SIDE_W, MAX_SIDE_H
+  local s_w = obs_source_get_width(my_source)
+  local s_h = obs_source_get_height(my_source)
+  obsffi.gs_texrender_reset(t.texture_a)
+  if my_source and obsffi.gs_texrender_begin(t.texture_a, cx, cy) then
+    gs_matrix_scale3f(cx/s_w, cy/s_h, 1.0)
+    gs_clear(t.clear_flags, t.texture_clear_color, 0, 0)
+    gs_ortho(0.0, cx, 0.0, cy, -100.0, 100.0)
+    obs_source_inc_showing(my_source)
+    obs_source_video_render(my_source)
+    obs_source_dec_showing(my_source)
+    obsffi.gs_texrender_end(t.texture_a)
+  end
+  t._tex = obsffi.gs_texture_get_obj(obsffi.gs_texrender_get_texture(t.texture_a))
+  t.mapped_subresource = c_tex2d_mapped_new{}
+  t.p_mapped_subres = c_void_p(t.mapped_subresource)
+  t.CopyResource(t.pContext, t.stage, t._tex)
+  local x = t.Map(t.pContext, t.stage, 0, C.D3D11_MAP_READ, 0, t.p_mapped_subres)--print(x)--0x00000000 ok
+  t.p_mapped_subres = c_tex2d_mapped_p(t.p_mapped_subres)--print(tostring(t.p_mapped_subres.RowPitch))
+  ffi.copy(t.raw_image, t.p_mapped_subres.pData, MAX_LEN)
+  t.Unmap(t.pContext, t.stage, 0)
+  obs_source_release(my_source)
+  obs_leave_graphics()
+end
+
+function utils._set_stash(filter_name)
+  local settings;
+  local result = obs_source_enum_filters(source)
+  for _, f in pairs(result) do
+    if return_source_name(f) == filter_name then
+      settings = obs_source_get_settings(f)
+    end
+  end
+  source_list_release(result)
+  -- obs_data_get_json_pretty_with_defaults
+  t._json_settings[filter_name] = obs_data_get_json(settings)
+  obs_data_release(settings) 
+end
+
+function utils._grab_stash(filter_name)
+  local result = obs_source_enum_filters(source)
+  for _, f in pairs(result) do
+    if return_source_name(f) == filter_name then
+      set_settings3(source, filter_name, t._json_settings[filter_name])
+    end
+  end
+  source_list_release(result)
+end
+
+function utils.stash(filter_name)
+  if t._stash_ready then _grab_stash(filter_name) end
+  if not t._stash_ready then
+    _set_stash(filter_name)
+    t._stash_ready = true
+  end
+end
+
+function utils.get_duration()
+  return obs_source_media_get_duration(source)
+end
+
+function utils.get_timing()
+  return obs_source_media_get_time(source)
+end
+
+function utils._play_once(a, b)
+  local done = false
+  obs_source_media_set_time(source, a)
+  sleep(0)
+  repeat
+    if not (obs_source_media_get_time(source) >= b) then
+      sleep(0)
+    else
+      done = true
+    end
+  until done
+  return(0)
+end
+
+function utils.play_once(a, b)
+  _play_once(0, 0)
+  repeat sleep(0) until _play_once(a, b) == 0
+  _play_once(0, 0)
+end
+
+function utils.res_defer(item)
+  local id = tostring(item.res)
+
+  for k, v in pairs(t._res_defer) do 
+    if v.created == id then 
+      return 
+    end
+  end
+  item.created = id
+  table.insert(t._res_defer, item)
+end
+
+function utils.okay(name) t.pipe_name = name end
+
+function utils.execute_from_private_registry(address, tickrate)
+  tickrate = tickrate or 1/60
+  while true do
+    proceed, code, handshake = get_code(address)
+    sleep(tickrate)
+    if proceed then
+      executor(t, code, "external_py", "python_receiver")
+      write_private_data("bool", handshake, false)
+    end
+  end
+end
+
+function utils.accept(address, tickrate)
+  execute_from_private_registry(address, tickrate)
+end
+
+function utils.register_on_show(delayed_callback)
+  t.on_show_do = function()
+    t.on_show_task = run(function() delayed_callback() end) 
+  end
+end
+
+function utils.register_on_hide(delayed_callback)
+  t.on_hide_do = function()
+    t.on_hide_task = run(function() delayed_callback() end) 
+  end
+end
+
+function utils.register_on_activate(delayed_callback)
+  t.on_activate_do = function()
+    t.on_activate_task = run(function() delayed_callback() end) 
+  end
+end
+
+function utils.register_on_deactivate(delayed_callback)
+  t.on_deactivate_do = function()
+    t.on_deactivate_task = run(function() delayed_callback() end) 
+  end
+end
+
+--bk_console_snippets_code~~~~~~~~~~~~~~~~wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww
+SNIPPETS = {} -- { name = string value}
+
+SNIPPETS.s_loop_media = [==[
+
+local loop = {}
+function set_loop()
+  if not loop.start then loop.start = obs_source_media_get_time(source) sleep(0.2) return end
+  if not loop._end then loop._end = obs_source_media_get_time(source) sleep(0.2) return end
+
+end
+function watch_duration()
+  if loop._end then
+    local current = obs_source_media_get_time(source)
+    if current >= loop._end then
+      obs_source_media_set_time(source, loop.start)
+    end
+  end
+end
+repeat sleep(0)
+  if t.pressed then set_loop() end
+  if t.pressed2 then loop.start, loop._end = nil, nil end
+  watch_duration()
+until false
+
+]==]
+
+SNIPPETS.s_on_off_sceneitem = [==[
+
+local name = ""
+local scene_item = get_scene_sceneitem(return_source_name(source), name)
+repeat sleep(2.5)
+  local boolean = not obs_sceneitem_visible(scene_item)
+  obs_sceneitem_set_visible(scene_item, boolean)
+until false
+
+]==]
+
+SNIPPETS.s_browser_refresh = [==[
+
+repeat sleep(1*60*15)
+  click_property(source, "refreshnocache")
+until false
+
+]==]
+
+SNIPPETS.s_render_delay = [==[
+
+  local filter_name = "Render Delay"
+  set_settings3(source, filter_name, '{"delay_ms":3000}')
+
+]==]
+
+--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww
+
+CODE_STORAGE_INIT = [===[
+
+-- leave empty new line with 2 spaces, there might be bootstraping and initialization code here
+  
+]===]
+--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww
+-- function script_tick(dt) end -- external loop, can be used for message bus/signalling
+run = coroutine.create
+init = function() return run(function() coroutine.yield() end) end
+SUB = {} -- {{"pipe_name": num_code}, ...}
+gn = {}
+
+_OFFER = 111;function offer(pipe_name) SUB[pipe_name] = _OFFER end
+_STALL = 222;function stall(pipe_name) SUB[pipe_name] = _STALL end
+_FORWARD = 333;function forward(pipe_name) SUB[pipe_name] = _FORWARD end
+_SWITCH = 444;function switch(pipe_name) SUB[pipe_name] = _SWITCH end
+_RECOMPILE = 555;function recompile(pipe_name) SUB[pipe_name] = _RECOMPILE end
+
+local function executor(ctx, code, loc, name) -- args defined automatically  as local
+  local custom_env52  = {}
+  setmetatable(custom_env52, {__index = _G})
+  custom_env52.source = obs_filter_get_parent(ctx.filter)
+  loc = loc or "exec" -- special location address if the python script is present
+  name = name or "obs repl"
+  custom_env52.t = ctx
+  code = code or custom_env52.t.code
+  for k, v in pairs(utils) do custom_env52[k] = setfenv(v, custom_env52) end
+  local exec = assert(load(CODE_STORAGE_INIT .. code, name, "t", custom_env52))
+  -- executor submits code to the event loop, which will execute it with .resume
+  ctx[loc] = run(exec)
+end
+
+local function skip_tick_render(ctx)
+  local target = obs_filter_get_target(ctx.filter)
+  local width, height;
+  if target == nil then width = 0; height = 0; else
+    width = obs_source_get_base_width(target)
+    height = obs_source_get_base_height(target)
+  end
+  ctx.width, ctx.height = width , height
+end
+
+local function viewer()
+  error(">Script Log")
+end
+--bk_obs_source_definition~~~~~~~~~~~~~~~wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww
+local SourceDef = {}
+
+function SourceDef:new(o)
+  o = o or {}
+  setmetatable(o, self)
+  self.__index = self
+  return o
+end
+
+function SourceDef:_set_timer_loop() 
+  local value = SourceDef.__interval
+  local ms = (1/value) * 1000; ms = ms + (2^52 + 2^51) - (2^52 + 2^51) 
+  local interval = 1/value 
+  timer_add(function() SourceDef._event_loop(self, interval) end, ms)
+  self.loop_executor_timer = true
+end
+
+function SourceDef:create(source)
+  local instance = {}
+  instance.filter = source -- filter source itself
+  instance.hotkeys = {}
+  instance.hk = {}
+  instance.pressed = false
+  instance.pressed2 = false
+  instance.pressed3 = false
+  instance.created_hotkeys = false
+
+  instance.created_dx_ctx = false
+
+  instance.button_dispatch = false
+  instance.preload = true
+  instance.hotkey_dispatch = false
+  instance.actions_dispatch = false
+  instance.is_action_paused = false
+  instance.external_dispatch = false
+
+  instance.tasks = {}
+  instance.exec = init()
+  instance.external_py = init()
+  instance.exec_action_code = init()
+  instance.on_show_task = init()
+  instance.on_hide_task = init()
+  instance.on_activate_task = init()
+  instance.on_deactivate_task = init()
+
+  instance._res_defer = {} -- { {res = some_resource, defer = some_cleanup_callback, created = id }, ...}
+  instance._json_settings = {}
+  instance._stash_ready = false
+
+  if obs_source_get_unversioned_id(source):find("timer") then 
+    SourceDef._set_timer_loop(instance)
+  end
+  SourceDef.update(instance, self) -- self = settings
+  executor(instance) -- preload coroutines to start when hotkey or external 
+  return instance
+end
+
+function SourceDef:destroy()
+  for k, v in pairs(self._res_defer) do
+    v.defer(v.res)
+  end
+  if self.created_dx_ctx then
+    obs_enter_graphics()
+    self.Release_pContext(self.pContext) -- should automatically clear all resources created with it
+    obsffi.gs_texrender_destroy(self.texture_a)
+    obs_leave_graphics()
+  end
+end
+
+function SourceDef:update(settings)
+  self.code = obs_data_get_string(settings, "_text")
+  self.action_code = obs_data_get_string(settings, "_action")
+  self.autorun = obs_data_get_bool(settings, "_autorun")
+  self.mv1 = obs_data_get_double(settings, "_mv1")
+  self.mv2 = obs_data_get_double(settings, "_mv2")
+  self.hotreload = obs_data_get_string(settings, "_hotreload")
+  self.p1 = obs_data_get_string(settings, "_p1")
+  self.p2 = obs_data_get_string(settings, "_p2")
+  self.external_dispatch = obs_data_get_bool(settings, "_external_dispatch")
+  if self.external_dispatch then
+    executor(self)
+  end
+  self.expect_dx = obs_data_get_bool(settings, "t4")
+  self.snippet_name = obs_data_get_string(settings, "_snippet_name")
+
+  if not self.created_hotkeys then
+    SourceDef._reg_htk(self, settings)
+  end
+  if self.expect_dx and (not self.created_dx_ctx) then
+    SourceDef._create_dx_ctx(self)
+  end
+end
+
+function SourceDef:_event_loop(seconds)
+  -- button restarts code on a click 
+  -- actions and external python code does the same
+  -- hotkey trigger waits until execution has finished
+
+  if self.button_dispatch then
+    coroutine.resume(self.exec, seconds) -- begin/continue execution; yields, obslua API code is not suspendable 
+    if coroutine.status(self.exec) == "dead" then 
+      self.button_dispatch = false 
+      executor(self) -- preparing for hotkey_dispatch or external_dispatch 
+      goto end_of_manual_triggers
+    end
+
+  elseif self.hotkey_dispatch then
+    coroutine.resume(self.exec, seconds)
+    if coroutine.status(self.exec) == "dead" then
+      executor(self)
+      self.hotkey_dispatch = false
+      goto end_of_manual_triggers
+    end
+
+  elseif self.external_dispatch then
+    coroutine.resume(self.exec, seconds)
+    if coroutine.status(self.exec) == "dead" then
+      executor(self)
+      local settings = obs_source_get_settings(self.filter)
+      obs_data_set_bool(settings, "_external_dispatch", false)
+      obs_source_update(self.filter, settings)
+      obs_data_release(settings)
+      goto end_of_manual_triggers
+    end
+
+  elseif self.autorun then
+    if self.preload then 
+      self.preload = false
+      executor(self)
+    end
+    coroutine.resume(self.exec, seconds)
+
+  end
+  ::end_of_manual_triggers::
+
+  for _, coro in pairs(self.tasks) do
+    coroutine.resume(coro, seconds)
+  end
+
+  for _, i in pairs {"show", "hide", "activate", "deactivate"} do
+    coroutine.resume(self["on_"..i.."_task"], seconds)
+    if self["emit_"..i] and self["on_"..i.."_do"]
+      and coroutine.status(self["on_"..i.."_task"]) == "dead" then -- blocking
+      self["emit_"..i] = false
+      self["on_"..i.."_do"]()
+    end
+  end
+  -- poll for changes in the global shared table for all of console sources
+  for name, num_code in pairs(SUB) do
+    if num_code == _OFFER and self.pipe_name == name then
+      self.actions_dispatch = true
+      SUB[name] = 999
+    elseif num_code == _STALL and self.pipe_name == name then
+      self.is_action_paused = true
+      SUB[name] = 999
+    elseif num_code == _FORWARD and self.pipe_name == name then
+      self.is_action_paused = false
+      SUB[name] = 999
+    elseif num_code == _SWITCH and self.pipe_name == name then
+      self.is_action_paused = not self.is_action_paused
+      SUB[name] = 999
+    elseif num_code == _RECOMPILE and self.pipe_name == name then
+      executor(self, self.action_code, "exec_action_code", "actions entry recompiled")
+      SUB[name] = 999
+    end
+  end
+  if self.actions_dispatch then
+    executor(self, self.action_code, "exec_action_code", "actions entry")
+    self.actions_dispatch = false
+  end
+  if not self.is_action_paused then
+    coroutine.resume(self.exec_action_code, seconds)
+  end
+
+  coroutine.resume(self.external_py, seconds)
+
+end
+
+function SourceDef:get_properties()
+  local props = obs_properties_create()
+  local text_area = obs_properties_add_text(props, "_text", "", OBS_TEXT_MULTILINE)
+  obs_property_text_set_monospace(text_area, true)
+  obs_properties_add_button(props, "button1", i18n"execute", function()
+    self.button_dispatch = true
+    executor(self)
+  end)
+  local s = "+   -  -  -  -  -  -  -  -  -  -  [ " .. i18n"view_output"
+  .. " ] -  -  -  -  -  -  -  -  -  -    +"
+  obs_properties_add_button(props, "button2", s, viewer)
+  obs_properties_add_bool(props, "_autorun", i18n"auto_run")
+
+  -- Show/Hide properties, allows for different customization of each source
+  local group_config = obs_properties_create()
+  local pt1 = obs_properties_add_bool(group_config, "t1", i18n"p_text_area2")
+  obs_property_set_modified_callback(pt1, function(props, prop, set)
+    local flag = obs_data_get_bool(set, "t1")
+    obs_property_set_visible(obs_properties_get(props, "_action"), flag)
+  return true end)
+
+  local pt2 = obs_properties_add_bool(group_config, "t2", i18n"_snippets")
+  obs_property_set_modified_callback(pt2, function(props, prop, set)
+    local flag = obs_data_get_bool(set, "t2")
+    obs_property_set_visible(obs_properties_get(props, "_groupextra"), flag)
+  return true end)
+
+  local pt3 = obs_properties_add_bool(group_config, "t3", i18n"p_group_name")
+  obs_property_set_modified_callback(pt3, function(props, prop, set)
+    local flag = obs_data_get_bool(set, "t3")
+    obs_property_set_visible(obs_properties_get(props, "_group"), flag)
+  return true end)
+
+  local pt4 = obs_properties_add_bool(group_config, "t4", i18n"p_dx_screenshot")
+
+  local g1 = obs_properties_add_group(props, "_group_config", i18n"sh_checkbox", OBS_GROUP_CHECKABLE, group_config)
+
+  obs_property_set_modified_callback(g1, function(props, prop, set)
+    local flag = obs_data_get_bool(set, "_group_config")
+    obs_property_set_visible(obs_properties_get(props, "t1") , flag)
+    obs_property_set_visible(obs_properties_get(props, "t2") , flag)
+    obs_property_set_visible(obs_properties_get(props, "t3") , flag)
+    obs_property_set_visible(obs_properties_get(props, "t4") , flag)
+  return true end)
+
+  local text_area2 = obs_properties_add_text(props, "_action", "", OBS_TEXT_MULTILINE)
+  obs_property_text_set_monospace(text_area2, true)
+  local snippets = obs_properties_create()
+  local mylist = obs_properties_add_list(snippets, "_snippet_name", "", OBS_COMBO_TYPE_LIST, OBS_COMBO_FORMAT_STRING)
+  for k, _ in pairs(SNIPPETS) do 
+    obs_property_list_add_string(mylist, i18n(k), k)
+  end
+
+  local btn = obs_properties_add_button(snippets, "button3", i18n"_snip_select", function()
+    local s = obs_source_get_settings(self.filter)
+    if not obs_data_get_bool(s, "_confirm") then obs_data_release(s) return true end
+    obs_data_set_string(s, "_text", SNIPPETS[obs_data_get_string(s, "_snippet_name")])
+    obs_data_set_bool(s, "_confirm", false)
+    obs_source_update(self.filter, s)
+    obs_data_release(s)
+    return true
+  end)
+  obs_properties_add_bool(snippets, "_confirm", i18n"_snip_confirm")
+  obs_properties_add_group(props, "_groupextra", i18n"_snippets", OBS_GROUP_NORMAL, snippets)
+
+  local group_props = obs_properties_create()
+  local _mv1, _mv2, _hotreload, _p1, _p2, _external_dispatch_p;
+  _mv1 = obs_properties_add_float_slider(group_props, "_mv1", i18n"s_mv1", 0, 1, 0.01)
+  _mv2 = obs_properties_add_int_slider(group_props, "_mv2", i18n"s_mv2", 0, 100, 1)
+  _hotreload = obs_properties_add_text(group_props, "_hotreload", i18n"hotreload", OBS_TEXT_DEFAULT)
+  _p1 = obs_properties_add_path(group_props, "_p1", i18n"p1", OBS_PATH_FILE, "*.lua", script_path())
+  _p2 = obs_properties_add_path(group_props, "_p2", i18n"p2", OBS_PATH_FILE, "*.lua", script_path())
+  _external_dispatch_p = obs_properties_add_bool(group_props, "_external_dispatch", "__private_do_not_use")
+  obs_property_set_visible(_external_dispatch_p,false)
+  obs_properties_add_group(props, "_group", i18n"p_group_name", OBS_GROUP_NORMAL, group_props)
+
+  return props
+end
+
+function SourceDef:show()
+  self.emit_show = true -- going to preview
+end
+
+function SourceDef:hide()
+  self.emit_hide = true -- hiding from preview
+end
+
+function SourceDef:activate()
+  self.emit_activate = true -- going to program
+end
+
+function SourceDef:deactivate()
+  self.emit_deactivate = true -- retiring from program 
+end
+
+
+function SourceDef:video_render(effect)
+  local target = obs_filter_get_parent(self.filter)
+  if target ~= nil then -- do not render, assign height & width to make scene item source selectable
+    self.width = obs_source_get_base_width(target)
+    self.height = obs_source_get_base_height(target)
+  end
+  obs_source_skip_video_filter(self.filter)
+end
+
+function SourceDef:get_width() return self.width end
+
+function SourceDef:get_height() return self.height end
+
+function SourceDef:get_name() return i18n"Console" end
+
+function SourceDef:load(settings) SourceDef._reg_htk(self, settings) end
+
+function SourceDef:video_tick(seconds)
+  if not self.loop_executor_timer then
+    SourceDef._event_loop(self, seconds)
+  end
+  skip_tick_render(self) -- if source has crop or transform applied to it, this will let it render
+end
+
+function SourceDef:save(settings)
+  if self.created_hotkeys then
+    self.created_hotkeys = true
+  end
+  for k, v in pairs(self.hotkeys) do
+    local a = obs_hotkey_save(self.hk[k])
+    obs_data_set_array(settings, k, a)
+    obs_data_array_release(a)
+  end
+end
+
+function SourceDef:_reg_htk(settings)
+  local parent = obs_filter_get_parent(self.filter)
+  local source_name = obs_source_get_name(parent)
+  local filter_name = obs_source_get_name(self.filter)
+  -- sets filter state off when starting and creating from UI due to bug with selection
+  -- OBS may hang when selecting a sceneitem and moving it, when it has filter enabled
+  obs_source_set_enabled(self.filter, false)
+  if parent and source_name and filter_name then
+    self.hotkeys["0;" .. source_name .. ";" .. filter_name] = function()
+      self.hotkey_dispatch = true
+    end
+    self.hotkeys["1;" .. source_name .. ";" .. filter_name] = function(pressed)
+      self.pressed = pressed
+    end
+    self.hotkeys["2;" .. source_name .. ";" .. filter_name] = function(pressed)
+      self.pressed2 = pressed
+    end
+    self.hotkeys["3;" .. source_name .. ";" .. filter_name] = function(pressed)
+      self.pressed3 = pressed
+    end
+
+    for k, v in pairs(self.hotkeys) do
+      self.hk[k] = OBS_INVALID_HOTKEY_ID
+    end
+
+    function reroute_hotkey_state(k)
+      self.hk[k] = obs_hotkey_register_frontend(k, k, function(pressed)
+        if pressed then
+          self.hotkeys[k](true)
+        else
+          self.hotkeys[k](false)
+        end
+      end)
+    end
+
+    for k, v in pairs(self.hotkeys) do
+      if k:sub(1, 1) == "1" then -- starts with 1 symbol
+        reroute_hotkey_state(k)
+      elseif k:sub(1, 1) == "2" then 
+        reroute_hotkey_state(k)
+      elseif k:sub(1, 1) == "3" then 
+        reroute_hotkey_state(k)
+      else
+        self.hk[k] = obs_hotkey_register_frontend(k, k, function(pressed)
+          if pressed then
+            self.hotkeys[k]()
+          end
+        end)
+      end
+      local a = obs_data_get_array(settings, k)
+      obs_hotkey_load(self.hk[k], a)
+      obs_data_array_release(a)
+    end
+    if not self.created_hotkeys then
+      self.created_hotkeys = true
+    end
+  end
+end
+
+if ffi.os == 'Windows' then 
+ffi.cdef[[
+void *gs_get_device_obj(void);
+
+struct d3ddeviceVTBL {
+  void *QueryInterface; // void *fns[43]; // alternative representation
+  void *AddRef;
+  void *Release;
+  void *CreateBuffer;
+  void *CreateTexture1D;
+  void *CreateTexture2D;
+  void *CreateTexture3D;
+  void *CreateShaderResourceView;
+  void *CreateUnorderedAccessView;
+  void *CreateRenderTargetView;
+  void *CreateDepthStencilView;
+  void *CreateInputLayout;
+  void *CreateVertexShader;
+  void *CreateGeometryShader;
+  void *CreateGeometryShaderWithStreamOutput;
+  void *CreatePixelShader;
+  void *CreateHullShader;
+  void *CreateDomainShader;
+  void *CreateComputeShader;
+  void *CreateClassLinkage;
+  void *CreateBlendState;
+  void *CreateDepthStencilState;
+  void *CreateRasterizerState;
+  void *CreateSamplerState;
+  void *CreateQuery;
+  void *CreatePredicate;
+  void *CreateCounter;
+  void *CreateDeferredContext;
+  void *OpenSharedResource;
+  void *CheckFormatSupport;
+  void *CheckMultisampleQualityLevels;
+  void *CheckCounterInfo;
+  void *CheckCounter;
+  void *CheckFeatureSupport;
+  void *GetPrivateData;
+  void *SetPrivateData;
+  void *SetPrivateDataInterface;
+  void *GetFeatureLevel;
+  void *GetCreationFlags;
+  void *GetDeviceRemovedReason;
+  void *GetImmediateContext;
+  void *SetExceptionMode;
+  void *GetExceptionMode;
+};
+struct d3ddevice {
+  struct d3ddeviceVTBL** lpVtbl;
+};
+
+struct d3ddevicecontextVTBL {
+  void *QueryInterface;
+  void *Addref;
+  void *Release;
+  void *GetDevice;
+  void *GetPrivateData;
+  void *SetPrivateData;
+  void *SetPrivateDataInterface;
+  void *VSSetConstantBuffers;
+  void *PSSetShaderResources;
+  void *PSSetShader;
+  void *SetSamplers;
+  void *SetShader;
+  void *DrawIndexed;
+  void *Draw;
+  void *Map;
+  void *Unmap;
+  void *PSSetConstantBuffer;
+  void *IASetInputLayout;
+  void *IASetVertexBuffers;
+  void *IASetIndexBuffer;
+  void *DrawIndexedInstanced;
+  void *DrawInstanced;
+  void *GSSetConstantBuffers;
+  void *GSSetShader;
+  void *IASetPrimitiveTopology;
+  void *VSSetShaderResources;
+  void *VSSetSamplers;
+  void *Begin;
+  void *End;
+  void *GetData;
+  void *GSSetPredication;
+  void *GSSetShaderResources;
+  void *GSSetSamplers;
+  void *OMSetRenderTargets;
+  void *OMSetRenderTargetsAndUnorderedAccessViews;
+  void *OMSetBlendState;
+  void *OMSetDepthStencilState;
+  void *SOSetTargets;
+  void *DrawAuto;
+  void *DrawIndexedInstancedIndirect;
+  void *DrawInstancedIndirect;
+  void *Dispatch;
+  void *DispatchIndirect;
+  void *RSSetState;
+  void *RSSetViewports;
+  void *RSSetScissorRects;
+  void *CopySubresourceRegion;
+  void *CopyResource;
+  void *UpdateSubresource;
+  void *CopyStructureCount;
+  void *ClearRenderTargetView;
+  void *ClearUnorderedAccessViewUint;
+  void *ClearUnorderedAccessViewFloat;
+  void *ClearDepthStencilView;
+  void *GenerateMips;
+  void *SetResourceMinLOD;
+  void *GetResourceMinLOD;
+  void *ResolveSubresource;
+  void *ExecuteCommandList;
+  void *HSSetShaderResources;
+  void *HSSetShader;
+  void *HSSetSamplers;
+  void *HSSetConstantBuffers;
+  void *DSSetShaderResources;
+  void *DSSetShader;
+  void *DSSetSamplers;
+  void *DSSetConstantBuffers;
+  void *DSSetShaderResources;
+  void *CSSetUnorderedAccessViews;
+  void *CSSetShader;
+  void *CSSetSamplers;
+  void *CSSetConstantBuffers;
+  void *VSGetConstantBuffers;
+  void *PSGetShaderResources;
+  void *PSGetShader;
+  void *PSGetSamplers;
+  void *VSGetShader;
+  void *PSGetConstantBuffers;
+  void *IAGetInputLayout;
+  void *IAGetVertexBuffers;
+  void *IAGetIndexBuffer;
+  void *GSGetConstantBuffers;
+  void *GSGetShader;
+  void *IAGetPrimitiveTopology;
+  void *VSGetShaderResources;
+  void *VSGetSamplers;
+  void *GetPredication;
+  void *GSGetShaderResources;
+  void *GSGetSamplers;
+  void *OMGetRenderTargets;
+  void *OMGetRenderTargetsAndUnorderedAccessViews;
+  void *OMGetBlendState;
+  void *OMGetDepthStencilState;
+  void *SOGetTargets;
+  void *RSGetState;
+  void *RSGetViewports;
+  void *RSGetScissorRects;
+  void *HSGetShaderResources;
+  void *HSGetShader;
+  void *HSGetSamplers;
+  void *HSGetConstantBuffers;
+  void *DSGetShaderResources;
+  void *DSGetShader;
+  void *DSGetSamplers;
+  void *DSGetConstantBuffers;
+  void *CSGetShaderResources;
+  void *CSGetUnorderedAccessViews;
+  void *CSGetShader;
+  void *CSGetSamplers;
+  void *CSGetConstantBuffers;
+  void *ClearState;
+  void *Flush;
+  void *GetType;
+  void *GetContextFlags;
+  void *FinishCommandList;
+};
+
+struct d3ddevicecontext {
+  struct d3ddevicecontextVTBL** lpVtbl;
+};
+
+struct d3d11tex2dVTBL {
+  void *QueryInterface;
+  void *Addref;
+  void *Release;
+  void *GetDevice;
+  void *GetPrivateData;
+  void *SetPrivateData;
+  void *SetPrivateDataInterface;
+  void *GetType;
+  void *SetEvictionPriority;
+  void *GetEvictionPriority;
+  void *GetDesc;
+};
+
+struct d3d11tex2d {
+ struct d3d11tex2dVTBL** lpVtbl;
+};
+
+typedef unsigned int UINT;
+
+typedef struct DXGI_SAMPLE_DESC
+{
+  int Count;
+  int Quality;
+} DXGI_SAMPLE_DESC;
+
+typedef enum D3D11_USAGE {
+  D3D11_USAGE_DEFAULT = 0,
+  D3D11_USAGE_IMMUTABLE = 1,
+  D3D11_USAGE_DYNAMIC = 2,
+  D3D11_USAGE_STAGING = 3
+} D3D11_USAGE ;
+
+typedef enum D3D11_MAP {
+  D3D11_MAP_READ = 1,
+  D3D11_MAP_WRITE = 2,
+  D3D11_MAP_READ_WRITE = 3,
+  D3D11_MAP_WRITE_DISCARD = 4,
+  D3D11_MAP_WRITE_NO_OVERWRITE = 5
+} D3D11_MAP;
+
+typedef struct D3D11_MAPPED_SUBRESOURCE {
+  void *pData;
+  UINT RowPitch, DepthPitch;
+} D3D11_MAPPED_SUBRESOURCE;
+
+typedef enum D3D11_CPU_ACCESS_FLAG {
+    D3D11_CPU_ACCESS_WRITE = 0x10000,
+    D3D11_CPU_ACCESS_READ = 0x20000
+} D3D11_CPU_ACCESS_FLAG;
+
+typedef struct D3D11_TEXTURE2D_DESC {
+  UINT Width;
+  UINT Height;
+  UINT MipLevels;
+  UINT ArraySize;
+  UINT Format; //DXGI_FORMAT Format; // big enum list, but not needed...
+  DXGI_SAMPLE_DESC SampleDesc;
+  D3D11_USAGE Usage;
+  UINT BindFlags;
+  UINT CPUAccessFlags;
+  UINT MiscFlags;
+} D3D11_TEXTURE2D_DESC;
+
+typedef struct gs_texture gs_texture_t;
+void *gs_texture_get_obj(gs_texture_t *tex);
+typedef struct gs_texture_render gs_texrender_t;
+gs_texrender_t *gs_texrender_create(int format, int zsformat);
+void gs_texrender_destroy(gs_texrender_t *texrender);
+void gs_texrender_reset(gs_texrender_t *texrender);
+gs_texture_t *gs_texrender_get_texture(const gs_texrender_t *texrender);
+bool gs_texrender_begin(gs_texrender_t *texrender, uint32_t cx, uint32_t cy);
+void gs_texrender_end(gs_texrender_t *texrender);
+]]
+end
+
+function SourceDef:_create_dx_ctx() 
+  if not (ffi.os == 'Windows') then return end -- emulation support??
+  if self.created_dx_ctx then return end
+  obs_enter_graphics()
+  self.texture_a = obsffi.gs_texrender_create(GS_RGBA, GS_ZS_NONE)  -- random texture
+  self.texture_clear_color = vec4()
+  self.clear_flags = bit.bor(GS_CLEAR_COLOR)
+  local effect_solid = obs_get_base_effect(OBS_EFFECT_SOLID)
+  MAX_SIDE_W = 512
+  MAX_SIDE_H = 288
+  MAX_LEN = MAX_SIDE_W * MAX_SIDE_H * 4
+  if obsffi.gs_texrender_begin(self.texture_a, MAX_SIDE_W, MAX_SIDE_H) then
+    while gs_effect_loop(effect_solid, "Random") do
+      gs_draw_sprite(nil, 0, MAX_SIDE_W, MAX_SIDE_H)
+    end
+    obsffi.gs_texrender_end(self.texture_a)
+  end
+  self.raw_image = ffi.new("uint8_t[?]", MAX_LEN)
+  -- usefull globals
+  c_void_p = ffi.typeof("void*")
+  c_void_pp = ffi.typeof("void**")
+  c_u8_p = ffi.typeof("uint8_t*")
+  c_tex2d_new = ffi.typeof("struct d3d11tex2d[1]")
+  c_tex2d_p = ffi.typeof("struct d3d11tex2d*")
+  c_tex2d_desk_new = ffi.typeof("D3D11_TEXTURE2D_DESC[1]")
+  c_tex2d_desk_p = ffi.typeof("D3D11_TEXTURE2D_DESC*")
+  c_tex2d_mapped_p = ffi.typeof("D3D11_MAPPED_SUBRESOURCE*")
+  c_tex2d_mapped_new = ffi.typeof("D3D11_MAPPED_SUBRESOURCE[1]")
+
+  self._tex = obsffi.gs_texture_get_obj(obsffi.gs_texrender_get_texture(self.texture_a))
+  self.p_tex = c_tex2d_p(self._tex)
+  self.GetDesc = ffi.cast("void (__stdcall*)(void*, void**)", self.p_tex.lpVtbl[10])
+  self._desk = c_tex2d_desk_new{}
+  self.p_desk = ffi.cast(c_void_pp, self._desk)
+  self.GetDesc(self.p_tex, self.p_desk)
+
+  self.desc_stage = c_tex2d_desk_p(self._desk)
+  self.desc_stage.Usage = C.D3D11_USAGE_STAGING
+  self.desc_stage.CPUAccessFlags = C.D3D11_CPU_ACCESS_READ
+  self.desc_stage.BindFlags = 0
+  self.desc_stage.Width = MAX_SIDE_W
+  self.desc_stage.Height = MAX_SIDE_H
+  self.desc_stage.MiscFlags = 0
+
+  self._device = obsffi.gs_get_device_obj()
+  self.pDevice = ffi.cast("struct d3ddevice*", self._device)
+  self.GetImmediateContext = ffi.cast("long (__stdcall*)(void*, void**)", self.pDevice.lpVtbl[40])
+
+  self._arg1 = ffi.new("unsigned long[1]", {})
+  self._pContext = ffi.cast(c_void_pp, self._arg1)
+  self.GetImmediateContext(self.pDevice, self._pContext)
+  self.pContext = ffi.cast("struct d3ddevicecontext*", self._pContext[0])
+
+  self.Release_pContext = ffi.cast("unsigned long (__stdcall*)(void*)", self.pContext.lpVtbl[2])
+  self.CopyResource = ffi.cast("void (__stdcall*)(void*, void*, void* )", self.pContext.lpVtbl[47])
+  self.Map = ffi.cast("long (__stdcall*)(void*, void*, UINT, UINT, UINT, void *)", self.pContext.lpVtbl[14])
+  self.Unmap = ffi.cast("long (__stdcall*)(void*, void*, UINT)", self.pContext.lpVtbl[15])
+  self.CreateTexture2D = ffi.cast("long (__stdcall*)(void*, void*, void*, void**)", self.pDevice.lpVtbl[5])
+
+  -- create texture
+  self._my_tex = c_tex2d_new{}
+  self.p_stage_tex = ffi.cast(c_void_pp, self._my_tex)
+  self.CreateTexture2D(self.pDevice, self.desc_stage, nil, self.p_stage_tex)
+  -- create staging surface, care: p_stage_tex[0]
+  self.stage = c_tex2d_p(self.p_stage_tex[0])
+  obs_leave_graphics()
+  self.created_dx_ctx = true
+end
+
+
+--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww
+as_custom_source = SourceDef:new({
+  id = "s_console_source",
+  type = OBS_SOURCE_TYPE_SOURCE,
+  output_flags = bit.bor(OBS_SOURCE_VIDEO, OBS_SOURCE_CUSTOM_DRAW, OBS_SOURCE_AUDIO),
+})
+function as_custom_source:get_name() return "AGPLv3+ libre-macros by upgradeQ" end
+function as_custom_source:video_render(settings) end
+function as_custom_source:get_height() return 200 end
+function as_custom_source:get_width() return 200 end
+function as_custom_source:load(settings) as_custom_source._reg_htk(self, settings) end
+
+function as_custom_source:update(settings)
+  self.code = obs_data_get_string(settings, "_text")
+  self.autorun = obs_data_get_bool(settings, "_autorun")
+  self.mv1 = obs_data_get_double(settings, "_mv1")
+  self.mv2 = obs_data_get_double(settings, "_mv2")
+  self.hotreload = obs_data_get_string(settings, "_hotreload")
+  self.p1 = obs_data_get_string(settings, "_p1")
+  self.p2 = obs_data_get_string(settings, "_p2")
+  self.external_dispatch = obs_data_get_bool(settings, "_external_dispatch")
+  if self.external_dispatch then
+    executor(self)
+  end
+-- custom source logic for registering hotkeys
+  if not self.created_hotkeys then
+    as_custom_source._reg_htk(self, settings)
+  end
+end
+
+function as_custom_source:_reg_htk(settings)
+  -- note it's not a filter but rather a source itself
+  local source_name = obs_source_get_name(self.filter)
+  if source_name then
+    self.hotkeys["2;" .. source_name] = function()
+      self.hotkey_dispatch = true
+    end
+    self.hotkeys["3;" .. source_name] = function(pressed)
+      self.pressed = pressed
+    end
+
+    for k, v in pairs(self.hotkeys) do
+      self.hk[k] = OBS_INVALID_HOTKEY_ID
+    end
+
+    for k, v in pairs(self.hotkeys) do
+      if k:sub(1, 1) == "3" then -- starts with 3 symbol
+        self.hk[k] = obs_hotkey_register_frontend(k, k, function(pressed)
+          if pressed then
+            self.hotkeys[k](true)
+          else
+            self.hotkeys[k](false)
+          end
+        end)
+      else
+        self.hk[k] = obs_hotkey_register_frontend(k, k, function(pressed)
+          if pressed then
+            self.hotkeys[k]()
+          end
+        end)
+      end
+      local a = obs_data_get_array(settings, k)
+      obs_hotkey_load(self.hk[k], a)
+      obs_data_array_release(a)
+    end
+    if not self.created_hotkeys then
+      self.created_hotkeys = true
+    end
+  end
+end
+
+--bk_obs_script_definition~~~~~~~~~~~~~~~wwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwwww
+function script_description() return [[
+<h2> Scripting and macros hotkeys overhaul for OBS Studio </h2>
+<a style="color: #0000ff; text-decoration: none; font-size:26px;"
+href="https://www.github.com/upgradeQ/libre-macros/blob/master/README.md">Visit the repository README.md</a><br/>
+Copyright &copy; 2021-2025 upgradeQ<br/>
+Distributed under <a style="color: #ffffff; text-decoration: none;"> AGPL license</a>
+]]
+end
+
+function script_properties()
+  local props = obs_properties_create()
+  local props_group1 = obs_properties_create()
+  obs_properties_add_bool(props_group1, "_flag_custom", i18n"Console sceneitem custom")
+  obs_properties_add_bool(props_group1, "_flag_console_timer", i18n"Console (Timer)")
+  local p_suffix = obs_properties_add_float(props_group1, "_interval", "", 0, 999, 0.001)
+  obs_property_float_set_suffix(p_suffix," "  .. i18n"interval")
+  obs_properties_add_text(props_group1, "_patches", "", OBS_TEXT_MULTILINE)
+  obs_properties_add_group(props, "group1", i18n"g2_restart", OBS_GROUP_NORMAL, props_group1)
+  local _langs = obs_properties_add_list(props, "_lang", i18n"select_lang", OBS_COMBO_TYPE_LIST, OBS_COMBO_FORMAT_STRING)
+
+  for k, v in pairs {en="English", ru="Русский"} do
+    obs_property_list_add_string(_langs, v, k)
+  end
+
+  return props
+end
+
+function script_defaults(settings)
+  obs_data_set_default_string(settings, "_lang", "en")
+  obs_data_set_default_string(settings, "_patches", "-- here goes your GLOBAL code\n")
+  obs_data_set_default_double(settings, "_interval", 60)
+end
+
+function script_load(settings)
+
+  local run = load(obs_data_get_string(settings, "_patches"), "global patches", "t")
+  local ok, _ = pcall(run)
+  if not ok then 
+    print('[+]' .. i18n"s_patch_err") 
+  end
+  local not_allowed_to_run_in_console_instance = function() error('[ERROR] must be in GLOBAL') end
+  _G.patch_bs_js = not_allowed_to_run_in_console_instance
+
+  i18n.set_locale(obs_data_get_string(settings, "_lang")) -- must load first
+
+  local as_video_filter = SourceDef:new({id = "v_console_source", type = OBS_SOURCE_TYPE_FILTER, output_flags = bit.bor(OBS_SOURCE_VIDEO),})
+  obs_register_source(as_video_filter)
+
+  local as_audio_filter = SourceDef:new({ id = "a_console_source", type = OBS_SOURCE_TYPE_FILTER, output_flags = bit.bor(OBS_SOURCE_AUDIO),})
+  obs_register_source(as_audio_filter)
+
+  if obs_data_get_bool(settings, "_flag_custom") then
+    obs_register_source(as_custom_source) 
+  end
+  if obs_data_get_bool(settings, "_flag_console_timer") then
+    local interval = obs_data_get_double(settings, "_interval")
+    local as_audio_filter_timer, as_video_filter_timer = as_audio_filter, as_video_filter
+    as_video_filter_timer.id = "v_console_source_timer"
+    SourceDef.__interval = interval
+    function as_video_filter_timer:get_name() return i18n"Console (Timer)" end 
+
+    as_audio_filter_timer.id = "a_console_source_timer"
+    SourceDef.__interval = interval
+    function as_audio_filter_timer:get_name() return i18n"Console (Timer)" end 
+    obs_register_source(as_video_filter_timer)
+    obs_register_source(as_audio_filter_timer)
+  end
+end
+
+-- vim: ft=lua ts=2 sw=2 et sts=2

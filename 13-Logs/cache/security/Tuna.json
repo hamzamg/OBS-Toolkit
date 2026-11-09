@@ -1,0 +1,1199 @@
+{
+  "tool": "Tuna",
+  "ref": "1.9.12",
+  "files_scanned": 77,
+  "summary": {
+    "code-execution": 40,
+    "process-spawn": 2,
+    "network": 166,
+    "persistence": 1,
+    "input-hooks": 0,
+    "credentials": 33,
+    "file-write": 40,
+    "file-outside": 1
+  },
+  "findings": [
+    {
+      "category": "network",
+      "file": ".github/scripts/Build-Windows.ps1",
+      "line": 25,
+      "text": "Write-Warning 'The obs-studio PowerShell build script requires PowerShell Core 7. Install or upgrade your PowerShell version: https://aka.ms/pscore6'"
+    },
+    {
+      "category": "network",
+      "file": ".github/scripts/Package-Windows.ps1",
+      "line": 25,
+      "text": "Write-Warning 'The packaging script requires PowerShell Core 7. Install or upgrade your PowerShell version: https://aka.ms/pscore6'"
+    },
+    {
+      "category": "network",
+      "file": "src/tuna_plugin.cpp",
+      "line": 16,
+      "text": "* along with this program. If not, see <http://www.gnu.org/licenses/>."
+    },
+    {
+      "category": "network",
+      "file": "src/tuna_plugin.cpp",
+      "line": 48,
+      "text": "* https://github.com/Palakis/obs-websocket/"
+    },
+    {
+      "category": "code-execution",
+      "file": "src/tuna_plugin.cpp",
+      "line": 104,
+      "text": "config::load();"
+    },
+    {
+      "category": "network",
+      "file": "src/gui/music_control.cpp",
+      "line": 16,
+      "text": "* along with this program. If not, see <http://www.gnu.org/licenses/>."
+    },
+    {
+      "category": "code-execution",
+      "file": "src/gui/music_control.cpp",
+      "line": 221,
+      "text": "contextMenu.exec(mapToGlobal(pos));"
+    },
+    {
+      "category": "persistence",
+      "file": "src/gui/music_control.cpp",
+      "line": 246,
+      "text": "// This gets called during startup which would always set the selected source"
+    },
+    {
+      "category": "network",
+      "file": "src/gui/music_control.hpp",
+      "line": 16,
+      "text": "* along with this program. If not, see <http://www.gnu.org/licenses/>."
+    },
+    {
+      "category": "network",
+      "file": "src/gui/output_edit_dialog.cpp",
+      "line": 16,
+      "text": "* along with this program. If not, see <http://www.gnu.org/licenses/>."
+    },
+    {
+      "category": "file-write",
+      "file": "src/gui/output_edit_dialog.cpp",
+      "line": 26,
+      "text": "#include <QFileDialog>"
+    },
+    {
+      "category": "file-write",
+      "file": "src/gui/output_edit_dialog.cpp",
+      "line": 27,
+      "text": "#include <QFileInfo>"
+    },
+    {
+      "category": "file-write",
+      "file": "src/gui/output_edit_dialog.cpp",
+      "line": 91,
+      "text": "QFile f(file); /* On NTFS file checks don't work unless the file exists */"
+    },
+    {
+      "category": "file-write",
+      "file": "src/gui/output_edit_dialog.cpp",
+      "line": 95,
+      "text": "QFile test(file);"
+    },
+    {
+      "category": "file-write",
+      "file": "src/gui/output_edit_dialog.cpp",
+      "line": 97,
+      "text": "result = test.open(QFile::OpenModeFlag::ReadWrite);"
+    },
+    {
+      "category": "file-write",
+      "file": "src/gui/output_edit_dialog.cpp",
+      "line": 135,
+      "text": "QString path = QFileDialog::getSaveFileName(this, tr(T_SELECT_SONG_FILE), QDir::home().path(),"
+    },
+    {
+      "category": "network",
+      "file": "src/gui/output_edit_dialog.hpp",
+      "line": 16,
+      "text": "* along with this program. If not, see <http://www.gnu.org/licenses/>."
+    },
+    {
+      "category": "network",
+      "file": "src/gui/scrolltext.cpp",
+      "line": 16,
+      "text": "* along with this program. If not, see <http://www.gnu.org/licenses/>."
+    },
+    {
+      "category": "network",
+      "file": "src/gui/scrolltext.hpp",
+      "line": 16,
+      "text": "* along with this program. If not, see <http://www.gnu.org/licenses/>."
+    },
+    {
+      "category": "network",
+      "file": "src/gui/scrolltext.hpp",
+      "line": 20,
+      "text": "* https://stackoverflow.com/a/10655396"
+    },
+    {
+      "category": "network",
+      "file": "src/gui/tuna_gui.cpp",
+      "line": 16,
+      "text": "* along with this program. If not, see <http://www.gnu.org/licenses/>."
+    },
+    {
+      "category": "file-write",
+      "file": "src/gui/tuna_gui.cpp",
+      "line": 30,
+      "text": "#include <QFileDialog>"
+    },
+    {
+      "category": "network",
+      "file": "src/gui/tuna_gui.cpp",
+      "line": 34,
+      "text": "#include <httplib.h>"
+    },
+    {
+      "category": "network",
+      "file": "src/gui/tuna_gui.cpp",
+      "line": 89,
+      "text": "about_text = about_text.replace(\"%cpphttplib%\", CPPHTTPLIB_VERSION);"
+    },
+    {
+      "category": "file-write",
+      "file": "src/gui/tuna_gui.cpp",
+      "line": 121,
+      "text": "path = QFileDialog::getSaveFileName(this, tr(title), QDir::home().path(), tr(file_types));"
+    },
+    {
+      "category": "code-execution",
+      "file": "src/gui/tuna_gui.cpp",
+      "line": 261,
+      "text": "config::load();"
+    },
+    {
+      "category": "code-execution",
+      "file": "src/gui/tuna_gui.cpp",
+      "line": 326,
+      "text": "dialog->exec();"
+    },
+    {
+      "category": "code-execution",
+      "file": "src/gui/tuna_gui.cpp",
+      "line": 357,
+      "text": "dialog->exec();"
+    },
+    {
+      "category": "network",
+      "file": "src/gui/tuna_gui.hpp",
+      "line": 16,
+      "text": "* along with this program. If not, see <http://www.gnu.org/licenses/>."
+    },
+    {
+      "category": "network",
+      "file": "src/gui/widgets/icecast.cpp",
+      "line": 16,
+      "text": "* along with this program. If not, see <http://www.gnu.org/licenses/>."
+    },
+    {
+      "category": "network",
+      "file": "src/gui/widgets/icecast.hpp",
+      "line": 16,
+      "text": "* along with this program. If not, see <http://www.gnu.org/licenses/>."
+    },
+    {
+      "category": "network",
+      "file": "src/gui/widgets/lastfm.cpp",
+      "line": 16,
+      "text": "* along with this program. If not, see <http://www.gnu.org/licenses/>."
+    },
+    {
+      "category": "credentials",
+      "file": "src/gui/widgets/lastfm.cpp",
+      "line": 40,
+      "text": "ui->txt_apikey->setText(utf8_to_qt(CGET_STR(CFG_LASTFM_API_KEY)));"
+    },
+    {
+      "category": "credentials",
+      "file": "src/gui/widgets/lastfm.cpp",
+      "line": 46,
+      "text": "CSET_STR(CFG_LASTFM_API_KEY, qt_to_utf8(ui->txt_apikey->text()));"
+    },
+    {
+      "category": "network",
+      "file": "src/gui/widgets/lastfm.hpp",
+      "line": 16,
+      "text": "* along with this program. If not, see <http://www.gnu.org/licenses/>."
+    },
+    {
+      "category": "network",
+      "file": "src/gui/widgets/mpd.cpp",
+      "line": 16,
+      "text": "* along with this program. If not, see <http://www.gnu.org/licenses/>."
+    },
+    {
+      "category": "file-write",
+      "file": "src/gui/widgets/mpd.cpp",
+      "line": 24,
+      "text": "#include <QFileDialog>"
+    },
+    {
+      "category": "file-write",
+      "file": "src/gui/widgets/mpd.cpp",
+      "line": 68,
+      "text": "auto result = QFileDialog::getExistingDirectory(this, T_SELECT_MPD_FOLDER);"
+    },
+    {
+      "category": "network",
+      "file": "src/gui/widgets/mpd.hpp",
+      "line": 16,
+      "text": "* along with this program. If not, see <http://www.gnu.org/licenses/>."
+    },
+    {
+      "category": "network",
+      "file": "src/gui/widgets/mpris.cpp",
+      "line": 16,
+      "text": "* along with this program. If not, see <http://www.gnu.org/licenses/>."
+    },
+    {
+      "category": "network",
+      "file": "src/gui/widgets/mpris.hpp",
+      "line": 16,
+      "text": "* along with this program. If not, see <http://www.gnu.org/licenses/>."
+    },
+    {
+      "category": "network",
+      "file": "src/gui/widgets/spotify.cpp",
+      "line": 16,
+      "text": "* along with this program. If not, see <http://www.gnu.org/licenses/>."
+    },
+    {
+      "category": "credentials",
+      "file": "src/gui/widgets/spotify.cpp",
+      "line": 46,
+      "text": "auto secret = utf8_to_qt(CGET_STR(CFG_SPOTIFY_CLIENT_SECRET));"
+    },
+    {
+      "category": "credentials",
+      "file": "src/gui/widgets/spotify.cpp",
+      "line": 92,
+      "text": "CSET_STR(CFG_SPOTIFY_CLIENT_SECRET, qt_to_utf8(ui->txt_secret->text()));"
+    },
+    {
+      "category": "credentials",
+      "file": "src/gui/widgets/spotify.cpp",
+      "line": 110,
+      "text": "ui->txt_client_id->setEchoMode(QLineEdit::Password);"
+    },
+    {
+      "category": "credentials",
+      "file": "src/gui/widgets/spotify.cpp",
+      "line": 120,
+      "text": "ui->txt_secret->setEchoMode(QLineEdit::Password);"
+    },
+    {
+      "category": "credentials",
+      "file": "src/gui/widgets/spotify.cpp",
+      "line": 130,
+      "text": "ui->txt_auth_code->setEchoMode(QLineEdit::Password);"
+    },
+    {
+      "category": "credentials",
+      "file": "src/gui/widgets/spotify.cpp",
+      "line": 140,
+      "text": "ui->txt_token->setEchoMode(QLineEdit::Password);"
+    },
+    {
+      "category": "credentials",
+      "file": "src/gui/widgets/spotify.cpp",
+      "line": 150,
+      "text": "ui->txt_refresh_token->setEchoMode(QLineEdit::Password);"
+    },
+    {
+      "category": "network",
+      "file": "src/gui/widgets/spotify.cpp",
+      "line": 155,
+      "text": "static QString base_url = \"https://univrsal.github.io/auth/login?client_id=\";"
+    },
+    {
+      "category": "credentials",
+      "file": "src/gui/widgets/spotify.cpp",
+      "line": 174,
+      "text": "CSET_STR(CFG_SPOTIFY_CLIENT_SECRET, qt_to_utf8(ui->txt_secret->text()));"
+    },
+    {
+      "category": "network",
+      "file": "src/gui/widgets/spotify.hpp",
+      "line": 16,
+      "text": "* along with this program. If not, see <http://www.gnu.org/licenses/>."
+    },
+    {
+      "category": "network",
+      "file": "src/gui/widgets/vlc.cpp",
+      "line": 16,
+      "text": "* along with this program. If not, see <http://www.gnu.org/licenses/>."
+    },
+    {
+      "category": "network",
+      "file": "src/gui/widgets/vlc.hpp",
+      "line": 16,
+      "text": "* along with this program. If not, see <http://www.gnu.org/licenses/>."
+    },
+    {
+      "category": "network",
+      "file": "src/gui/widgets/window_title.cpp",
+      "line": 16,
+      "text": "* along with this program. If not, see <http://www.gnu.org/licenses/>."
+    },
+    {
+      "category": "network",
+      "file": "src/gui/widgets/window_title.hpp",
+      "line": 16,
+      "text": "* along with this program. If not, see <http://www.gnu.org/licenses/>."
+    },
+    {
+      "category": "network",
+      "file": "src/gui/widgets/wmc.cpp",
+      "line": 16,
+      "text": "* along with this program. If not, see <http://www.gnu.org/licenses/>."
+    },
+    {
+      "category": "network",
+      "file": "src/gui/widgets/wmc.hpp",
+      "line": 16,
+      "text": "* along with this program. If not, see <http://www.gnu.org/licenses/>."
+    },
+    {
+      "category": "network",
+      "file": "src/query/gpmdp_source.cpp",
+      "line": 16,
+      "text": "* along with this program. If not, see <http://www.gnu.org/licenses/>."
+    },
+    {
+      "category": "file-write",
+      "file": "src/query/gpmdp_source.cpp",
+      "line": 21,
+      "text": "#include <QFile>"
+    },
+    {
+      "category": "file-outside",
+      "file": "src/query/gpmdp_source.cpp",
+      "line": 30,
+      "text": "m_path = qgetenv(\"APPDATA\") + \"/Google Play Music Desktop Player/json_store/playback.json\";"
+    },
+    {
+      "category": "file-write",
+      "file": "src/query/gpmdp_source.cpp",
+      "line": 42,
+      "text": "QFile file(m_path);"
+    },
+    {
+      "category": "network",
+      "file": "src/query/gpmdp_source.hpp",
+      "line": 16,
+      "text": "* along with this program. If not, see <http://www.gnu.org/licenses/>."
+    },
+    {
+      "category": "code-execution",
+      "file": "src/query/gpmdp_source.hpp",
+      "line": 29,
+      "text": "void load() override {};"
+    },
+    {
+      "category": "network",
+      "file": "src/query/icecast_source.cpp",
+      "line": 16,
+      "text": "* along with this program. If not, see <http://www.gnu.org/licenses/>."
+    },
+    {
+      "category": "code-execution",
+      "file": "src/query/icecast_source.cpp",
+      "line": 34,
+      "text": "void icecast_source::load()"
+    },
+    {
+      "category": "code-execution",
+      "file": "src/query/icecast_source.cpp",
+      "line": 36,
+      "text": "music_source::load();"
+    },
+    {
+      "category": "network",
+      "file": "src/query/icecast_source.cpp",
+      "line": 50,
+      "text": "auto* curl = curl_easy_init();"
+    },
+    {
+      "category": "network",
+      "file": "src/query/icecast_source.cpp",
+      "line": 54,
+      "text": "curl_easy_setopt(curl, CURLOPT_URL, qt_to_utf8(m_url));"
+    },
+    {
+      "category": "network",
+      "file": "src/query/icecast_source.cpp",
+      "line": 56,
+      "text": "curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, util::write_callback);"
+    },
+    {
+      "category": "network",
+      "file": "src/query/icecast_source.cpp",
+      "line": 57,
+      "text": "curl_easy_setopt(curl, CURLOPT_WRITEDATA, &response);"
+    },
+    {
+      "category": "network",
+      "file": "src/query/icecast_source.cpp",
+      "line": 58,
+      "text": "curl_easy_setopt(curl, CURLOPT_ERRORBUFFER, error_buffer);"
+    },
+    {
+      "category": "network",
+      "file": "src/query/icecast_source.cpp",
+      "line": 59,
+      "text": "auto result = curl_easy_perform(curl);"
+    },
+    {
+      "category": "network",
+      "file": "src/query/icecast_source.cpp",
+      "line": 60,
+      "text": "curl_easy_cleanup(curl);"
+    },
+    {
+      "category": "network",
+      "file": "src/query/icecast_source.cpp",
+      "line": 92,
+      "text": "qt_to_utf8(m_url), curl_easy_strerror(result), result);"
+    },
+    {
+      "category": "network",
+      "file": "src/query/icecast_source.hpp",
+      "line": 16,
+      "text": "* along with this program. If not, see <http://www.gnu.org/licenses/>."
+    },
+    {
+      "category": "code-execution",
+      "file": "src/query/icecast_source.hpp",
+      "line": 32,
+      "text": "void load() override;"
+    },
+    {
+      "category": "network",
+      "file": "src/query/lastfm_source.cpp",
+      "line": 16,
+      "text": "* along with this program. If not, see <http://www.gnu.org/licenses/>."
+    },
+    {
+      "category": "code-execution",
+      "file": "src/query/lastfm_source.cpp",
+      "line": 39,
+      "text": "void lastfm_source::load()"
+    },
+    {
+      "category": "code-execution",
+      "file": "src/query/lastfm_source.cpp",
+      "line": 41,
+      "text": "music_source::load();"
+    },
+    {
+      "category": "credentials",
+      "file": "src/query/lastfm_source.cpp",
+      "line": 43,
+      "text": "m_api_key = utf8_to_qt(CGET_STR(CFG_LASTFM_API_KEY));"
+    },
+    {
+      "category": "credentials",
+      "file": "src/query/lastfm_source.cpp",
+      "line": 44,
+      "text": "if (m_api_key.isEmpty()) {"
+    },
+    {
+      "category": "credentials",
+      "file": "src/query/lastfm_source.cpp",
+      "line": 45,
+      "text": "m_custom_api_key = false;"
+    },
+    {
+      "category": "credentials",
+      "file": "src/query/lastfm_source.cpp",
+      "line": 46,
+      "text": "m_api_key = utf8_to_qt(LASTFM_CREDENTIALS);"
+    },
+    {
+      "category": "credentials",
+      "file": "src/query/lastfm_source.cpp",
+      "line": 48,
+      "text": "m_custom_api_key = true;"
+    },
+    {
+      "category": "credentials",
+      "file": "src/query/lastfm_source.cpp",
+      "line": 54,
+      "text": "if (m_api_key.isEmpty()) {"
+    },
+    {
+      "category": "credentials",
+      "file": "src/query/lastfm_source.cpp",
+      "line": 67,
+      "text": "if (!m_custom_api_key && os_gettime_ns() < m_next_refresh)"
+    },
+    {
+      "category": "network",
+      "file": "src/query/lastfm_source.cpp",
+      "line": 72,
+      "text": "QString track_request = \"https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=\" + m_username + \"&api_key=\" + m_api_key + \"&limit=1&format=json\";"
+    },
+    {
+      "category": "credentials",
+      "file": "src/query/lastfm_source.cpp",
+      "line": 72,
+      "text": "QString track_request = \"https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=\" + m_username + \"&api_key=\" + m_api_key + \"&limit=1&format=json\";"
+    },
+    {
+      "category": "network",
+      "file": "src/query/lastfm_source.cpp",
+      "line": 141,
+      "text": "CURL* curl = curl_easy_init();"
+    },
+    {
+      "category": "network",
+      "file": "src/query/lastfm_source.cpp",
+      "line": 144,
+      "text": "// curl_easy_setopt(curl, CURLOPT_POST, 1L);"
+    },
+    {
+      "category": "network",
+      "file": "src/query/lastfm_source.cpp",
+      "line": 145,
+      "text": "curl_easy_setopt(curl, CURLOPT_URL, qt_to_utf8(url));"
+    },
+    {
+      "category": "network",
+      "file": "src/query/lastfm_source.cpp",
+      "line": 147,
+      "text": "curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, util::write_callback);"
+    },
+    {
+      "category": "network",
+      "file": "src/query/lastfm_source.cpp",
+      "line": 148,
+      "text": "curl_easy_setopt(curl, CURLOPT_WRITEDATA, &response);"
+    },
+    {
+      "category": "network",
+      "file": "src/query/lastfm_source.cpp",
+      "line": 150,
+      "text": "curl_easy_setopt(curl, CURLOPT_VERBOSE, 1);"
+    },
+    {
+      "category": "network",
+      "file": "src/query/lastfm_source.cpp",
+      "line": 152,
+      "text": "CURLcode res = curl_easy_perform(curl);"
+    },
+    {
+      "category": "network",
+      "file": "src/query/lastfm_source.cpp",
+      "line": 155,
+      "text": "curl_easy_getinfo(curl, CURLINFO_RESPONSE_CODE, &http_code);"
+    },
+    {
+      "category": "network",
+      "file": "src/query/lastfm_source.cpp",
+      "line": 164,
+      "text": "curl_easy_cleanup(curl);"
+    },
+    {
+      "category": "network",
+      "file": "src/query/lastfm_source.hpp",
+      "line": 16,
+      "text": "* along with this program. If not, see <http://www.gnu.org/licenses/>."
+    },
+    {
+      "category": "credentials",
+      "file": "src/query/lastfm_source.hpp",
+      "line": 24,
+      "text": "QString m_username, m_api_key;"
+    },
+    {
+      "category": "credentials",
+      "file": "src/query/lastfm_source.hpp",
+      "line": 25,
+      "text": "bool m_custom_api_key = false;"
+    },
+    {
+      "category": "code-execution",
+      "file": "src/query/lastfm_source.hpp",
+      "line": 32,
+      "text": "void load() override;"
+    },
+    {
+      "category": "network",
+      "file": "src/query/mpd_source.cpp",
+      "line": 16,
+      "text": "* along with this program. If not, see <http://www.gnu.org/licenses/>."
+    },
+    {
+      "category": "code-execution",
+      "file": "src/query/mpd_source.cpp",
+      "line": 80,
+      "text": "void mpd_source::load()"
+    },
+    {
+      "category": "code-execution",
+      "file": "src/query/mpd_source.cpp",
+      "line": 82,
+      "text": "music_source::load();"
+    },
+    {
+      "category": "network",
+      "file": "src/query/mpd_source.hpp",
+      "line": 16,
+      "text": "* along with this program. If not, see <http://www.gnu.org/licenses/>."
+    },
+    {
+      "category": "code-execution",
+      "file": "src/query/mpd_source.hpp",
+      "line": 39,
+      "text": "void load() override;"
+    },
+    {
+      "category": "network",
+      "file": "src/query/mpris_source.cpp",
+      "line": 16,
+      "text": "** along with this program. If not, see <http://www.gnu.org/licenses/>."
+    },
+    {
+      "category": "network",
+      "file": "src/query/mpris_source.cpp",
+      "line": 32,
+      "text": "if (str.startsWith(\"data:image/\") || str.startsWith(\"file://\") || str.startsWith(\"http://\") || str.startsWith(\"https://\")) {"
+    },
+    {
+      "category": "code-execution",
+      "file": "src/query/mpris_source.cpp",
+      "line": 109,
+      "text": "void mpris_source::load()"
+    },
+    {
+      "category": "code-execution",
+      "file": "src/query/mpris_source.cpp",
+      "line": 111,
+      "text": "music_source::load();"
+    },
+    {
+      "category": "network",
+      "file": "src/query/mpris_source.hpp",
+      "line": 16,
+      "text": "** along with this program. If not, see <http://www.gnu.org/licenses/>."
+    },
+    {
+      "category": "code-execution",
+      "file": "src/query/mpris_source.hpp",
+      "line": 52,
+      "text": "void load() override;"
+    },
+    {
+      "category": "network",
+      "file": "src/query/music_source.cpp",
+      "line": 16,
+      "text": "* along with this program. If not, see <http://www.gnu.org/licenses/>."
+    },
+    {
+      "category": "code-execution",
+      "file": "src/query/music_source.cpp",
+      "line": 82,
+      "text": "// s->load(); // Config loading already calls this"
+    },
+    {
+      "category": "code-execution",
+      "file": "src/query/music_source.cpp",
+      "line": 110,
+      "text": "void load()"
+    },
+    {
+      "category": "code-execution",
+      "file": "src/query/music_source.cpp",
+      "line": 113,
+      "text": "src->load();"
+    },
+    {
+      "category": "network",
+      "file": "src/query/music_source.cpp",
+      "line": 176,
+      "text": "static const QString request = \"https://itunes.apple.com/search?term={}&media=music&entity=album\"; // should we also look for singles?"
+    },
+    {
+      "category": "code-execution",
+      "file": "src/query/music_source.cpp",
+      "line": 219,
+      "text": "void music_source::load()"
+    },
+    {
+      "category": "network",
+      "file": "src/query/music_source.hpp",
+      "line": 16,
+      "text": "* along with this program. If not, see <http://www.gnu.org/licenses/>."
+    },
+    {
+      "category": "code-execution",
+      "file": "src/query/music_source.hpp",
+      "line": 92,
+      "text": "virtual void load();"
+    },
+    {
+      "category": "code-execution",
+      "file": "src/query/music_source.hpp",
+      "line": 121,
+      "text": "extern void load();"
+    },
+    {
+      "category": "network",
+      "file": "src/query/song.cpp",
+      "line": 16,
+      "text": "* along with this program. If not, see <http://www.gnu.org/licenses/>."
+    },
+    {
+      "category": "process-spawn",
+      "file": "src/query/song.cpp",
+      "line": 61,
+      "text": "set(meta::RELEASE, QLocale::system().toString(d, QLocale::ShortFormat));"
+    },
+    {
+      "category": "network",
+      "file": "src/query/song.cpp",
+      "line": 119,
+      "text": "obj[\"cover_url\"] = QString(\"http://localhost:%1/cover.png\").arg(QString::number(config::webserver_port));"
+    },
+    {
+      "category": "network",
+      "file": "src/query/song.hpp",
+      "line": 16,
+      "text": "* along with this program. If not, see <http://www.gnu.org/licenses/>."
+    },
+    {
+      "category": "network",
+      "file": "src/query/spotify_source.cpp",
+      "line": 16,
+      "text": "* along with this program. If not, see <http://www.gnu.org/licenses/>."
+    },
+    {
+      "category": "network",
+      "file": "src/query/spotify_source.cpp",
+      "line": 37,
+      "text": "#define TOKEN_URL \"https://accounts.spotify.com/api/token\""
+    },
+    {
+      "category": "network",
+      "file": "src/query/spotify_source.cpp",
+      "line": 38,
+      "text": "#define PLAYER_URL \"https://api.spotify.com/v1/me/player\""
+    },
+    {
+      "category": "credentials",
+      "file": "src/query/spotify_source.cpp",
+      "line": 63,
+      "text": "auto client_secret = utf8_to_qt(CGET_STR(CFG_SPOTIFY_CLIENT_SECRET));"
+    },
+    {
+      "category": "credentials",
+      "file": "src/query/spotify_source.cpp",
+      "line": 65,
+      "text": "if (!client_id.isEmpty() && !client_secret.isEmpty()) {"
+    },
+    {
+      "category": "credentials",
+      "file": "src/query/spotify_source.cpp",
+      "line": 66,
+      "text": "m_creds = (client_id + \":\" + client_secret).toUtf8().toBase64();"
+    },
+    {
+      "category": "code-execution",
+      "file": "src/query/spotify_source.cpp",
+      "line": 74,
+      "text": "void spotify_source::load()"
+    },
+    {
+      "category": "credentials",
+      "file": "src/query/spotify_source.cpp",
+      "line": 82,
+      "text": "CDEF_STR(CFG_SPOTIFY_CLIENT_SECRET, \"\");"
+    },
+    {
+      "category": "code-execution",
+      "file": "src/query/spotify_source.cpp",
+      "line": 93,
+      "text": "music_source::load();"
+    },
+    {
+      "category": "code-execution",
+      "file": "src/query/spotify_source.cpp",
+      "line": 104,
+      "text": "music_source::load(); // Reload token stuff etc."
+    },
+    {
+      "category": "network",
+      "file": "src/query/spotify_source.cpp",
+      "line": 356,
+      "text": "CURL* curl = curl_easy_init();"
+    },
+    {
+      "category": "network",
+      "file": "src/query/spotify_source.cpp",
+      "line": 358,
+      "text": "curl_easy_setopt(curl, CURLOPT_POST, 1L);"
+    },
+    {
+      "category": "network",
+      "file": "src/query/spotify_source.cpp",
+      "line": 359,
+      "text": "curl_easy_setopt(curl, CURLOPT_URL, TOKEN_URL);"
+    },
+    {
+      "category": "network",
+      "file": "src/query/spotify_source.cpp",
+      "line": 360,
+      "text": "curl_easy_setopt(curl, CURLOPT_HTTPHEADER, header);"
+    },
+    {
+      "category": "network",
+      "file": "src/query/spotify_source.cpp",
+      "line": 361,
+      "text": "curl_easy_setopt(curl, CURLOPT_POSTFIELDSIZE, strlen(request.c_str()));"
+    },
+    {
+      "category": "network",
+      "file": "src/query/spotify_source.cpp",
+      "line": 362,
+      "text": "curl_easy_setopt(curl, CURLOPT_POSTFIELDS, request.c_str());"
+    },
+    {
+      "category": "network",
+      "file": "src/query/spotify_source.cpp",
+      "line": 364,
+      "text": "curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, util::write_callback);"
+    },
+    {
+      "category": "network",
+      "file": "src/query/spotify_source.cpp",
+      "line": 365,
+      "text": "curl_easy_setopt(curl, CURLOPT_TIMEOUT_MS, timeout);"
+    },
+    {
+      "category": "network",
+      "file": "src/query/spotify_source.cpp",
+      "line": 366,
+      "text": "curl_easy_setopt(curl, CURLOPT_WRITEDATA, response);"
+    },
+    {
+      "category": "network",
+      "file": "src/query/spotify_source.cpp",
+      "line": 367,
+      "text": "curl_easy_setopt(curl, CURLOPT_HEADERFUNCTION, header_callback);"
+    },
+    {
+      "category": "credentials",
+      "file": "src/query/spotify_source.cpp",
+      "line": 386,
+      "text": "std::string header = \"Authorization: Basic \";"
+    },
+    {
+      "category": "credentials",
+      "file": "src/query/spotify_source.cpp",
+      "line": 401,
+      "text": "if (obj[\"access_token\"].isString())"
+    },
+    {
+      "category": "credentials",
+      "file": "src/query/spotify_source.cpp",
+      "line": 402,
+      "text": "obj[\"access_token\"] = \"REDACTED\";"
+    },
+    {
+      "category": "credentials",
+      "file": "src/query/spotify_source.cpp",
+      "line": 437,
+      "text": "const auto& token = response_obj[\"access_token\"];"
+    },
+    {
+      "category": "credentials",
+      "file": "src/query/spotify_source.cpp",
+      "line": 485,
+      "text": "const auto& token = response_obj[\"access_token\"];"
+    },
+    {
+      "category": "credentials",
+      "file": "src/query/spotify_source.cpp",
+      "line": 529,
+      "text": "std::string header = \"Authorization: Bearer \";"
+    },
+    {
+      "category": "code-execution",
+      "file": "src/query/spotify_source.hpp",
+      "line": 47,
+      "text": "void load() override;"
+    },
+    {
+      "category": "code-execution",
+      "file": "src/query/vlc_obs_source.cpp",
+      "line": 169,
+      "text": "void vlc_obs_source::load()"
+    },
+    {
+      "category": "code-execution",
+      "file": "src/query/vlc_obs_source.cpp",
+      "line": 171,
+      "text": "music_source::load();"
+    },
+    {
+      "category": "code-execution",
+      "file": "src/query/vlc_obs_source.hpp",
+      "line": 50,
+      "text": "void load() override;"
+    },
+    {
+      "category": "code-execution",
+      "file": "src/query/window_source.cpp",
+      "line": 39,
+      "text": "void window_source::load()"
+    },
+    {
+      "category": "code-execution",
+      "file": "src/query/window_source.cpp",
+      "line": 41,
+      "text": "music_source::load();"
+    },
+    {
+      "category": "code-execution",
+      "file": "src/query/window_source.hpp",
+      "line": 39,
+      "text": "void load() override;"
+    },
+    {
+      "category": "file-write",
+      "file": "src/query/wmc_source.cpp",
+      "line": 24,
+      "text": "#include <QFile>"
+    },
+    {
+      "category": "file-write",
+      "file": "src/query/wmc_source.cpp",
+      "line": 99,
+      "text": "QFile current(config::cover_path);"
+    },
+    {
+      "category": "file-write",
+      "file": "src/query/wmc_source.cpp",
+      "line": 101,
+      "text": "if (!QFile::rename(tmp, config::cover_path)) {"
+    },
+    {
+      "category": "code-execution",
+      "file": "src/query/wmc_source.cpp",
+      "line": 141,
+      "text": "void wmc_source::load()"
+    },
+    {
+      "category": "code-execution",
+      "file": "src/query/wmc_source.cpp",
+      "line": 143,
+      "text": "music_source::load();"
+    },
+    {
+      "category": "code-execution",
+      "file": "src/query/wmc_source.hpp",
+      "line": 70,
+      "text": "void load() override;"
+    },
+    {
+      "category": "code-execution",
+      "file": "src/util/config.cpp",
+      "line": 98,
+      "text": "void load()"
+    },
+    {
+      "category": "code-execution",
+      "file": "src/util/config.cpp",
+      "line": 120,
+      "text": "music_sources::load();"
+    },
+    {
+      "category": "credentials",
+      "file": "src/util/config.hpp",
+      "line": 71,
+      "text": "#define CFG_SPOTIFY_CLIENT_SECRET \"spotify.client_secret\""
+    },
+    {
+      "category": "credentials",
+      "file": "src/util/config.hpp",
+      "line": 75,
+      "text": "#define CFG_DEEZER_CLIENT_SECRET \"deezer.client.secret\""
+    },
+    {
+      "category": "credentials",
+      "file": "src/util/config.hpp",
+      "line": 86,
+      "text": "#define CFG_LASTFM_API_KEY \"lastfm.apikey\""
+    },
+    {
+      "category": "code-execution",
+      "file": "src/util/config.hpp",
+      "line": 145,
+      "text": "void load();"
+    },
+    {
+      "category": "file-write",
+      "file": "src/util/cover_tag_handler.cpp",
+      "line": 30,
+      "text": "#include <QFile>"
+    },
+    {
+      "category": "file-write",
+      "file": "src/util/cover_tag_handler.cpp",
+      "line": 31,
+      "text": "#include <QFileInfo>"
+    },
+    {
+      "category": "file-write",
+      "file": "src/util/cover_tag_handler.cpp",
+      "line": 54,
+      "text": "QFile f(config::cover_path);"
+    },
+    {
+      "category": "file-write",
+      "file": "src/util/cover_tag_handler.cpp",
+      "line": 215,
+      "text": "QFileInfo info(file);"
+    },
+    {
+      "category": "file-write",
+      "file": "src/util/cover_tag_handler.cpp",
+      "line": 232,
+      "text": "QFileInfo fi(path);"
+    },
+    {
+      "category": "process-spawn",
+      "file": "src/util/format.cpp",
+      "line": 95,
+      "text": "return QLocale::system().toString(d, QLocale::ShortFormat);"
+    },
+    {
+      "category": "file-write",
+      "file": "src/util/utility.cpp",
+      "line": 28,
+      "text": "#include <QFile>"
+    },
+    {
+      "category": "file-write",
+      "file": "src/util/utility.cpp",
+      "line": 95,
+      "text": "fp = _wfopen(wstr, L\"wb\");"
+    },
+    {
+      "category": "file-write",
+      "file": "src/util/utility.cpp",
+      "line": 98,
+      "text": "fp = fopen(path, \"wb\");"
+    },
+    {
+      "category": "file-write",
+      "file": "src/util/utility.cpp",
+      "line": 158,
+      "text": "QFile cover(new_cover_path);"
+    },
+    {
+      "category": "file-write",
+      "file": "src/util/utility.cpp",
+      "line": 165,
+      "text": "QFile current(output_path);"
+    },
+    {
+      "category": "file-write",
+      "file": "src/util/utility.cpp",
+      "line": 168,
+      "text": "if (!QFile::copy(new_cover_path, output_path)) {"
+    },
+    {
+      "category": "file-write",
+      "file": "src/util/utility.cpp",
+      "line": 184,
+      "text": "QFile current(output_path);"
+    },
+    {
+      "category": "file-write",
+      "file": "src/util/utility.cpp",
+      "line": 207,
+      "text": "QFile current(output_path);"
+    },
+    {
+      "category": "file-write",
+      "file": "src/util/utility.cpp",
+      "line": 210,
+      "text": "if (!QFile::rename(tmp, output_path)) {"
+    },
+    {
+      "category": "file-write",
+      "file": "src/util/utility.cpp",
+      "line": 215,
+      "text": "QFile::remove(tmp);"
+    },
+    {
+      "category": "file-write",
+      "file": "src/util/utility.cpp",
+      "line": 222,
+      "text": "QFile current(path);"
+    },
+    {
+      "category": "file-write",
+      "file": "src/util/utility.cpp",
+      "line": 224,
+      "text": "if (!QFile::copy(config::cover_placeholder, path))"
+    },
+    {
+      "category": "file-write",
+      "file": "src/util/utility.cpp",
+      "line": 234,
+      "text": "QFile out(o.path);"
+    },
+    {
+      "category": "file-write",
+      "file": "src/util/utility.cpp",
+      "line": 404,
+      "text": "QFile new_file(new_path);"
+    },
+    {
+      "category": "file-write",
+      "file": "src/util/utility.cpp",
+      "line": 412,
+      "text": "QFile file(old_path);"
+    },
+    {
+      "category": "file-write",
+      "file": "src/util/utility.cpp",
+      "line": 425,
+      "text": "QFile save_file(path);"
+    },
+    {
+      "category": "file-write",
+      "file": "src/util/utility.cpp",
+      "line": 461,
+      "text": "QFile out(config::lyrics_path);"
+    },
+    {
+      "category": "file-write",
+      "file": "src/util/utility.cpp",
+      "line": 479,
+      "text": "QFile out(config::lyrics_path);"
+    },
+    {
+      "category": "file-write",
+      "file": "src/util/web_server.cpp",
+      "line": 25,
+      "text": "#include <QFile>"
+    },
+    {
+      "category": "file-write",
+      "file": "src/util/web_server.cpp",
+      "line": 134,
+      "text": "QFile f(config::cover_path);"
+    }
+  ]
+}

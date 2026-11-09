@@ -1,0 +1,2108 @@
+{
+  "library_name": "OBS Toolkit",
+  "schema_version": "2.0",
+  "platform": "Windows 11 x64",
+  "generated_at": "2026-11-02T19:51:51Z",
+  "environment": {
+    "agent_mode": "full",
+    "obs_version": "32.0.1",
+    "obs_portable": false,
+    "obs_arch": "x64",
+    "obs_install_dir": "C:\\Program Files\\obs-studio",
+    "python_interpreters": [
+      "3.15 (x64)",
+      "3.14 (x64)",
+      "3.13 (x64)",
+      "3.12 (x64)",
+      "3.8 (x64) at C:\\Python38",
+      "3.8 (x86)"
+    ],
+    "websocket_bundled_version": "5.6.3",
+    "obs_python_range": ">=3.8,<3.11",
+    "obs_lua_version": "5.1 (LuaJIT)",
+    "notes": "OBS detected read-only from C:\\Program Files\\obs-studio (non-portable). The Python path configured inside OBS lives in a file this audit must not open, so it remains UNKNOWN until the user reads it from Tools > Scripts > Python Settings. Only C:\\Python38 falls inside the OBS 32 range."
+  },
+  "tools": [
+    {
+      "id": "advanced-scene-switcher",
+      "name": "Advanced Scene Switcher",
+      "folder": "01-Scene-Management/Advanced-Scene-Switcher",
+      "category": "scene-management",
+      "type": "plugin",
+      "decision": "INCLUDED",
+      "decision_reason": "GPL-2.0-or-later license text is present and unambiguous; official release has a publisher-published SHA-256 that matches the downloaded file; release notes explicitly support OBS 32 through the installer; static review found no obfuscation and no telemetry.",
+      "repository": {
+        "url": "https://github.com/WarmUpTill/SceneSwitcher",
+        "owner": "WarmUpTill",
+        "default_branch": "master",
+        "archived": false,
+        "is_fork": false,
+        "fork_of": null,
+        "last_commit_date": "2026-11-01T16:44:51Z",
+        "last_release_date": "2026-11-01T18:29:40Z"
+      },
+      "release": {
+        "tag": "1.37.2",
+        "url": "https://github.com/WarmUpTill/SceneSwitcher/releases/tag/1.37.2",
+        "published_at": "2026-11-01T18:29:40Z",
+        "prerelease": false,
+        "commit_sha": "6b8e666d5826d3c0784d2bd16c1d309b296f1b7b"
+      },
+      "license": {
+        "spdx": "GPL-2.0-or-later",
+        "file_path": "01-Scene-Management/Advanced-Scene-Switcher/Documentation/LICENSE",
+        "status": "CONFIRMED",
+        "third_party": [
+          {
+            "name": "libcurl",
+            "license": "curl (MIT-like)",
+            "note": "Loaded at runtime as libcurl.dll by lib/curl-helper.cpp:11; not bundled in the source snapshot."
+          },
+          {
+            "name": "Qt 6",
+            "license": "UNKNOWN (provided by OBS)",
+            "note": "Linked at build time; the DLLs ship with OBS Studio, not with this plugin."
+          }
+        ],
+        "notes": "The saved LICENSE is the GPL version 2 text; source headers add 'or (at your option) any later version', hence GPL-2.0-or-later."
+      },
+      "compatibility": {
+        "status": "SUPPORTED",
+        "obs_min": "31.1.1",
+        "obs_max_documented": "33",
+        "python": null,
+        "lua": null,
+        "windows11_x64": "SUPPORTED",
+        "evidence": [
+          {
+            "claim": "Release notes: the minimum supported OBS version is 31.1.1; the installer supports both OBS 32 and OBS 33.",
+            "source": "01-Scene-Management/Advanced-Scene-Switcher/Documentation/RELEASE_NOTES_1.37.2.md"
+          },
+          {
+            "claim": "buildspec.json pins obs-studio 31.1.1.",
+            "source": "01-Scene-Management/Advanced-Scene-Switcher/Source/1.37.2/buildspec.json"
+          },
+          {
+            "claim": "The detected OBS is 32.0.1 x64 on Windows 11.",
+            "source": "13-Logs/obs-baseline.json"
+          }
+        ],
+        "notes": "Use the installer for OBS 32. The windows-x64.zip asset is documented as OBS 33+ only; the windows-x64-obs32.zip is the zip alternative for OBS 32."
+      },
+      "maintenance_status": "ACTIVE",
+      "dependencies": [
+        {
+          "name": "libcurl",
+          "version": null,
+          "license": "curl",
+          "required": false
+        },
+        {
+          "name": "Qt 6 (provided by OBS)",
+          "version": null,
+          "license": "UNKNOWN (provided by OBS)",
+          "required": true
+        }
+      ],
+      "assets": [
+        {
+          "filename": "advanced-scene-switcher-1.37.2-windows-x64-Installer.exe",
+          "url": "https://github.com/WarmUpTill/SceneSwitcher/releases/download/1.37.2/advanced-scene-switcher-1.37.2-windows-x64-Installer.exe",
+          "size_bytes": 110314092,
+          "downloaded_at": "2026-11-02T19:40:23Z",
+          "local_path": "01-Scene-Management/Advanced-Scene-Switcher/Downloads/1.37.2/advanced-scene-switcher-1.37.2-windows-x64-Installer.exe",
+          "sha256": "517b6aaa0ef5f9db0b3e6dae5ddb8c95744b15ab1d8132dfd0e4c0599390e2cd",
+          "reference_checksum": {
+            "source": "PUBLISHER",
+            "value": "517b6aaa0ef5f9db0b3e6dae5ddb8c95744b15ab1d8132dfd0e4c0599390e2cd",
+            "match": true
+          },
+          "signature": {
+            "type": "authenticode",
+            "status": "unsigned",
+            "signer": null
+          },
+          "verification_status": "VERIFIED",
+          "alternative_asset": "advanced-scene-switcher-1.37.2-windows-x64-obs32.zip (publisher SHA-256 04f7637265ef0966025bcd2a97a20f328dafc7773568b05ec74f77b6d86bc692)"
+        }
+      ],
+      "source_snapshot": {
+        "local_path": "01-Scene-Management/Advanced-Scene-Switcher/Source/1.37.2",
+        "ref": "1.37.2",
+        "commit_sha": "6b8e666d5826d3c0784d2bd16c1d309b296f1b7b"
+      },
+      "security": {
+        "risk_level": "MEDIUM",
+        "network_access": "Yes. Macro actions can perform HTTP requests through libcurl and a WebSocket vendor API is compiled in; no telemetry endpoint was found.",
+        "spawns_processes": true,
+        "findings": [
+          {
+            "category": "process-spawn",
+            "location": "lib/process-config.cpp:153",
+            "note": "QProcess::startDetached runs a program configured by the user in a 'Run' macro action."
+          },
+          {
+            "category": "network",
+            "location": "lib/curl-helper.cpp:11",
+            "note": "Resolves libcurl.dll at runtime to serve HTTP request actions (macro-action-http-legacy.cpp:47)."
+          },
+          {
+            "category": "input-hooks",
+            "location": "lib/switcher-data.cpp:238",
+            "note": "Registers OBS global hotkeys. These are OBS hotkeys, not OS-level keyboard hooks."
+          },
+          {
+            "category": "credentials",
+            "location": "lib/advanced-scene-switcher.cpp:731",
+            "note": "Optional settings-lock password is compared in memory. Twitch tokens are handled by OBS, not stored by this plugin."
+          },
+          {
+            "category": "provenance",
+            "location": "Source/1.37.2/.github/workflows",
+            "note": "Official release built by the repository's GitHub Actions. The installer has no Authenticode signature, so integrity rests on the publisher-published SHA-256."
+          }
+        ]
+      },
+      "approval_required_for": [
+        "Installing the plugin or running its installer",
+        "Allowing HTTP or WebSocket macro actions to reach the network",
+        "Running external programs from 'Run' macro actions"
+      ],
+      "installation_status": "not-installed",
+      "tested_by_agent": false,
+      "retrieved_at_utc": "2026-11-02T19:17:52Z",
+      "sources": [
+        {
+          "label": "GitHub repository metadata",
+          "url": "https://api.github.com/repos/WarmUpTill/SceneSwitcher",
+          "retrieved_at_utc": "2026-11-02T19:17:52Z"
+        },
+        {
+          "label": "GitHub releases",
+          "url": "https://api.github.com/repos/WarmUpTill/SceneSwitcher/releases",
+          "retrieved_at_utc": "2026-11-02T19:17:52Z"
+        },
+        {
+          "label": "Release notes and checksums at 1.37.2",
+          "url": "https://github.com/WarmUpTill/SceneSwitcher/releases/tag/1.37.2",
+          "retrieved_at_utc": "2026-11-02T19:17:52Z"
+        },
+        {
+          "label": "OBS Forum resource page (version and compatibility parity)",
+          "url": "https://obsproject.com/forum/resources/advanced-scene-switcher.395/",
+          "retrieved_at_utc": "2026-11-02T19:17:52Z"
+        }
+      ]
+    },
+    {
+      "id": "rse-obs-scripts",
+      "name": "RSE OBS Scripts",
+      "folder": "10-Unverified/RSE-OBS-Scripts",
+      "category": "scene-management",
+      "type": "lua-script",
+      "decision": "UNVERIFIED",
+      "decision_reason": "The repository has no LICENSE or COPYING file; every .lua header only says 'Distributed under MIT license'. A license claim without the license text cannot be confirmed for the collection, so the tool is metadata-only in 10-Unverified.",
+      "repository": {
+        "url": "https://github.com/rse/obs-scripts",
+        "owner": "rse",
+        "default_branch": "master",
+        "archived": false,
+        "is_fork": false,
+        "fork_of": null,
+        "last_commit_date": "2024-07-14T17:34:27Z",
+        "last_release_date": null
+      },
+      "release": {
+        "tag": null,
+        "url": null,
+        "published_at": null,
+        "prerelease": false,
+        "commit_sha": "59191d2ca89b1c7affd6f440da8a4b780d53c5ae"
+      },
+      "license": {
+        "spdx": null,
+        "file_path": null,
+        "status": "ABSENT",
+        "third_party": [],
+        "notes": "Each script header states 'Distributed under MIT license <https://spdx.org/licenses/MIT.html>' (for example auto-execute-commands.lua:5), but no license file exists at the pinned commit, so the license status stays UNVERIFIED."
+      },
+      "compatibility": {
+        "status": "UNKNOWN",
+        "obs_min": null,
+        "obs_max_documented": null,
+        "python": null,
+        "lua": "5.1 (LuaJIT)",
+        "windows11_x64": "UNKNOWN",
+        "evidence": [
+          {
+            "claim": "Scripts use the OBS Lua API (obslua) only; OBS 32 ships Lua 5.1.",
+            "source": "10-Unverified/RSE-OBS-Scripts/Source/59191d2ca89b1c7affd6f440da8a4b780d53c5ae/auto-execute-commands.lua"
+          }
+        ],
+        "notes": "No release and no statement of a supported OBS range. Last commit predates OBS 31."
+      },
+      "maintenance_status": "STALE",
+      "dependencies": [
+        {
+          "name": "OBS Lua API (obslua)",
+          "version": "5.1",
+          "license": "GPL-2.0-or-later (OBS Studio)",
+          "required": true
+        }
+      ],
+      "assets": [],
+      "source_snapshot": {
+        "local_path": "10-Unverified/RSE-OBS-Scripts/Source/59191d2ca89b1c7affd6f440da8a4b780d53c5ae",
+        "ref": "59191d2ca89b1c7affd6f440da8a4b780d53c5ae",
+        "commit_sha": "59191d2ca89b1c7affd6f440da8a4b780d53c5ae"
+      },
+      "security": {
+        "risk_level": "MEDIUM",
+        "network_access": "No outbound network calls. The http/https strings found are license and author links inside comments.",
+        "spawns_processes": true,
+        "findings": [
+          {
+            "category": "process-spawn",
+            "location": "auto-execute-commands.lua:30",
+            "note": "os.execute runs a user-configured start command; the same pattern repeats at line 43 (stop) and line 111."
+          },
+          {
+            "category": "input-hooks",
+            "location": "keyboard-event-filter.lua:298",
+            "note": "Maps OBS global hotkeys onto synthetic keyboard events for Browser Sources via obs_hotkey_register_frontend; no OS-level hook or SendInput call."
+          },
+          {
+            "category": "provenance",
+            "location": "Source/59191d2ca89b1c7affd6f440da8a4b780d53c5ae",
+            "note": "Plain Lua text, readable end to end. No releases, so there is no maintainer-built artifact."
+          }
+        ]
+      },
+      "approval_required_for": [
+        "Downloading or using an UNVERIFIED tool (license unresolved)",
+        "Using auto-execute-commands.lua, which runs shell commands at OBS start and shutdown"
+      ],
+      "installation_status": "not-installed",
+      "tested_by_agent": false,
+      "retrieved_at_utc": "2026-11-02T19:17:52Z",
+      "sources": [
+        {
+          "label": "GitHub repository metadata",
+          "url": "https://api.github.com/repos/rse/obs-scripts",
+          "retrieved_at_utc": "2026-11-02T19:17:52Z"
+        },
+        {
+          "label": "GitHub releases (empty)",
+          "url": "https://api.github.com/repos/rse/obs-scripts/releases",
+          "retrieved_at_utc": "2026-11-02T19:17:52Z"
+        },
+        {
+          "label": "Repository root listing (no LICENSE file)",
+          "url": "https://github.com/rse/obs-scripts",
+          "retrieved_at_utc": "2026-11-02T19:17:52Z"
+        }
+      ]
+    },
+    {
+      "id": "libre-macros",
+      "name": "Libre Macros",
+      "folder": "10-Unverified/Libre-Macros",
+      "category": "scripting-and-automation",
+      "type": "lua-script",
+      "decision": "PENDING-USER",
+      "decision_reason": "Security review rated HIGH: the console compiles and runs dynamic code (console.lua:968, :1783), uses FFI CreateProcessA (console.lua:529-555), and a bundled helper script contains a hardcoded WebSocket password. Moved to 10-Unverified pending an explicit user decision.",
+      "repository": {
+        "url": "https://github.com/upgradeQ/libre-macros",
+        "owner": "upgradeQ",
+        "default_branch": "master",
+        "archived": false,
+        "is_fork": false,
+        "fork_of": null,
+        "last_commit_date": "2025-11-15T07:17:17Z",
+        "last_release_date": "2025-11-15T07:17:17Z"
+      },
+      "release": {
+        "tag": "4.2.0",
+        "url": "https://github.com/upgradeQ/libre-macros/releases/tag/4.2.0",
+        "published_at": "2025-11-15T07:17:17Z",
+        "prerelease": false,
+        "commit_sha": "e56cd6922dc07302915bda02d6972f3ec3be0661"
+      },
+      "license": {
+        "spdx": "AGPL-3.0-or-later",
+        "file_path": "10-Unverified/Libre-Macros/Documentation/LICENSE.md",
+        "status": "CONFIRMED",
+        "third_party": [],
+        "notes": "AGPL v3 text with 'any later version' in source headers. AGPL network-copyleft obligations are the strongest in this library."
+      },
+      "compatibility": {
+        "status": "SUPPORTED",
+        "obs_min": "27",
+        "obs_max_documented": null,
+        "python": "3.8-3.10 (OBS 32 range) for the optional Python helpers",
+        "lua": "5.1 (LuaJIT)",
+        "windows11_x64": "LIKELY",
+        "evidence": [
+          {
+            "claim": "README states OBS 27 or newer.",
+            "source": "10-Unverified/Libre-Macros/Documentation/README.snapshot.md"
+          },
+          {
+            "claim": "The console and helpers are Lua 5.1 / LuaJIT and Python; OBS 32 provides both.",
+            "source": "10-Unverified/Libre-Macros/Source/4.2.0/console.lua"
+          }
+        ],
+        "notes": "Compatibility is not the blocker; the security rating is."
+      },
+      "maintenance_status": "ACTIVE",
+      "dependencies": [
+        {
+          "name": "OBS Lua API (obslua)",
+          "version": "5.1",
+          "license": "GPL-2.0-or-later (OBS Studio)",
+          "required": true
+        },
+        {
+          "name": "LuaJIT FFI",
+          "version": "as shipped with OBS",
+          "license": "MIT (LuaJIT)",
+          "required": true
+        },
+        {
+          "name": "Python 3",
+          "version": "3.8-3.10 for OBS 32",
+          "license": "PSF-2.0",
+          "required": false
+        }
+      ],
+      "assets": [],
+      "source_snapshot": {
+        "local_path": "10-Unverified/Libre-Macros/Source/4.2.0",
+        "ref": "4.2.0",
+        "commit_sha": "e56cd6922dc07302915bda02d6972f3ec3be0661"
+      },
+      "security": {
+        "risk_level": "HIGH",
+        "network_access": "Yes. The bundled raw_websockets_interaction.py talks to the OBS WebSocket server, and the console can run code that opens sockets.",
+        "spawns_processes": true,
+        "findings": [
+          {
+            "category": "code-execution",
+            "location": "console.lua:968",
+            "note": "assert(load(CODE_STORAGE_INIT .. code, ...)) compiles and runs dynamically supplied code."
+          },
+          {
+            "category": "code-execution",
+            "location": "console.lua:1783",
+            "note": "load(obs_data_get_string(settings, '_patches'), ...) runs code stored in script settings."
+          },
+          {
+            "category": "process-spawn",
+            "location": "console.lua:529-555",
+            "note": "FFI declarations and CreateProcessA start external processes."
+          },
+          {
+            "category": "credentials",
+            "location": "raw_websockets_interaction.py:14",
+            "note": "A hardcoded WebSocket password is committed in the helper script. The value is deliberately not reproduced in any document."
+          },
+          {
+            "category": "persistence",
+            "location": "console.lua",
+            "note": "Persistence-related strings (startup/run) appear in the console; combined with dynamic execution this raises the rating."
+          },
+          {
+            "category": "obfuscation",
+            "location": "Source/4.2.0",
+            "note": "No base64 blobs or packed binaries were found; the risk comes from intended dynamic execution, not hiding."
+          }
+        ]
+      },
+      "approval_required_for": [
+        "Downloading or using a PENDING-USER tool rated HIGH",
+        "Allowing the console to run dynamically supplied Lua code",
+        "Allowing FFI process creation and the bundled WebSocket helper"
+      ],
+      "installation_status": "not-installed",
+      "tested_by_agent": false,
+      "retrieved_at_utc": "2026-11-02T19:17:52Z",
+      "sources": [
+        {
+          "label": "GitHub repository metadata",
+          "url": "https://api.github.com/repos/upgradeQ/libre-macros",
+          "retrieved_at_utc": "2026-11-02T19:17:52Z"
+        },
+        {
+          "label": "GitHub releases",
+          "url": "https://api.github.com/repos/upgradeQ/libre-macros/releases",
+          "retrieved_at_utc": "2026-11-02T19:17:52Z"
+        },
+        {
+          "label": "README snapshot at 4.2.0",
+          "url": "https://github.com/upgradeQ/libre-macros/blob/4.2.0/README.md",
+          "retrieved_at_utc": "2026-11-02T19:17:52Z"
+        }
+      ]
+    },
+    {
+      "id": "autostarter",
+      "name": "Autostarter",
+      "folder": "02-Scripting-and-Automation/Autostarter",
+      "category": "scripting-and-automation",
+      "type": "plugin",
+      "decision": "INCLUDED",
+      "decision_reason": "GPL-2.0-or-later license text present; official release with a Windows x64 zip; README documents OBS 30.1.2 or later; the plugin's purpose is to launch user-chosen programs, which is documented and rated MEDIUM rather than hidden.",
+      "repository": {
+        "url": "https://github.com/DaviBe92/Autostarter",
+        "owner": "DaviBe92",
+        "default_branch": "master",
+        "archived": false,
+        "is_fork": false,
+        "fork_of": null,
+        "last_commit_date": "2025-02-20T21:05:50Z",
+        "last_release_date": "2025-02-20T21:05:50Z"
+      },
+      "release": {
+        "tag": "v2.1.0",
+        "url": "https://github.com/DaviBe92/Autostarter/releases/tag/v2.1.0",
+        "published_at": "2025-02-20T21:05:50Z",
+        "prerelease": false,
+        "commit_sha": "fc588c2338af0500ae8086fce13490224c665500"
+      },
+      "license": {
+        "spdx": "GPL-2.0-or-later",
+        "file_path": "02-Scripting-and-Automation/Autostarter/Documentation/LICENSE",
+        "status": "CONFIRMED",
+        "third_party": [
+          {
+            "name": "Qt 6",
+            "license": "UNKNOWN (provided by OBS)",
+            "note": "Linked at build time (CMakeLists.txt:25); DLLs ship with OBS."
+          }
+        ],
+        "notes": "GPLv2 text plus 'any later version' in source headers."
+      },
+      "compatibility": {
+        "status": "SUPPORTED",
+        "obs_min": "30.1.2",
+        "obs_max_documented": null,
+        "python": null,
+        "lua": null,
+        "windows11_x64": "SUPPORTED",
+        "evidence": [
+          {
+            "claim": "README requires OBS Studio 30.1.2 or later.",
+            "source": "02-Scripting-and-Automation/Autostarter/Documentation/README.snapshot.md"
+          },
+          {
+            "claim": "buildspec.json pins obs-studio 30.1.2.",
+            "source": "02-Scripting-and-Automation/Autostarter/Source/v2.1.0/buildspec.json"
+          }
+        ],
+        "notes": "Built against OBS 30.1.2; OBS 32.0.1 is newer and accepts plugins built for older versions."
+      },
+      "maintenance_status": "STALE",
+      "dependencies": [
+        {
+          "name": "Qt 6 (provided by OBS)",
+          "version": null,
+          "license": "UNKNOWN (provided by OBS)",
+          "required": true
+        }
+      ],
+      "assets": [
+        {
+          "filename": "autostarter.zip",
+          "url": "https://github.com/DaviBe92/Autostarter/releases/download/v2.1.0/autostarter.zip",
+          "size_bytes": 40781,
+          "downloaded_at": "2026-11-02T19:39:45Z",
+          "local_path": "02-Scripting-and-Automation/Autostarter/Downloads/v2.1.0/autostarter.zip",
+          "sha256": "c3023dedb7e4412237cdd3ac10430f63beee88192c3252e56125c06b23cfc609",
+          "reference_checksum": {
+            "source": "NONE",
+            "value": null,
+            "match": null
+          },
+          "signature": {
+            "type": "authenticode",
+            "status": "unsigned",
+            "signer": null
+          },
+          "verification_status": "COMPUTED-ONLY",
+          "alternative_asset": "autostarter.dll (single-file asset, same release)"
+        }
+      ],
+      "source_snapshot": {
+        "local_path": "02-Scripting-and-Automation/Autostarter/Source/v2.1.0",
+        "ref": "v2.1.0",
+        "commit_sha": "fc588c2338af0500ae8086fce13490224c665500"
+      },
+      "security": {
+        "risk_level": "MEDIUM",
+        "network_access": "None found. No HTTP client or socket code in the plugin sources.",
+        "spawns_processes": true,
+        "findings": [
+          {
+            "category": "process-spawn",
+            "location": "src/autostart.cpp:108",
+            "note": "ShellExecuteA('open', ...) launches non-exe files."
+          },
+          {
+            "category": "process-spawn",
+            "location": "src/autostart.cpp:133",
+            "note": "CreateProcess launches a configured .exe command line."
+          },
+          {
+            "category": "provenance",
+            "location": "Source/v2.1.0",
+            "note": "Release zip has no Authenticode signature and no publisher checksum; verification is COMPUTED-ONLY."
+          }
+        ]
+      },
+      "approval_required_for": [
+        "Installing the plugin",
+        "Letting the plugin start external programs at OBS launch"
+      ],
+      "installation_status": "not-installed",
+      "tested_by_agent": false,
+      "retrieved_at_utc": "2026-11-02T19:17:52Z",
+      "sources": [
+        {
+          "label": "GitHub repository metadata",
+          "url": "https://api.github.com/repos/DaviBe92/Autostarter",
+          "retrieved_at_utc": "2026-11-02T19:17:52Z"
+        },
+        {
+          "label": "GitHub releases",
+          "url": "https://api.github.com/repos/DaviBe92/Autostarter/releases",
+          "retrieved_at_utc": "2026-11-02T19:17:52Z"
+        },
+        {
+          "label": "README snapshot at v2.1.0",
+          "url": "https://github.com/DaviBe92/Autostarter/blob/v2.1.0/README.md",
+          "retrieved_at_utc": "2026-11-02T19:17:52Z"
+        }
+      ]
+    },
+    {
+      "id": "advanced-timer",
+      "name": "Advanced Timer",
+      "folder": "03-Timers-and-Counters/Advanced-Timer",
+      "category": "timers-and-counters",
+      "type": "lua-script",
+      "decision": "INCLUDED",
+      "decision_reason": "GPL-2.0-only license text present; official .lua release asset; static review found no network, process or input-hook code.",
+      "repository": {
+        "url": "https://github.com/cg2121/obs-advanced-timer",
+        "owner": "cg2121",
+        "default_branch": "master",
+        "archived": false,
+        "is_fork": false,
+        "fork_of": null,
+        "last_commit_date": "2023-07-03T14:33:17Z",
+        "last_release_date": "2023-04-11T08:47:22Z"
+      },
+      "release": {
+        "tag": "6.0.0",
+        "url": "https://github.com/cg2121/obs-advanced-timer/releases/tag/6.0.0",
+        "published_at": "2023-04-11T08:47:22Z",
+        "prerelease": false,
+        "commit_sha": "aec9f943a81a28b7585ffdc5030439e9488a32f8"
+      },
+      "license": {
+        "spdx": "GPL-2.0-only",
+        "file_path": "03-Timers-and-Counters/Advanced-Timer/Documentation/LICENSE",
+        "status": "CONFIRMED",
+        "third_party": [],
+        "notes": "GPLv2 text; no 'any later version' statement found in the script headers."
+      },
+      "compatibility": {
+        "status": "UNKNOWN",
+        "obs_min": null,
+        "obs_max_documented": null,
+        "python": null,
+        "lua": "5.1 (LuaJIT)",
+        "windows11_x64": "LIKELY",
+        "evidence": [
+          {
+            "claim": "The script uses only the OBS Lua API (obs.timer_add, obs.hotkey) and is platform-neutral.",
+            "source": "03-Timers-and-Counters/Advanced-Timer/Source/6.0.0/advanced-timer.lua"
+          }
+        ],
+        "notes": "No documented OBS range. Last release 2023-04-11, before OBS 30; nothing in the script depends on a removed API."
+      },
+      "maintenance_status": "STALE",
+      "dependencies": [
+        {
+          "name": "OBS Lua API (obslua)",
+          "version": "5.1",
+          "license": "GPL-2.0-or-later (OBS Studio)",
+          "required": true
+        }
+      ],
+      "assets": [
+        {
+          "filename": "advanced-timer.lua",
+          "url": "https://github.com/cg2121/obs-advanced-timer/releases/download/6.0.0/advanced-timer.lua",
+          "size_bytes": 20020,
+          "downloaded_at": "2026-11-02T19:38:59Z",
+          "local_path": "03-Timers-and-Counters/Advanced-Timer/Downloads/6.0.0/advanced-timer.lua",
+          "sha256": "8df66dea65fa07a7e87479fda2961efaed6600c0b3e3cfd87c439f2030562ba9",
+          "reference_checksum": {
+            "source": "NONE",
+            "value": null,
+            "match": null
+          },
+          "signature": {
+            "type": "none",
+            "status": "not-checked",
+            "signer": null
+          },
+          "verification_status": "COMPUTED-ONLY",
+          "alternative_asset": null
+        }
+      ],
+      "source_snapshot": {
+        "local_path": "03-Timers-and-Counters/Advanced-Timer/Source/6.0.0",
+        "ref": "6.0.0",
+        "commit_sha": "aec9f943a81a28b7585ffdc5030439e9488a32f8"
+      },
+      "security": {
+        "risk_level": "LOW",
+        "network_access": "None.",
+        "spawns_processes": false,
+        "findings": [
+          {
+            "category": "provenance",
+            "location": "Downloads/6.0.0/advanced-timer.lua",
+            "note": "The release asset (20,020 bytes) differs from the file at tag 6.0.0 (20,598 bytes). Both are preserved; see TOOL_INFO.md."
+          }
+        ]
+      },
+      "approval_required_for": [
+        "Installing the script"
+      ],
+      "installation_status": "not-installed",
+      "tested_by_agent": false,
+      "retrieved_at_utc": "2026-11-02T19:17:52Z",
+      "sources": [
+        {
+          "label": "GitHub repository metadata",
+          "url": "https://api.github.com/repos/cg2121/obs-advanced-timer",
+          "retrieved_at_utc": "2026-11-02T19:17:52Z"
+        },
+        {
+          "label": "GitHub releases",
+          "url": "https://api.github.com/repos/cg2121/obs-advanced-timer/releases",
+          "retrieved_at_utc": "2026-11-02T19:17:52Z"
+        },
+        {
+          "label": "Release asset at 6.0.0",
+          "url": "https://github.com/cg2121/obs-advanced-timer/releases/tag/6.0.0",
+          "retrieved_at_utc": "2026-11-02T19:17:52Z"
+        }
+      ]
+    },
+    {
+      "id": "obs-counter",
+      "name": "OBS Counter",
+      "folder": "03-Timers-and-Counters/OBS-Counter",
+      "category": "timers-and-counters",
+      "type": "python-script",
+      "decision": "INCLUDED",
+      "decision_reason": "MIT license text present; source-only (the release has no binary asset); the script registers OBS native hotkeys rather than OS-level hooks, so the review is LOW.",
+      "repository": {
+        "url": "https://github.com/upgradeQ/Counter",
+        "owner": "upgradeQ",
+        "default_branch": "master",
+        "archived": false,
+        "is_fork": false,
+        "fork_of": null,
+        "last_commit_date": "2025-03-22T21:30:27Z",
+        "last_release_date": "2025-03-22T21:30:27Z"
+      },
+      "release": {
+        "tag": "1.2.0",
+        "url": "https://github.com/upgradeQ/Counter/releases/tag/1.2.0",
+        "published_at": "2025-03-22T21:30:27Z",
+        "prerelease": false,
+        "commit_sha": "fd9be36fcfacc38e6fa66a076128bf4af91f327e"
+      },
+      "license": {
+        "spdx": "MIT",
+        "file_path": "03-Timers-and-Counters/OBS-Counter/Documentation/LICENSE",
+        "status": "CONFIRMED",
+        "third_party": [],
+        "notes": "MIT License, Copyright (c) 2020 HQupgradeHQ."
+      },
+      "compatibility": {
+        "status": "LIKELY",
+        "obs_min": "28",
+        "obs_max_documented": null,
+        "python": "3.8-3.10 (OBS 32 range)",
+        "lua": null,
+        "windows11_x64": "LIKELY",
+        "evidence": [
+          {
+            "claim": "README states OBS 28 or newer and a working OBS Python installation.",
+            "source": "03-Timers-and-Counters/OBS-Counter/Documentation/README.snapshot.md"
+          },
+          {
+            "claim": "OBS 32 supports Python 3.8 <= v < 3.11 on Windows.",
+            "source": "https://github.com/obsproject/obs-studio/blob/32.0.1/shared/obs-scripting/cmake/python.cmake"
+          }
+        ],
+        "notes": "Only C:\\Python38 is inside the OBS 32 range on this machine."
+      },
+      "maintenance_status": "STALE",
+      "dependencies": [
+        {
+          "name": "OBS Python API (obspython)",
+          "version": "3.8-3.10",
+          "license": "GPL-2.0-or-later (OBS Studio)",
+          "required": true
+        }
+      ],
+      "assets": [],
+      "source_snapshot": {
+        "local_path": "03-Timers-and-Counters/OBS-Counter/Source/1.2.0",
+        "ref": "1.2.0",
+        "commit_sha": "fd9be36fcfacc38e6fa66a076128bf4af91f327e"
+      },
+      "security": {
+        "risk_level": "LOW",
+        "network_access": "None.",
+        "spawns_processes": false,
+        "findings": [
+          {
+            "category": "input-hooks",
+            "location": "hotkey_counter.py:60",
+            "note": "Uses obs_hotkey_register_frontend (OBS hotkeys); no external keyboard hook."
+          }
+        ]
+      },
+      "approval_required_for": [
+        "Installing the script and configuring OBS's Python path"
+      ],
+      "installation_status": "not-installed",
+      "tested_by_agent": false,
+      "retrieved_at_utc": "2026-11-02T19:17:52Z",
+      "sources": [
+        {
+          "label": "GitHub repository metadata",
+          "url": "https://api.github.com/repos/upgradeQ/Counter",
+          "retrieved_at_utc": "2026-11-02T19:17:52Z"
+        },
+        {
+          "label": "GitHub releases",
+          "url": "https://api.github.com/repos/upgradeQ/Counter/releases",
+          "retrieved_at_utc": "2026-11-02T19:17:52Z"
+        },
+        {
+          "label": "OBS 32 Python version range",
+          "url": "https://github.com/obsproject/obs-studio/blob/32.0.1/shared/obs-scripting/cmake/python.cmake",
+          "retrieved_at_utc": "2026-11-02T19:17:52Z"
+        }
+      ]
+    },
+    {
+      "id": "advanced-filename-formatter",
+      "name": "Advanced Filename Formatter",
+      "folder": "04-Recording-and-Organization/Advanced-Filename-Formatter",
+      "category": "recording-and-organization",
+      "type": "python-script",
+      "decision": "INCLUDED",
+      "decision_reason": "GPL-2.0-or-later license text present; official .py release asset; the runtime pip install and the eval/compile calls are documented and rated MEDIUM, with the exact lines recorded.",
+      "repository": {
+        "url": "https://github.com/Penwy/adv-ff",
+        "owner": "Penwy",
+        "default_branch": "main",
+        "archived": false,
+        "is_fork": false,
+        "fork_of": null,
+        "last_commit_date": "2026-10-26T12:28:34Z",
+        "last_release_date": "2026-10-26T12:28:34Z"
+      },
+      "release": {
+        "tag": "1.5.0",
+        "url": "https://github.com/Penwy/adv-ff/releases/tag/1.5.0",
+        "published_at": "2026-10-26T12:28:34Z",
+        "prerelease": false,
+        "commit_sha": "6b63a10ded8bbf7a7e059fda8b352282dfab42d8"
+      },
+      "license": {
+        "spdx": "GPL-2.0-or-later",
+        "file_path": "04-Recording-and-Organization/Advanced-Filename-Formatter/Documentation/LICENSE",
+        "status": "CONFIRMED",
+        "third_party": [
+          {
+            "name": "pyparsing",
+            "license": "MIT",
+            "note": "Declared at runtime; installed with pip --target into the OBS Python path when missing (adv-ff.py:62-98)."
+          }
+        ],
+        "notes": "GPLv2 text plus 'any later version' in source headers."
+      },
+      "compatibility": {
+        "status": "SUPPORTED",
+        "obs_min": null,
+        "obs_max_documented": null,
+        "python": ">=3.10 and <3.11 (script requires 3.10+; OBS 32 supports 3.8<=v<3.11)",
+        "lua": null,
+        "windows11_x64": "SUPPORTED",
+        "evidence": [
+          {
+            "claim": "README requires Python 3.10 or newer.",
+            "source": "04-Recording-and-Organization/Advanced-Filename-Formatter/Documentation/README.snapshot.md"
+          },
+          {
+            "claim": "OBS 32 supports Python 3.8 <= v < 3.11 on Windows, so 3.10 is the only in-range version that satisfies the script.",
+            "source": "https://github.com/obsproject/obs-studio/blob/32.0.1/shared/obs-scripting/cmake/python.cmake"
+          }
+        ],
+        "notes": "On this machine no 3.10 interpreter is installed (3.8, 3.12-3.15). OBS's Python path must point at a 3.10 x64 build before the script can load."
+      },
+      "maintenance_status": "ACTIVE",
+      "dependencies": [
+        {
+          "name": "pyparsing",
+          "version": ">=3.0",
+          "license": "MIT",
+          "required": true
+        },
+        {
+          "name": "OBS Python API (obspython)",
+          "version": "3.10",
+          "license": "GPL-2.0-or-later (OBS Studio)",
+          "required": true
+        }
+      ],
+      "assets": [
+        {
+          "filename": "adv-ff.py",
+          "url": "https://github.com/Penwy/adv-ff/releases/download/1.5.0/adv-ff.py",
+          "size_bytes": 55569,
+          "downloaded_at": "2026-11-02T19:39:46Z",
+          "local_path": "04-Recording-and-Organization/Advanced-Filename-Formatter/Downloads/1.5.0/adv-ff.py",
+          "sha256": "2df6c01410bc080e9ebc915f8f57d0677bc65e234c8844e75c8bb8beebac9563",
+          "reference_checksum": {
+            "source": "PLATFORM",
+            "value": "2df6c01410bc080e9ebc915f8f57d0677bc65e234c8844e75c8bb8beebac9563",
+            "match": true
+          },
+          "signature": {
+            "type": "none",
+            "status": "not-checked",
+            "signer": null
+          },
+          "verification_status": "INTEGRITY-ONLY",
+          "alternative_asset": null
+        }
+      ],
+      "source_snapshot": {
+        "local_path": "04-Recording-and-Organization/Advanced-Filename-Formatter/Source/1.5.0",
+        "ref": "1.5.0",
+        "commit_sha": "6b63a10ded8bbf7a7e059fda8b352282dfab42d8"
+      },
+      "security": {
+        "risk_level": "MEDIUM",
+        "network_access": "Yes, but only during first load: pip install --target <OBS Python path> pyparsing when the module is missing (adv-ff.py:62-98).",
+        "spawns_processes": true,
+        "findings": [
+          {
+            "category": "process-spawn",
+            "location": "adv-ff.py:87-98",
+            "note": "Runs the OBS Python interpreter with '-m pip install --target ... pyparsing' at script load if pyparsing is absent."
+          },
+          {
+            "category": "code-execution",
+            "location": "adv-ff.py:510",
+            "note": "eval(compile(...), {'__builtins__': None}, ...) evaluates user-supplied format expressions."
+          },
+          {
+            "category": "code-execution",
+            "location": "adv-ff.py:535",
+            "note": "Second eval/compile path for filename formatting."
+          },
+          {
+            "category": "file-write",
+            "location": "adv-ff.py",
+            "note": "Renames/moves finished recordings in the folder chosen by the user; no writes outside that folder were found."
+          }
+        ]
+      },
+      "approval_required_for": [
+        "Installing the script",
+        "Allowing the script's first-run pip install (network) or pre-installing pyparsing yourself"
+      ],
+      "installation_status": "not-installed",
+      "tested_by_agent": false,
+      "retrieved_at_utc": "2026-11-02T19:17:52Z",
+      "sources": [
+        {
+          "label": "GitHub repository metadata",
+          "url": "https://api.github.com/repos/Penwy/adv-ff",
+          "retrieved_at_utc": "2026-11-02T19:17:52Z"
+        },
+        {
+          "label": "GitHub releases",
+          "url": "https://api.github.com/repos/Penwy/adv-ff/releases",
+          "retrieved_at_utc": "2026-11-02T19:17:52Z"
+        },
+        {
+          "label": "README snapshot at 1.5.0",
+          "url": "https://github.com/Penwy/adv-ff/blob/1.5.0/README.md",
+          "retrieved_at_utc": "2026-11-02T19:17:52Z"
+        }
+      ]
+    },
+    {
+      "id": "local-stream-marker",
+      "name": "Local Stream Marker",
+      "folder": "04-Recording-and-Organization/Local-Stream-Marker",
+      "category": "recording-and-organization",
+      "type": "lua-script",
+      "decision": "INCLUDED",
+      "decision_reason": "MIT license text present; official zip asset; the only file write is a CSV chosen by the user, and no network or process code was found.",
+      "repository": {
+        "url": "https://github.com/honganqi/OBS-Local-Stream-Marker",
+        "owner": "honganqi",
+        "default_branch": "main",
+        "archived": false,
+        "is_fork": false,
+        "fork_of": null,
+        "last_commit_date": "2026-06-13T20:31:11Z",
+        "last_release_date": "2026-06-13T20:31:11Z"
+      },
+      "release": {
+        "tag": "v1.13",
+        "url": "https://github.com/honganqi/OBS-Local-Stream-Marker/releases/tag/v1.13",
+        "published_at": "2026-06-13T20:31:11Z",
+        "prerelease": false,
+        "commit_sha": "558baaa99989f145e2789ff824b7f58dc27612c8"
+      },
+      "license": {
+        "spdx": "MIT",
+        "file_path": "04-Recording-and-Organization/Local-Stream-Marker/Documentation/LICENSE",
+        "status": "CONFIRMED",
+        "third_party": [],
+        "notes": "MIT License, Copyright (c) 2022 Archie."
+      },
+      "compatibility": {
+        "status": "UNKNOWN",
+        "obs_min": null,
+        "obs_max_documented": null,
+        "python": null,
+        "lua": "5.1 (LuaJIT)",
+        "windows11_x64": "LIKELY",
+        "evidence": [
+          {
+            "claim": "The script uses the OBS Lua API and os.date/os.time only.",
+            "source": "04-Recording-and-Organization/Local-Stream-Marker/Source/v1.13/local-stream-marker.lua"
+          }
+        ],
+        "notes": "No documented OBS range. Release is recent (2026-06-13)."
+      },
+      "maintenance_status": "ACTIVE",
+      "dependencies": [
+        {
+          "name": "OBS Lua API (obslua)",
+          "version": "5.1",
+          "license": "GPL-2.0-or-later (OBS Studio)",
+          "required": true
+        }
+      ],
+      "assets": [
+        {
+          "filename": "local-stream-marker.1.13.zip",
+          "url": "https://github.com/honganqi/OBS-Local-Stream-Marker/releases/download/v1.13/local-stream-marker.1.13.zip",
+          "size_bytes": 13299,
+          "downloaded_at": "2026-11-02T19:39:49Z",
+          "local_path": "04-Recording-and-Organization/Local-Stream-Marker/Downloads/v1.13/local-stream-marker.1.13.zip",
+          "sha256": "777c2ed5e1c237d0b3384eca01a8c52e156237a3577c8efd549c9e8a81db954b",
+          "reference_checksum": {
+            "source": "PLATFORM",
+            "value": "777c2ed5e1c237d0b3384eca01a8c52e156237a3577c8efd549c9e8a81db954b",
+            "match": true
+          },
+          "signature": {
+            "type": "none",
+            "status": "not-checked",
+            "signer": null
+          },
+          "verification_status": "INTEGRITY-ONLY",
+          "alternative_asset": null
+        }
+      ],
+      "source_snapshot": {
+        "local_path": "04-Recording-and-Organization/Local-Stream-Marker/Source/v1.13",
+        "ref": "v1.13",
+        "commit_sha": "558baaa99989f145e2789ff824b7f58dc27612c8"
+      },
+      "security": {
+        "risk_level": "LOW",
+        "network_access": "None.",
+        "spawns_processes": false,
+        "findings": [
+          {
+            "category": "file-write",
+            "location": "local-stream-marker.lua",
+            "note": "Appends marker rows to a CSV file at a path the user selects."
+          }
+        ]
+      },
+      "approval_required_for": [
+        "Installing the script"
+      ],
+      "installation_status": "not-installed",
+      "tested_by_agent": false,
+      "retrieved_at_utc": "2026-11-02T19:17:52Z",
+      "sources": [
+        {
+          "label": "GitHub repository metadata",
+          "url": "https://api.github.com/repos/honganqi/OBS-Local-Stream-Marker",
+          "retrieved_at_utc": "2026-11-02T19:17:52Z"
+        },
+        {
+          "label": "GitHub releases",
+          "url": "https://api.github.com/repos/honganqi/OBS-Local-Stream-Marker/releases",
+          "retrieved_at_utc": "2026-11-02T19:17:52Z"
+        },
+        {
+          "label": "README snapshot at v1.13",
+          "url": "https://github.com/honganqi/OBS-Local-Stream-Marker/blob/v1.13/README.md",
+          "retrieved_at_utc": "2026-11-02T19:17:52Z"
+        }
+      ]
+    },
+    {
+      "id": "source-record",
+      "name": "Source Record",
+      "folder": "04-Recording-and-Organization/Source-Record",
+      "category": "recording-and-organization",
+      "type": "plugin",
+      "decision": "INCLUDED",
+      "decision_reason": "GPL-2.0-or-later license text present; Windows x64 release with valid Authenticode signatures from CN=Exeldro; static review found no HTTP client, telemetry or process spawning.",
+      "repository": {
+        "url": "https://github.com/exeldro/obs-source-record",
+        "owner": "exeldro",
+        "default_branch": "master",
+        "archived": false,
+        "is_fork": false,
+        "fork_of": null,
+        "last_commit_date": "2026-07-05T06:12:20Z",
+        "last_release_date": "2026-03-26T21:21:48Z"
+      },
+      "release": {
+        "tag": "0.4.8",
+        "url": "https://github.com/exeldro/obs-source-record/releases/tag/0.4.8",
+        "published_at": "2026-03-26T21:21:48Z",
+        "prerelease": false,
+        "commit_sha": "41faf6dba11a6ac384d1e1b415a4dab534bc68ed"
+      },
+      "license": {
+        "spdx": "GPL-2.0-or-later",
+        "file_path": "04-Recording-and-Organization/Source-Record/Documentation/LICENSE",
+        "status": "CONFIRMED",
+        "third_party": [],
+        "notes": "GPLv2 text plus 'any later version' in source headers."
+      },
+      "compatibility": {
+        "status": "LIKELY",
+        "obs_min": "29.0.0",
+        "obs_max_documented": null,
+        "python": null,
+        "lua": null,
+        "windows11_x64": "SUPPORTED",
+        "evidence": [
+          {
+            "claim": "buildspec.json pins obs-studio 29.0.0-beta1; the release ships a Windows x64 DLL.",
+            "source": "04-Recording-and-Organization/Source-Record/Source/0.4.8/buildspec.json"
+          },
+          {
+            "claim": "Both DLLs carry a valid Authenticode signature from CN=Exeldro.",
+            "source": "04-Recording-and-Organization/Source-Record/Checksums.txt"
+          }
+        ],
+        "notes": "Built against OBS 29; OBS 32.0.1 accepts plugins built for older versions. Re-check after each OBS major upgrade."
+      },
+      "maintenance_status": "ACTIVE",
+      "dependencies": [],
+      "assets": [
+        {
+          "filename": "source-record-0.4.8-windows.zip",
+          "url": "https://github.com/exeldro/obs-source-record/releases/download/0.4.8/source-record-0.4.8-windows.zip",
+          "size_bytes": 356380,
+          "downloaded_at": "2026-11-02T19:39:50Z",
+          "local_path": "04-Recording-and-Organization/Source-Record/Downloads/0.4.8/source-record-0.4.8-windows.zip",
+          "sha256": "c2e461afc42746bb8f1861f0aaef63c42f5cc436b55da1a21b3b07bc6d014074",
+          "reference_checksum": {
+            "source": "PLATFORM",
+            "value": "c2e461afc42746bb8f1861f0aaef63c42f5cc436b55da1a21b3b07bc6d014074",
+            "match": true
+          },
+          "signature": {
+            "type": "authenticode",
+            "status": "valid",
+            "signer": "CN=Exeldro, O=Exeldro, L=Woerden, S=Utrecht, C=NL"
+          },
+          "verification_status": "VERIFIED",
+          "alternative_asset": "source-record-0.4.8-windows-installer.exe"
+        }
+      ],
+      "source_snapshot": {
+        "local_path": "04-Recording-and-Organization/Source-Record/Source/0.4.8",
+        "ref": "0.4.8",
+        "commit_sha": "41faf6dba11a6ac384d1e1b415a4dab534bc68ed"
+      },
+      "security": {
+        "risk_level": "LOW",
+        "network_access": "None in the plugin. It writes local recordings; a stream-key field exists only when the user enables a streaming output.",
+        "spawns_processes": false,
+        "findings": [
+          {
+            "category": "credentials",
+            "location": "source-record.c:1640",
+            "note": "Optional stream key is entered as an OBS password field and stored by OBS in the scene collection."
+          },
+          {
+            "category": "provenance",
+            "location": "Downloads/0.4.8/source-record-0.4.8-windows.zip",
+            "note": "Both 32-bit and 64-bit DLLs are Authenticode-valid (CN=Exeldro); binaries were not executed."
+          }
+        ]
+      },
+      "approval_required_for": [
+        "Installing the plugin"
+      ],
+      "installation_status": "not-installed",
+      "tested_by_agent": false,
+      "retrieved_at_utc": "2026-11-02T19:17:52Z",
+      "sources": [
+        {
+          "label": "GitHub repository metadata",
+          "url": "https://api.github.com/repos/exeldro/obs-source-record",
+          "retrieved_at_utc": "2026-11-02T19:17:52Z"
+        },
+        {
+          "label": "GitHub releases",
+          "url": "https://api.github.com/repos/exeldro/obs-source-record/releases",
+          "retrieved_at_utc": "2026-11-02T19:17:52Z"
+        },
+        {
+          "label": "Release notes at 0.4.8",
+          "url": "https://github.com/exeldro/obs-source-record/releases/tag/0.4.8",
+          "retrieved_at_utc": "2026-11-02T19:17:52Z"
+        }
+      ]
+    },
+    {
+      "id": "obs-screen-studio-script",
+      "name": "OBS Screen Studio",
+      "folder": "05-Screen-Production/OBS-Screen-Studio",
+      "category": "screen-production",
+      "type": "lua-script",
+      "decision": "INCLUDED",
+      "decision_reason": "MIT license text present (copyright holder line is blank); no releases exist, so the user-approved source-only path pins commit 5739bc0. The FFI cursor/key reads and the os.execute donation link are documented and rated MEDIUM.",
+      "repository": {
+        "url": "https://github.com/kareem-studio/OBS-Screen-Studio-script",
+        "owner": "kareem-studio",
+        "default_branch": "main",
+        "archived": false,
+        "is_fork": false,
+        "fork_of": null,
+        "last_commit_date": "2026-04-19T12:05:19Z",
+        "last_release_date": null
+      },
+      "release": {
+        "tag": null,
+        "url": null,
+        "published_at": null,
+        "prerelease": false,
+        "commit_sha": "5739bc01f0d503f08b3fb21ddbfebfd42d387dcf"
+      },
+      "license": {
+        "spdx": "MIT",
+        "file_path": "05-Screen-Production/OBS-Screen-Studio/Documentation/LICENSE",
+        "status": "CONFIRMED",
+        "third_party": [],
+        "notes": "MIT License text with 'Copyright (c) 2026' and no holder name. The grant is unambiguous; the holder line is blank."
+      },
+      "compatibility": {
+        "status": "SUPPORTED",
+        "obs_min": "28.0.0",
+        "obs_max_documented": null,
+        "python": null,
+        "lua": "5.1 with LuaJIT FFI",
+        "windows11_x64": "LIKELY",
+        "evidence": [
+          {
+            "claim": "README states OBS 28+ and requires the LuaJIT FFI that OBS ships.",
+            "source": "05-Screen-Production/OBS-Screen-Studio/Documentation/README.snapshot.md"
+          },
+          {
+            "claim": "The script branches on ffi.os == 'Windows' and calls user32 GetCursorPos/GetKeyState.",
+            "source": "05-Screen-Production/OBS-Screen-Studio/Source/5739bc01f0d503f08b3fb21ddbfebfd42d387dcf/obs-screen-studio.lua:126-135"
+          }
+        ],
+        "notes": "No release and no tag; the snapshot is the only artifact. Re-pin before installing if the branch moves."
+      },
+      "maintenance_status": "ACTIVE",
+      "dependencies": [
+        {
+          "name": "LuaJIT FFI (provided by OBS)",
+          "version": "as shipped with OBS",
+          "license": "MIT (LuaJIT)",
+          "required": true
+        }
+      ],
+      "assets": [],
+      "source_snapshot": {
+        "local_path": "05-Screen-Production/OBS-Screen-Studio/Source/5739bc01f0d503f08b3fb21ddbfebfd42d387dcf",
+        "ref": "5739bc01f0d503f08b3fb21ddbfebfd42d387dcf",
+        "commit_sha": "5739bc01f0d503f08b3fb21ddbfebfd42d387dcf"
+      },
+      "security": {
+        "risk_level": "MEDIUM",
+        "network_access": "No network client. One os.execute opens a fixed Ko-fi URL in the default browser when the user clicks the donate button.",
+        "spawns_processes": true,
+        "findings": [
+          {
+            "category": "input-hooks",
+            "location": "obs-screen-studio.lua:244",
+            "note": "FFI GetCursorPos polls the global cursor position to drive click-to-zoom."
+          },
+          {
+            "category": "input-hooks",
+            "location": "obs-screen-studio.lua:275",
+            "note": "FFI GetKeyState reads global mouse-button state; polling only, no SetWindowsHookEx or SendInput."
+          },
+          {
+            "category": "process-spawn",
+            "location": "obs-screen-studio.lua:1015",
+            "note": "os.execute('start \"\" \"https://ko-fi.com/kareemstudio\"') runs only from the donate button."
+          },
+          {
+            "category": "provenance",
+            "location": "Source/5739bc01f0d503f08b3fb21ddbfebfd42d387dcf",
+            "note": "Single readable Lua file; no release artifact and no CI-built binary."
+          }
+        ]
+      },
+      "approval_required_for": [
+        "Installing the script",
+        "Allowing global cursor and mouse-button polling while OBS runs"
+      ],
+      "installation_status": "not-installed",
+      "tested_by_agent": false,
+      "retrieved_at_utc": "2026-11-02T19:17:52Z",
+      "sources": [
+        {
+          "label": "GitHub repository metadata",
+          "url": "https://api.github.com/repos/kareem-studio/OBS-Screen-Studio-script",
+          "retrieved_at_utc": "2026-11-02T19:17:52Z"
+        },
+        {
+          "label": "GitHub releases (empty)",
+          "url": "https://api.github.com/repos/kareem-studio/OBS-Screen-Studio-script/releases",
+          "retrieved_at_utc": "2026-11-02T19:17:52Z"
+        },
+        {
+          "label": "README snapshot at the pinned commit",
+          "url": "https://github.com/kareem-studio/OBS-Screen-Studio-script/blob/5739bc01f0d503f08b3fb21ddbfebfd42d387dcf/README.md",
+          "retrieved_at_utc": "2026-11-02T19:17:52Z"
+        }
+      ]
+    },
+    {
+      "id": "shaderfilter",
+      "name": "Shaderfilter",
+      "folder": "05-Screen-Production/Shaderfilter",
+      "category": "screen-production",
+      "type": "plugin",
+      "decision": "INCLUDED",
+      "decision_reason": "GPL-2.0-only license text present; the fork was explicitly approved by the user; Windows x64 release exists; static review found no network client, process spawning or obfuscation.",
+      "repository": {
+        "url": "https://github.com/exeldro/obs-shaderfilter",
+        "owner": "exeldro",
+        "default_branch": "master",
+        "archived": false,
+        "is_fork": true,
+        "fork_of": "https://github.com/nleseul/obs-shaderfilter",
+        "last_commit_date": "2026-10-24T19:08:51Z",
+        "last_release_date": "2026-10-24T19:08:51Z"
+      },
+      "release": {
+        "tag": "2.6.1",
+        "url": "https://github.com/exeldro/obs-shaderfilter/releases/tag/2.6.1",
+        "published_at": "2026-10-24T19:08:51Z",
+        "prerelease": false,
+        "commit_sha": "73fb5c21a40cc7b051fabe91250ed9c3593dfa03"
+      },
+      "license": {
+        "spdx": "GPL-2.0-only",
+        "file_path": "05-Screen-Production/Shaderfilter/Documentation/LICENSE",
+        "status": "CONFIRMED",
+        "third_party": [
+          {
+            "name": "Bundled example shaders (165 .shader/.effect files)",
+            "license": "Mixed: repo GPL-2.0, 6 files explicit GPLv2, 3 files MIT",
+            "note": "Six files carry an explicit GNU GPLv2 header (e.g. data/examples/circle-mask-filter.shader:5). Three carry MIT (clock_digital_nixie.shader:38; the Ashima webgl-noise block in fire-3.effect:165). The rest carry no header and inherit the repository license."
+          }
+        ],
+        "notes": "GPLv2 text; no 'any later version' statement found. MIT-licensed shader fragments are compatible with GPLv2 redistribution but keep their attribution."
+      },
+      "compatibility": {
+        "status": "LIKELY",
+        "obs_min": "28.0.0",
+        "obs_max_documented": null,
+        "python": null,
+        "lua": null,
+        "windows11_x64": "SUPPORTED",
+        "evidence": [
+          {
+            "claim": "buildspec.json pins obs-studio 28.0.0-beta1; the release ships Windows 32/64-bit DLLs.",
+            "source": "05-Screen-Production/Shaderfilter/Source/2.6.1/buildspec.json"
+          },
+          {
+            "claim": "OBS 32.0.1 detected on Windows 11 x64.",
+            "source": "13-Logs/obs-baseline.json"
+          }
+        ],
+        "notes": "Built against OBS 28; OBS 32 accepts older plugin builds. Re-check after an OBS major upgrade."
+      },
+      "maintenance_status": "ACTIVE",
+      "dependencies": [],
+      "assets": [
+        {
+          "filename": "obs-shaderfilter-2.6.1-windows.zip",
+          "url": "https://github.com/exeldro/obs-shaderfilter/releases/download/2.6.1/obs-shaderfilter-2.6.1-windows.zip",
+          "size_bytes": 4795506,
+          "downloaded_at": "2026-11-02T19:39:53Z",
+          "local_path": "05-Screen-Production/Shaderfilter/Downloads/2.6.1/obs-shaderfilter-2.6.1-windows.zip",
+          "sha256": "bdb5af0c8d6afb9b488a0dd4235a26786c221fb01d9082786e51aceb0deae37d",
+          "reference_checksum": {
+            "source": "PLATFORM",
+            "value": "bdb5af0c8d6afb9b488a0dd4235a26786c221fb01d9082786e51aceb0deae37d",
+            "match": true
+          },
+          "signature": {
+            "type": "authenticode",
+            "status": "unsigned",
+            "signer": null
+          },
+          "verification_status": "INTEGRITY-ONLY",
+          "alternative_asset": "obs-shaderfilter-2.6.1-windows-installer.exe"
+        }
+      ],
+      "source_snapshot": {
+        "local_path": "05-Screen-Production/Shaderfilter/Source/2.6.1",
+        "ref": "2.6.1",
+        "commit_sha": "73fb5c21a40cc7b051fabe91250ed9c3593dfa03"
+      },
+      "security": {
+        "risk_level": "LOW",
+        "network_access": "None. The http/https hits are license URLs inside bundled dependency headers.",
+        "spawns_processes": false,
+        "findings": [
+          {
+            "category": "provenance",
+            "location": "Downloads/2.6.1/obs-shaderfilter-2.6.1-windows.zip",
+            "note": "DLLs are Authenticode-NotSigned; verification rests on GitHub's platform digest."
+          }
+        ]
+      },
+      "approval_required_for": [
+        "Installing the plugin",
+        "Using the fork rather than the upstream project (already approved)"
+      ],
+      "installation_status": "not-installed",
+      "tested_by_agent": false,
+      "retrieved_at_utc": "2026-11-02T19:17:52Z",
+      "sources": [
+        {
+          "label": "GitHub repository metadata (fork flag)",
+          "url": "https://api.github.com/repos/exeldro/obs-shaderfilter",
+          "retrieved_at_utc": "2026-11-02T19:17:52Z"
+        },
+        {
+          "label": "GitHub releases",
+          "url": "https://api.github.com/repos/exeldro/obs-shaderfilter/releases",
+          "retrieved_at_utc": "2026-11-02T19:17:52Z"
+        },
+        {
+          "label": "Release notes at 2.6.1",
+          "url": "https://github.com/exeldro/obs-shaderfilter/releases/tag/2.6.1",
+          "retrieved_at_utc": "2026-11-02T19:17:52Z"
+        }
+      ]
+    },
+    {
+      "id": "filter-hotkeys",
+      "name": "Filter Hotkeys",
+      "folder": "06-Audio-and-Media/Filter-Hotkeys",
+      "category": "audio-and-media",
+      "type": "lua-script",
+      "decision": "INCLUDED",
+      "decision_reason": "MPL-2.0 license text present; source-only (release has no asset); the script only registers OBS hotkeys for filter visibility, so the review is LOW.",
+      "repository": {
+        "url": "https://github.com/upgradeQ/filter-hotkeys",
+        "owner": "upgradeQ",
+        "default_branch": "master",
+        "archived": false,
+        "is_fork": false,
+        "fork_of": null,
+        "last_commit_date": "2024-08-08T19:49:46Z",
+        "last_release_date": "2021-03-27T05:15:46Z"
+      },
+      "release": {
+        "tag": "1.0.2",
+        "url": "https://github.com/upgradeQ/filter-hotkeys/releases/tag/1.0.2",
+        "published_at": "2021-03-27T05:15:46Z",
+        "prerelease": false,
+        "commit_sha": "1b11ae6ae62f9a79959c7700a60f28b9fa8da8e7"
+      },
+      "license": {
+        "spdx": "MPL-2.0",
+        "file_path": "06-Audio-and-Media/Filter-Hotkeys/Documentation/LICENSE",
+        "status": "CONFIRMED",
+        "third_party": [],
+        "notes": "Mozilla Public License Version 2.0. File-level copyleft: modified files must stay MPL-2.0."
+      },
+      "compatibility": {
+        "status": "UNKNOWN",
+        "obs_min": null,
+        "obs_max_documented": null,
+        "python": null,
+        "lua": "5.1 (LuaJIT)",
+        "windows11_x64": "LIKELY",
+        "evidence": [
+          {
+            "claim": "The script uses only the OBS Lua API (obs_hotkey_register_source).",
+            "source": "06-Audio-and-Media/Filter-Hotkeys/Source/1.0.2/filter_hotkeys_video.lua"
+          }
+        ],
+        "notes": "No documented OBS range; last release 2021, last commit 2024. Treat as STALE and re-test after OBS upgrades."
+      },
+      "maintenance_status": "STALE",
+      "dependencies": [
+        {
+          "name": "OBS Lua API (obslua)",
+          "version": "5.1",
+          "license": "GPL-2.0-or-later (OBS Studio)",
+          "required": true
+        }
+      ],
+      "assets": [],
+      "source_snapshot": {
+        "local_path": "06-Audio-and-Media/Filter-Hotkeys/Source/1.0.2",
+        "ref": "1.0.2",
+        "commit_sha": "1b11ae6ae62f9a79959c7700a60f28b9fa8da8e7"
+      },
+      "security": {
+        "risk_level": "LOW",
+        "network_access": "None.",
+        "spawns_processes": false,
+        "findings": [
+          {
+            "category": "input-hooks",
+            "location": "filter_hotkeys_video.lua, filter_hotkeys_audio.lua",
+            "note": "Registers OBS source/filter hotkeys; no OS-level hook."
+          }
+        ]
+      },
+      "approval_required_for": [
+        "Installing the script"
+      ],
+      "installation_status": "not-installed",
+      "tested_by_agent": false,
+      "retrieved_at_utc": "2026-11-02T19:17:52Z",
+      "sources": [
+        {
+          "label": "GitHub repository metadata",
+          "url": "https://api.github.com/repos/upgradeQ/filter-hotkeys",
+          "retrieved_at_utc": "2026-11-02T19:17:52Z"
+        },
+        {
+          "label": "GitHub releases",
+          "url": "https://api.github.com/repos/upgradeQ/filter-hotkeys/releases",
+          "retrieved_at_utc": "2026-11-02T19:17:52Z"
+        },
+        {
+          "label": "README snapshot at 1.0.2",
+          "url": "https://github.com/upgradeQ/filter-hotkeys/blob/1.0.2/README.md",
+          "retrieved_at_utc": "2026-11-02T19:17:52Z"
+        }
+      ]
+    },
+    {
+      "id": "tuna",
+      "name": "Tuna",
+      "folder": "06-Audio-and-Media/Tuna",
+      "category": "audio-and-media",
+      "type": "plugin",
+      "decision": "INCLUDED",
+      "decision_reason": "GPL-2.0-or-later license text present; Windows x64 release; the local HTTP server, outbound API calls and credential storage are all documented and rated MEDIUM.",
+      "repository": {
+        "url": "https://github.com/univrsal/tuna",
+        "owner": "univrsal",
+        "default_branch": "master",
+        "archived": false,
+        "is_fork": false,
+        "fork_of": null,
+        "last_commit_date": "2026-10-24T13:05:25Z",
+        "last_release_date": "2026-10-24T14:33:05Z"
+      },
+      "release": {
+        "tag": "1.9.12",
+        "url": "https://github.com/univrsal/tuna/releases/tag/1.9.12",
+        "published_at": "2026-10-24T14:33:05Z",
+        "prerelease": false,
+        "commit_sha": "7ecac9874eafaac97819382bde9ab0863fa411ec"
+      },
+      "license": {
+        "spdx": "GPL-2.0-or-later",
+        "file_path": "06-Audio-and-Media/Tuna/Documentation/LICENSE",
+        "status": "CONFIRMED",
+        "third_party": [
+          {
+            "name": "cpp-httplib",
+            "license": "MIT",
+            "note": "Bundled at deps/cpp-httplib/httplib.h; header states 'Copyright (c) 2022 Yuji Hirose ... MIT License'."
+          },
+          {
+            "name": "TagLib",
+            "license": "UNKNOWN (not bundled in snapshot)",
+            "note": "Credited in README for metadata extraction; license file not present locally."
+          },
+          {
+            "name": "libmpdclient",
+            "license": "UNKNOWN (not bundled in snapshot)",
+            "note": "Credited in README for MPD connections; license file not present locally."
+          },
+          {
+            "name": "libcurl",
+            "license": "UNKNOWN (not bundled in snapshot)",
+            "note": "Credited in README for remote content and API calls."
+          }
+        ],
+        "notes": "GPLv2 text plus 'any later version' in source headers."
+      },
+      "compatibility": {
+        "status": "LIKELY",
+        "obs_min": "31.1.0",
+        "obs_max_documented": null,
+        "python": null,
+        "lua": null,
+        "windows11_x64": "SUPPORTED",
+        "evidence": [
+          {
+            "claim": "buildspec.json pins obs-studio 31.1.0; the release ships a Windows x64 zip.",
+            "source": "06-Audio-and-Media/Tuna/Source/1.9.12/buildspec.json"
+          },
+          {
+            "claim": "OBS 32.0.1 detected on Windows 11 x64.",
+            "source": "13-Logs/obs-baseline.json"
+          }
+        ],
+        "notes": "Built against OBS 31.1.0; OBS 32 accepts older plugin builds."
+      },
+      "maintenance_status": "ACTIVE",
+      "dependencies": [
+        {
+          "name": "cpp-httplib",
+          "version": "0.10.7",
+          "license": "MIT",
+          "required": true
+        },
+        {
+          "name": "Qt 6 (provided by OBS)",
+          "version": null,
+          "license": "UNKNOWN (provided by OBS)",
+          "required": true
+        },
+        {
+          "name": "TagLib",
+          "version": null,
+          "license": "UNKNOWN",
+          "required": false
+        },
+        {
+          "name": "libmpdclient",
+          "version": null,
+          "license": "UNKNOWN",
+          "required": false
+        },
+        {
+          "name": "libcurl",
+          "version": null,
+          "license": "UNKNOWN",
+          "required": false
+        }
+      ],
+      "assets": [
+        {
+          "filename": "tuna-1.9.12-windows-x64.zip",
+          "url": "https://github.com/univrsal/tuna/releases/download/1.9.12/tuna-1.9.12-windows-x64.zip",
+          "size_bytes": 7640564,
+          "downloaded_at": "2026-11-02T19:40:00Z",
+          "local_path": "06-Audio-and-Media/Tuna/Downloads/1.9.12/tuna-1.9.12-windows-x64.zip",
+          "sha256": "e7bfd593d91d0742218a107a38b53c801a612dceabbf7b0c41ed8f9e29325d77",
+          "reference_checksum": {
+            "source": "PLATFORM",
+            "value": "e7bfd593d91d0742218a107a38b53c801a612dceabbf7b0c41ed8f9e29325d77",
+            "match": true
+          },
+          "signature": {
+            "type": "authenticode",
+            "status": "unsigned",
+            "signer": null
+          },
+          "verification_status": "INTEGRITY-ONLY",
+          "alternative_asset": "tuna-1.9.12-windows-x64-Installer.exe"
+        }
+      ],
+      "source_snapshot": {
+        "local_path": "06-Audio-and-Media/Tuna/Source/1.9.12",
+        "ref": "1.9.12",
+        "commit_sha": "7ecac9874eafaac97819382bde9ab0863fa411ec"
+      },
+      "security": {
+        "risk_level": "MEDIUM",
+        "network_access": "Yes. Outbound HTTP to Spotify, Last.fm, MPD, Icecast and lyrics.vrsal.cc, plus a local HTTP server that listens on 0.0.0.0:1608 by default.",
+        "spawns_processes": true,
+        "findings": [
+          {
+            "category": "network",
+            "location": "src/util/web_server.cpp:173",
+            "note": "server->listen(\"0.0.0.0\", atoi(port)) binds the status web server to every interface; default port 1608 (src/config.cpp:42). No authentication."
+          },
+          {
+            "category": "network",
+            "location": "src/util/web_server.cpp:64",
+            "note": "Sets Access-Control-Allow-Origin: * and serves /cover.png and song JSON to any reachable client."
+          },
+          {
+            "category": "credentials",
+            "location": "src/gui/widgets/lastfm.cpp:40",
+            "note": "Stores Last.fm API key and Spotify client secret/token in the plugin config; treat the config as a secret."
+          },
+          {
+            "category": "provenance",
+            "location": "Downloads/1.9.12/tuna-1.9.12-windows-x64.zip",
+            "note": "tuna.dll is Authenticode-NotSigned; verification rests on GitHub's platform digest."
+          }
+        ]
+      },
+      "approval_required_for": [
+        "Installing the plugin",
+        "Enabling the local web server (listens on all interfaces by default)",
+        "Connecting Spotify/Last.fm accounts and storing their tokens"
+      ],
+      "installation_status": "not-installed",
+      "tested_by_agent": false,
+      "retrieved_at_utc": "2026-11-02T19:17:52Z",
+      "sources": [
+        {
+          "label": "GitHub repository metadata",
+          "url": "https://api.github.com/repos/univrsal/tuna",
+          "retrieved_at_utc": "2026-11-02T19:17:52Z"
+        },
+        {
+          "label": "GitHub releases",
+          "url": "https://api.github.com/repos/univrsal/tuna/releases",
+          "retrieved_at_utc": "2026-11-02T19:17:52Z"
+        },
+        {
+          "label": "README snapshot at 1.9.12 (services and credits)",
+          "url": "https://github.com/univrsal/tuna/blob/1.9.12/README.md",
+          "retrieved_at_utc": "2026-11-02T19:17:52Z"
+        }
+      ]
+    },
+    {
+      "id": "multi-rtmp",
+      "name": "Multi-RTMP",
+      "folder": "07-Streaming/Multi-RTMP",
+      "category": "streaming",
+      "type": "plugin",
+      "decision": "INCLUDED",
+      "decision_reason": "GPL-2.0-or-later license text present; release 0.7.4 is the newest whose buildspec targets OBS 32.0.0 (0.7.4.1+ target 32.2.1 and would be refused by OBS 32.0.1); Windows x64 zip with a matching platform digest.",
+      "repository": {
+        "url": "https://github.com/sorayuki/obs-multi-rtmp",
+        "owner": "sorayuki",
+        "default_branch": "master",
+        "archived": false,
+        "is_fork": false,
+        "fork_of": null,
+        "last_commit_date": "2026-10-25T12:58:52Z",
+        "last_release_date": "2026-03-27T15:18:07Z"
+      },
+      "release": {
+        "tag": "0.7.4",
+        "url": "https://github.com/sorayuki/obs-multi-rtmp/releases/tag/0.7.4",
+        "published_at": "2026-03-27T15:18:07Z",
+        "prerelease": false,
+        "commit_sha": "daf0d3b4578e0eef9c8a36de5b745bccc4b10aba"
+      },
+      "license": {
+        "spdx": "GPL-2.0-or-later",
+        "file_path": "07-Streaming/Multi-RTMP/Documentation/LICENSE",
+        "status": "CONFIRMED",
+        "third_party": [
+          {
+            "name": "nlohmann/json",
+            "license": "MIT",
+            "note": "Bundled at dep/nlohmann-json/json.hpp; header declares SPDX-License-Identifier: MIT."
+          },
+          {
+            "name": "Qt 6",
+            "license": "UNKNOWN (provided by OBS)",
+            "note": "Linked at build time; DLLs ship with OBS."
+          }
+        ],
+        "notes": "GPLv2 text plus 'any later version' in source headers."
+      },
+      "compatibility": {
+        "status": "LIKELY",
+        "obs_min": "32.0.0",
+        "obs_max_documented": null,
+        "python": null,
+        "lua": null,
+        "windows11_x64": "SUPPORTED",
+        "evidence": [
+          {
+            "claim": "buildspec.json pins obs-studio 32.0.0; OBS 32.0.1 is a patch release in the same series.",
+            "source": "07-Streaming/Multi-RTMP/Source/0.7.4/buildspec.json"
+          },
+          {
+            "claim": "Releases 0.7.4.1 and newer pin obs-studio 32.2.1, which OBS 32.0.1 refuses.",
+            "source": "13-Logs/phase1-report.md"
+          }
+        ],
+        "notes": "Do not upgrade to 0.7.4.1+ until OBS is 32.2.1 or newer. OBS refuses plugins built for a newer version."
+      },
+      "maintenance_status": "ACTIVE",
+      "dependencies": [
+        {
+          "name": "nlohmann/json",
+          "version": "3.11.2",
+          "license": "MIT",
+          "required": true
+        },
+        {
+          "name": "Qt 6 (provided by OBS)",
+          "version": null,
+          "license": "UNKNOWN (provided by OBS)",
+          "required": true
+        }
+      ],
+      "assets": [
+        {
+          "filename": "obs-multi-rtmp-0.7.4.0-windows-x64.zip",
+          "url": "https://github.com/sorayuki/obs-multi-rtmp/releases/download/0.7.4/obs-multi-rtmp-0.7.4.0-windows-x64.zip",
+          "size_bytes": 2111888,
+          "downloaded_at": "2026-11-02T19:39:10Z",
+          "local_path": "07-Streaming/Multi-RTMP/Downloads/0.7.4/obs-multi-rtmp-0.7.4.0-windows-x64.zip",
+          "sha256": "601c014a2962261429f736826c441192e3da6f5ceebc7807f10907e8be3326d5",
+          "reference_checksum": {
+            "source": "PLATFORM",
+            "value": "601c014a2962261429f736826c441192e3da6f5ceebc7807f10907e8be3326d5",
+            "match": true
+          },
+          "signature": {
+            "type": "authenticode",
+            "status": "unsigned",
+            "signer": null
+          },
+          "verification_status": "INTEGRITY-ONLY",
+          "alternative_asset": "obs-multi-rtmp-0.7.4.0-windows-x64-Installer.exe"
+        }
+      ],
+      "source_snapshot": {
+        "local_path": "07-Streaming/Multi-RTMP/Source/0.7.4",
+        "ref": "0.7.4",
+        "commit_sha": "daf0d3b4578e0eef9c8a36de5b745bccc4b10aba"
+      },
+      "security": {
+        "risk_level": "MEDIUM",
+        "network_access": "Yes, by design: each configured output pushes RTMP/SRT to a user-supplied endpoint through the OBS output API.",
+        "spawns_processes": false,
+        "findings": [
+          {
+            "category": "credentials",
+            "location": "src/output-config.cpp:241-249",
+            "note": "Saves the full multi-output config, including stream keys, to <OBS profile dir>/obs-multi-rtmp.json. Treat that file as a secret; this audit did not open it."
+          },
+          {
+            "category": "network",
+            "location": "src/obs-multi-rtmp.cpp",
+            "note": "Starts additional OBS outputs for each target; no telemetry or hardcoded endpoint found."
+          },
+          {
+            "category": "provenance",
+            "location": "Downloads/0.7.4/obs-multi-rtmp-0.7.4.0-windows-x64.zip",
+            "note": "obs-multi-rtmp.dll is Authenticode-NotSigned; verification rests on GitHub's platform digest."
+          }
+        ]
+      },
+      "approval_required_for": [
+        "Installing the plugin",
+        "Configuring additional stream destinations (stream keys are stored in the OBS profile)"
+      ],
+      "installation_status": "not-installed",
+      "tested_by_agent": false,
+      "retrieved_at_utc": "2026-11-02T19:17:52Z",
+      "sources": [
+        {
+          "label": "GitHub repository metadata",
+          "url": "https://api.github.com/repos/sorayuki/obs-multi-rtmp",
+          "retrieved_at_utc": "2026-11-02T19:17:52Z"
+        },
+        {
+          "label": "GitHub releases",
+          "url": "https://api.github.com/repos/sorayuki/obs-multi-rtmp/releases",
+          "retrieved_at_utc": "2026-11-02T19:17:52Z"
+        },
+        {
+          "label": "Release notes at 0.7.4",
+          "url": "https://github.com/sorayuki/obs-multi-rtmp/releases/tag/0.7.4",
+          "retrieved_at_utc": "2026-11-02T19:17:52Z"
+        }
+      ]
+    },
+    {
+      "id": "obs-websocket",
+      "name": "OBS WebSocket",
+      "folder": "08-Remote-Control-and-AI/OBS-WebSocket",
+      "category": "remote-control-and-ai",
+      "type": "docs-only",
+      "decision": "DOCS-ONLY",
+      "decision_reason": "Bundled with OBS since version 28 and already present in the detected OBS 32.0.1 (submodule commit 1c9306b1 equals tag 5.6.3). No binary is downloaded; only the protocol documentation at the matching tag is snapshotted.",
+      "repository": {
+        "url": "https://github.com/obsproject/obs-websocket",
+        "owner": "obsproject",
+        "default_branch": "master",
+        "archived": false,
+        "is_fork": false,
+        "fork_of": null,
+        "last_commit_date": "2026-10-08T19:32:45Z",
+        "last_release_date": null
+      },
+      "release": {
+        "tag": "5.6.3",
+        "url": "https://github.com/obsproject/obs-websocket/tree/5.6.3",
+        "published_at": null,
+        "prerelease": false,
+        "commit_sha": "1c9306b1e200704ebe192e06c893dfc06b097c43"
+      },
+      "license": {
+        "spdx": "GPL-2.0-or-later",
+        "file_path": "08-Remote-Control-and-AI/OBS-WebSocket/Documentation/LICENSE",
+        "status": "CONFIRMED",
+        "third_party": [],
+        "notes": "Tag 5.6.3 exists without a GitHub release object, so the protocol docs were read at the tag. GPLv2 text plus 'any later version'."
+      },
+      "compatibility": {
+        "status": "SUPPORTED",
+        "obs_min": "28.0.0",
+        "obs_max_documented": null,
+        "python": null,
+        "lua": null,
+        "windows11_x64": "SUPPORTED",
+        "evidence": [
+          {
+            "claim": "OBS 32.0.1's obs-websocket submodule commit is 1c9306b1e200704ebe192e06c893dfc06b097c43, equal to tag 5.6.3.",
+            "source": "13-Logs/cache/api/obs-studio-32.0.1__ws_submodule.json"
+          },
+          {
+            "claim": "Protocol snapshot matches the bundled version.",
+            "source": "08-Remote-Control-and-AI/OBS-WebSocket/Documentation/protocol.md"
+          }
+        ],
+        "notes": "No installation needed; enable it in OBS under Tools > WebSocket Server Settings."
+      },
+      "maintenance_status": "ACTIVE",
+      "dependencies": [],
+      "assets": [],
+      "source_snapshot": {
+        "local_path": null,
+        "ref": "5.6.3",
+        "commit_sha": "1c9306b1e200704ebe192e06c893dfc06b097c43"
+      },
+      "security": {
+        "risk_level": "MEDIUM",
+        "network_access": "Yes. A WebSocket server listens on port 4455 when enabled; it can control scenes, sources, recording and streaming.",
+        "spawns_processes": false,
+        "findings": [
+          {
+            "category": "network",
+            "location": "Documentation/protocol.md",
+            "note": "Server defaults to port 4455; authentication must stay enabled with a strong password and the port must never be forwarded."
+          },
+          {
+            "category": "credentials",
+            "location": "Documentation/protocol.md",
+            "note": "The protocol uses a challenge/response derived from the server password; clients must not log it."
+          }
+        ]
+      },
+      "approval_required_for": [
+        "Enabling the WebSocket server",
+        "Opening port 4455 in any firewall",
+        "Connecting an external client"
+      ],
+      "installation_status": "not-installed",
+      "tested_by_agent": false,
+      "retrieved_at_utc": "2026-11-02T19:17:52Z",
+      "sources": [
+        {
+          "label": "GitHub repository metadata",
+          "url": "https://api.github.com/repos/obsproject/obs-websocket",
+          "retrieved_at_utc": "2026-11-02T19:17:52Z"
+        },
+        {
+          "label": "Protocol documentation at 5.6.3",
+          "url": "https://github.com/obsproject/obs-websocket/blob/5.6.3/docs/generated/protocol.md",
+          "retrieved_at_utc": "2026-11-02T19:17:52Z"
+        },
+        {
+          "label": "OBS 32.0.1 submodule pin",
+          "url": "https://github.com/obsproject/obs-studio/blob/32.0.1/.gitmodules",
+          "retrieved_at_utc": "2026-11-02T19:17:52Z"
+        }
+      ]
+    },
+    {
+      "id": "obs-mcp",
+      "name": "OBS-MCP",
+      "folder": "08-Remote-Control-and-AI/OBS-MCP",
+      "category": "remote-control-and-ai",
+      "type": "mcp-server",
+      "decision": "INCLUDED",
+      "decision_reason": "Apache-2.0 license text present; source-only Python MCP server; dependencies are pinned in pyproject.toml and talk only to a local OBS WebSocket; credentials come from environment variables.",
+      "repository": {
+        "url": "https://github.com/xDarkzx/OBS_MCP",
+        "owner": "xDarkzx",
+        "default_branch": "master",
+        "archived": false,
+        "is_fork": false,
+        "fork_of": null,
+        "last_commit_date": "2026-10-14T04:07:49Z",
+        "last_release_date": "2026-07-25T22:17:35Z"
+      },
+      "release": {
+        "tag": "v0.2.0",
+        "url": "https://github.com/xDarkzx/OBS_MCP/releases/tag/v0.2.0",
+        "published_at": "2026-07-25T22:17:35Z",
+        "prerelease": false,
+        "commit_sha": "ae557d1f63d61f1717630b9ca9a16284e38dbd24"
+      },
+      "license": {
+        "spdx": "Apache-2.0",
+        "file_path": "08-Remote-Control-and-AI/OBS-MCP/Documentation/LICENSE",
+        "status": "CONFIRMED",
+        "third_party": [],
+        "notes": "Apache License 2.0. Python dependencies are declared in pyproject.toml and installed by the user."
+      },
+      "compatibility": {
+        "status": "SUPPORTED",
+        "obs_min": "28.0.0",
+        "obs_max_documented": null,
+        "python": ">=3.10 (external process, not the OBS-embedded interpreter)",
+        "lua": null,
+        "windows11_x64": "SUPPORTED",
+        "evidence": [
+          {
+            "claim": "pyproject.toml requires Python >=3.10 and depends on mcp[cli]>=1.0.0 and obsws-python>=1.7.0.",
+            "source": "08-Remote-Control-and-AI/OBS-MCP/Source/v0.2.0/pyproject.toml"
+          },
+          {
+            "claim": "INSTALLATION.md documents OBS WebSocket on localhost:4455 and stdio transport.",
+            "source": "08-Remote-Control-and-AI/OBS-MCP/Source/v0.2.0/INSTALLATION.md"
+          }
+        ],
+        "notes": "Runs as a separate Python process started by the AI client, so the OBS 3.8-3.10 limit does not apply; any installed 3.10+ x64 interpreter works."
+      },
+      "maintenance_status": "ACTIVE",
+      "dependencies": [
+        {
+          "name": "mcp[cli]",
+          "version": ">=1.0.0",
+          "license": "MIT",
+          "required": true
+        },
+        {
+          "name": "obsws-python",
+          "version": ">=1.7.0",
+          "license": "MIT",
+          "required": true
+        },
+        {
+          "name": "Python",
+          "version": ">=3.10",
+          "license": "PSF-2.0",
+          "required": true
+        }
+      ],
+      "assets": [],
+      "source_snapshot": {
+        "local_path": "08-Remote-Control-and-AI/OBS-MCP/Source/v0.2.0",
+        "ref": "v0.2.0",
+        "commit_sha": "ae557d1f63d61f1717630b9ca9a16284e38dbd24"
+      },
+      "security": {
+        "risk_level": "MEDIUM",
+        "network_access": "Yes, to localhost:4455 only by default (OBS_HOST/OBS_PORT are configurable). Transport to the AI client is stdio.",
+        "spawns_processes": false,
+        "findings": [
+          {
+            "category": "network",
+            "location": "obs_mcp/config.py",
+            "note": "Connects to the OBS WebSocket server; host and port come from OBS_HOST/OBS_PORT."
+          },
+          {
+            "category": "credentials",
+            "location": "install.bat:161",
+            "note": "OBS_PASSWORD is read from the client's env block and written into the MCP client config; it must never be committed."
+          },
+          {
+            "category": "code-execution",
+            "location": "obs_mcp/tool_registry.py:30",
+            "note": "importlib.import_module loads the tool modules listed in the package; this is static plugin discovery, not user-supplied code."
+          },
+          {
+            "category": "file-outside",
+            "location": "install.bat:131",
+            "note": "The optional installer writes client config under %APPDATA%\\Claude; this audit did not run it."
+          }
+        ]
+      },
+      "approval_required_for": [
+        "Installing the Python dependencies",
+        "Configuring an MCP client to control OBS",
+        "Letting the AI client start/stop streams or delete scenes"
+      ],
+      "installation_status": "not-installed",
+      "tested_by_agent": false,
+      "retrieved_at_utc": "2026-11-02T19:17:52Z",
+      "sources": [
+        {
+          "label": "GitHub repository metadata",
+          "url": "https://api.github.com/repos/xDarkzx/OBS_MCP",
+          "retrieved_at_utc": "2026-11-02T19:17:52Z"
+        },
+        {
+          "label": "GitHub releases",
+          "url": "https://api.github.com/repos/xDarkzx/OBS_MCP/releases",
+          "retrieved_at_utc": "2026-11-02T19:17:52Z"
+        },
+        {
+          "label": "INSTALLATION.md at v0.2.0 (transport and env vars)",
+          "url": "https://github.com/xDarkzx/OBS_MCP/blob/v0.2.0/INSTALLATION.md",
+          "retrieved_at_utc": "2026-11-02T19:17:52Z"
+        }
+      ]
+    }
+  ]
+}

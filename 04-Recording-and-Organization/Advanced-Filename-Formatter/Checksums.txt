@@ -1,0 +1,5 @@
+2df6c01410bc080e9ebc915f8f57d0677bc65e234c8844e75c8bb8beebac9563  04-Recording-and-Organization/Advanced-Filename-Formatter/Downloads/1.5.0/adv-ff.py
+189b1af95d661151e054cea10c91b3d754e4de4d3fecfb074c1fb29476f7167b  04-Recording-and-Organization/Advanced-Filename-Formatter/Documentation/LICENSE
+49a266eaf4c11faaf239b818bd068dfa85f8c6757da2c93af1a0d39dc7c314cd  04-Recording-and-Organization/Advanced-Filename-Formatter/Documentation/README.snapshot.md
+b4055e2c6d21ca1c6b62510e837c9a0e340a67951e6b523359c5ba4b8f98484a  04-Recording-and-Organization/Advanced-Filename-Formatter/Documentation/RELEASE_NOTES_1.5.0.md
+

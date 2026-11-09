@@ -1,0 +1,262 @@
+#include "macro-condition-scene-visibility.hpp"
+#include "layout-helpers.hpp"
+#include "obs-module-helper.hpp"
+
+#include <regex>
+
+namespace advss {
+
+const std::string MacroConditionSceneVisibility::id = "scene_visibility";
+
+bool MacroConditionSceneVisibility::_registered =
+	MacroConditionFactory::Register(
+		MacroConditionSceneVisibility::id,
+		{MacroConditionSceneVisibility::Create,
+		 MacroConditionSceneVisibilityEdit::Create,
+		 "AdvSceneSwitcher.condition.sceneVisibility"});
+
+const static std::map<MacroConditionSceneVisibility::Condition, std::string>
+	conditionTypes = {
+		{MacroConditionSceneVisibility::Condition::SHOWN,
+		 "AdvSceneSwitcher.condition.sceneVisibility.type.shown"},
+		{MacroConditionSceneVisibility::Condition::HIDDEN,
+		 "AdvSceneSwitcher.condition.sceneVisibility.type.hidden"},
+		{MacroConditionSceneVisibility::Condition::CHANGED,
+		 "AdvSceneSwitcher.condition.sceneVisibility.type.changed"},
+};
+
+static bool areAllSceneItemsShown(const std::vector<OBSSceneItem> &items)
+{
+	bool ret = true;
+	for (const auto &item : items) {
+		if (!obs_sceneitem_visible(item)) {
+			ret = false;
+		}
+	}
+	return ret;
+}
+
+static bool isAnySceneItemShown(const std::vector<OBSSceneItem> &items)
+{
+	bool ret = false;
+	for (const auto &item : items) {
+		ret |= obs_sceneitem_visible(item);
+	}
+	return ret;
+}
+
+static bool areAllSceneItemsHidden(const std::vector<OBSSceneItem> &items)
+{
+	bool ret = true;
+	for (const auto &item : items) {
+		if (obs_sceneitem_visible(item)) {
+			ret = false;
+		}
+	}
+	return ret;
+}
+
+static bool isAnySceneItemHidden(const std::vector<OBSSceneItem> &items)
+{
+	bool ret = false;
+	for (const auto &item : items) {
+		ret |= (!obs_sceneitem_visible(item));
+	}
+	return ret;
+}
+
+static bool
+didVisibilityOfAnySceneItemsChange(const std::vector<OBSSceneItem> &items,
+				   std::vector<bool> &previousVisibility)
+{
+	std::vector<bool> currentVisibility;
+	for (const auto &item : items) {
+		currentVisibility.emplace_back(obs_sceneitem_visible(item));
+	}
+
+	bool ret = true;
+	if (previousVisibility.size() != currentVisibility.size()) {
+		ret = false;
+	} else {
+		ret = previousVisibility != currentVisibility;
+	}
+	previousVisibility = currentVisibility;
+	return ret;
+}
+
+static bool
+didVisibilityOfAllSceneItemsChange(const std::vector<OBSSceneItem> &items,
+				   std::vector<bool> &previousVisibility)
+{
+	std::vector<bool> currentVisibility;
+	for (const auto &item : items) {
+		currentVisibility.emplace_back(obs_sceneitem_visible(item));
+	}
+
+	if (previousVisibility.size() != currentVisibility.size()) {
+		previousVisibility = currentVisibility;
+		return false;
+	}
+
+	for (std::size_t i = 0; i < currentVisibility.size(); i++) {
+		if (currentVisibility[i] == previousVisibility[i]) {
+			previousVisibility = currentVisibility;
+			return false;
+		}
+	}
+
+	previousVisibility = currentVisibility;
+	return true;
+}
+
+bool MacroConditionSceneVisibility::CheckCondition()
+{
+	auto items = _source.GetSceneItems(_scene);
+	if (items.empty()) {
+		_previousVisibility.clear();
+		return false;
+	}
+
+	const bool checkAny = _source.IsSelectionOfTypeAny();
+
+	switch (_condition) {
+	case Condition::SHOWN:
+		return checkAny ? isAnySceneItemShown(items)
+				: areAllSceneItemsShown(items);
+	case Condition::HIDDEN:
+		return checkAny ? isAnySceneItemHidden(items)
+				: areAllSceneItemsHidden(items);
+	case Condition::CHANGED:
+		return checkAny ? didVisibilityOfAnySceneItemsChange(
+					  items, _previousVisibility)
+				: didVisibilityOfAllSceneItemsChange(
+					  items, _previousVisibility);
+	default:
+		break;
+	}
+
+	return false;
+}
+
+bool MacroConditionSceneVisibility::Save(obs_data_t *obj) const
+{
+	MacroCondition::Save(obj);
+	_scene.Save(obj);
+	_source.Save(obj);
+	obs_data_set_int(obj, "condition", static_cast<int>(_condition));
+	obs_data_set_int(obj, "version", 1);
+	return true;
+}
+
+bool MacroConditionSceneVisibility::Load(obs_data_t *obj)
+{
+	// Convert old data format
+	// TODO: Remove in future version
+	if (obs_data_has_user_value(obj, "source")) {
+		auto sourceName = obs_data_get_string(obj, "source");
+		obs_data_set_string(obj, "sceneItem", sourceName);
+	}
+
+	MacroCondition::Load(obj);
+	_scene.Load(obj);
+	_source.Load(obj);
+	_condition = static_cast<Condition>(obs_data_get_int(obj, "condition"));
+
+	if (!obs_data_has_user_value(obj, "version") &&
+	    _condition == Condition::CHANGED &&
+	    _source.GetType() == SceneItemSelection::Type::ALL) {
+		_source.SetType(SceneItemSelection::Type::ANY);
+	}
+
+	return true;
+}
+
+std::string MacroConditionSceneVisibility::GetShortDesc() const
+{
+	if (_source.ToString().empty()) {
+		return "";
+	}
+	return _scene.ToString() + " - " + _source.ToString();
+}
+
+static inline void populateConditionSelection(QComboBox *list)
+{
+	for (const auto &entry : conditionTypes) {
+		list->addItem(obs_module_text(entry.second.c_str()));
+	}
+}
+
+MacroConditionSceneVisibilityEdit::MacroConditionSceneVisibilityEdit(
+	QWidget *parent,
+	std::shared_ptr<MacroConditionSceneVisibility> entryData)
+	: QWidget(parent)
+{
+	_scenes = new SceneSelectionWidget(this, true, false, true, true);
+	_sources = new SceneItemSelectionWidget(parent);
+	_conditions = new QComboBox();
+
+	populateConditionSelection(_conditions);
+
+	QWidget::connect(_scenes, SIGNAL(SceneChanged(const SceneSelection &)),
+			 this, SLOT(SceneChanged(const SceneSelection &)));
+	QWidget::connect(_scenes, SIGNAL(SceneChanged(const SceneSelection &)),
+			 _sources, SLOT(SceneChanged(const SceneSelection &)));
+	QWidget::connect(_sources,
+			 SIGNAL(SceneItemChanged(const SceneItemSelection &)),
+			 this, SLOT(SourceChanged(const SceneItemSelection &)));
+	QWidget::connect(_conditions, SIGNAL(currentIndexChanged(int)), this,
+			 SLOT(ConditionChanged(int)));
+
+	auto layout = new QHBoxLayout;
+	PlaceWidgets(
+		obs_module_text(
+			"AdvSceneSwitcher.condition.sceneVisibility.entry"),
+		layout,
+		{{"{{sources}}", _sources},
+		 {"{{scenes}}", _scenes},
+		 {"{{conditions}}", _conditions}});
+	setLayout(layout);
+
+	_entryData = entryData;
+	UpdateEntryData();
+	_loading = false;
+}
+
+void MacroConditionSceneVisibilityEdit::SourceChanged(
+	const SceneItemSelection &item)
+{
+	GUARD_LOADING_AND_LOCK();
+	_entryData->_source = item;
+	emit HeaderInfoChanged(
+		QString::fromStdString(_entryData->GetShortDesc()));
+	adjustSize();
+	updateGeometry();
+}
+
+void MacroConditionSceneVisibilityEdit::SceneChanged(const SceneSelection &s)
+{
+	GUARD_LOADING_AND_LOCK();
+	_entryData->_scene = s;
+	emit HeaderInfoChanged(
+		QString::fromStdString(_entryData->GetShortDesc()));
+}
+
+void MacroConditionSceneVisibilityEdit::ConditionChanged(int index)
+{
+	GUARD_LOADING_AND_LOCK();
+	_entryData->_condition =
+		static_cast<MacroConditionSceneVisibility::Condition>(index);
+}
+
+void MacroConditionSceneVisibilityEdit::UpdateEntryData()
+{
+	if (!_entryData) {
+		return;
+	}
+
+	_conditions->setCurrentIndex(static_cast<int>(_entryData->_condition));
+	_scenes->SetScene(_entryData->_scene);
+	_sources->SetSceneItem(_entryData->_source);
+}
+
+} // namespace advss

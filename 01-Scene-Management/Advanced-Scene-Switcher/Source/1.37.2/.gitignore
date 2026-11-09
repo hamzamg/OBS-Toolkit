@@ -1,0 +1,41 @@
+# Exclude everything
+/*
+
+# Except for default project files
+!/.github
+!/build-aux
+!/cmake
+!/data
+!/deps
+!/scripting
+!/forms
+!/lib
+!/module
+!/plugins
+!/tests
+!.clang-format
+!.cmake-format.json
+!.gitattributes
+!.gitignore
+!.pre-commit-config.yaml
+!BUILDING.md
+!buildspec.json
+!CMakeLists.txt
+!CMakePresets.json
+!LICENSE
+!README.md
+
+# Exclude .orig leftovers
+*.orig
+
+# Exclude lock files
+*.lock.json
+
+# Exclude macOS legacy resource forks
+.DS_Store
+
+# Exclude CMake build number cache
+/cmake/.CMakeBuildNumber
+
+# Exclude python caches
+/**/__pycache__

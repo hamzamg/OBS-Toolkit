@@ -1,0 +1,5 @@
+c2e461afc42746bb8f1861f0aaef63c42f5cc436b55da1a21b3b07bc6d014074  04-Recording-and-Organization/Source-Record/Downloads/0.4.8/source-record-0.4.8-windows.zip
+189b1af95d661151e054cea10c91b3d754e4de4d3fecfb074c1fb29476f7167b  04-Recording-and-Organization/Source-Record/Documentation/LICENSE
+661b8689c530c45dadc90827cd3cbc0f7d2a5e498b4b506717fdbbb910560837  04-Recording-and-Organization/Source-Record/Documentation/README.snapshot.md
+b13a4562e771b3584824d64bacc7b20c4ad0fa6715e19111e06cf81ec7e39aa2  04-Recording-and-Organization/Source-Record/Documentation/RELEASE_NOTES_0.4.8.md
+

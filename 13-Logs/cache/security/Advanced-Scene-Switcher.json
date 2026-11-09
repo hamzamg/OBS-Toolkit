@@ -1,0 +1,2297 @@
+{
+  "tool": "Advanced-Scene-Switcher",
+  "ref": "1.37.2",
+  "files_scanned": 659,
+  "summary": {
+    "code-execution": 610,
+    "process-spawn": 0,
+    "network": 546,
+    "persistence": 6,
+    "input-hooks": 50,
+    "credentials": 141,
+    "file-write": 140,
+    "file-outside": 4
+  },
+  "findings": [
+    {
+      "category": "network",
+      "file": ".github/scripts/Build-Deps-Windows.ps1",
+      "line": 26,
+      "text": "Write-Warning 'The obs-deps PowerShell build script requires PowerShell Core 7. Install or upgrade your PowerShell version: https://aka.ms/pscore6'"
+    },
+    {
+      "category": "network",
+      "file": ".github/scripts/Build-Windows.ps1",
+      "line": 25,
+      "text": "Write-Warning 'The obs-deps PowerShell build script requires PowerShell Core 7. Install or upgrade your PowerShell version: https://aka.ms/pscore6'"
+    },
+    {
+      "category": "network",
+      "file": ".github/scripts/Package-Windows.ps1",
+      "line": 24,
+      "text": "Write-Warning 'The packaging script requires PowerShell Core 7. Install or upgrade your PowerShell version: https://aka.ms/pscore6'"
+    },
+    {
+      "category": "file-outside",
+      "file": ".github/scripts/Package-Windows.ps1",
+      "line": 122,
+      "text": "# OBS 33 and newer, extract to %ProgramData%\\obs-studio\\plugins\\"
+    },
+    {
+      "category": "file-outside",
+      "file": ".github/scripts/Package-Windows.ps1",
+      "line": 126,
+      "text": "# OBS 28 to 32, extract to %ProgramData%\\obs-studio\\plugins\\"
+    },
+    {
+      "category": "network",
+      "file": "lib/advanced-scene-switcher.cpp",
+      "line": 17,
+      "text": "#include \"websocket-api.hpp\""
+    },
+    {
+      "category": "persistence",
+      "file": "lib/advanced-scene-switcher.cpp",
+      "line": 633,
+      "text": "// Skip this step for the initial OBS startup."
+    },
+    {
+      "category": "file-write",
+      "file": "lib/advanced-scene-switcher.cpp",
+      "line": 704,
+      "text": "QFileInfo libPath("
+    },
+    {
+      "category": "code-execution",
+      "file": "lib/advanced-scene-switcher.cpp",
+      "line": 719,
+      "text": "if (lib->load()) {"
+    },
+    {
+      "category": "credentials",
+      "file": "lib/advanced-scene-switcher.cpp",
+      "line": 731,
+      "text": "static bool settingsPasswordIsCorrect(QWidget *parent)"
+    },
+    {
+      "category": "credentials",
+      "file": "lib/advanced-scene-switcher.cpp",
+      "line": 739,
+      "text": "\"AdvSceneSwitcher.generalTab.generalBehavior.settingsLock.passwordLabel\"),"
+    },
+    {
+      "category": "credentials",
+      "file": "lib/advanced-scene-switcher.cpp",
+      "line": 740,
+      "text": "QLineEdit::Password, QString(), &ok);"
+    },
+    {
+      "category": "credentials",
+      "file": "lib/advanced-scene-switcher.cpp",
+      "line": 746,
+      "text": "if (input.toStdString() == switcher->settingsLockPassword) {"
+    },
+    {
+      "category": "credentials",
+      "file": "lib/advanced-scene-switcher.cpp",
+      "line": 755,
+      "text": "\"AdvSceneSwitcher.generalTab.generalBehavior.settingsLock.wrongPassword\"));"
+    },
+    {
+      "category": "credentials",
+      "file": "lib/advanced-scene-switcher.cpp",
+      "line": 771,
+      "text": "!switcher->settingsLockPassword.empty() &&"
+    },
+    {
+      "category": "credentials",
+      "file": "lib/advanced-scene-switcher.cpp",
+      "line": 772,
+      "text": "!settingsPasswordIsCorrect(parent)) {"
+    },
+    {
+      "category": "file-write",
+      "file": "lib/general.cpp",
+      "line": 24,
+      "text": "#include <QFileDialog>"
+    },
+    {
+      "category": "credentials",
+      "file": "lib/general.cpp",
+      "line": 268,
+      "text": "switcher->settingsLockPassword = \"\";"
+    },
+    {
+      "category": "credentials",
+      "file": "lib/general.cpp",
+      "line": 273,
+      "text": "QString newPassword = QInputDialog::getText("
+    },
+    {
+      "category": "credentials",
+      "file": "lib/general.cpp",
+      "line": 278,
+      "text": "\"AdvSceneSwitcher.generalTab.generalBehavior.settingsLock.newPasswordLabel\"),"
+    },
+    {
+      "category": "credentials",
+      "file": "lib/general.cpp",
+      "line": 279,
+      "text": "QLineEdit::Password, QString(), &ok);"
+    },
+    {
+      "category": "credentials",
+      "file": "lib/general.cpp",
+      "line": 281,
+      "text": "const auto disablePassword = [this]() {"
+    },
+    {
+      "category": "credentials",
+      "file": "lib/general.cpp",
+      "line": 286,
+      "text": "switcher->settingsLockPassword = \"\";"
+    },
+    {
+      "category": "credentials",
+      "file": "lib/general.cpp",
+      "line": 289,
+      "text": "if (!ok || newPassword.isEmpty()) {"
+    },
+    {
+      "category": "credentials",
+      "file": "lib/general.cpp",
+      "line": 290,
+      "text": "disablePassword();"
+    },
+    {
+      "category": "credentials",
+      "file": "lib/general.cpp",
+      "line": 299,
+      "text": "\"AdvSceneSwitcher.generalTab.generalBehavior.settingsLock.confirmPasswordLabel\"),"
+    },
+    {
+      "category": "credentials",
+      "file": "lib/general.cpp",
+      "line": 300,
+      "text": "QLineEdit::Password, QString(), &ok);"
+    },
+    {
+      "category": "credentials",
+      "file": "lib/general.cpp",
+      "line": 301,
+      "text": "if (!ok || newPassword != confirm) {"
+    },
+    {
+      "category": "credentials",
+      "file": "lib/general.cpp",
+      "line": 308,
+      "text": "\"AdvSceneSwitcher.generalTab.generalBehavior.settingsLock.passwordMismatch\"));"
+    },
+    {
+      "category": "credentials",
+      "file": "lib/general.cpp",
+      "line": 310,
+      "text": "disablePassword();"
+    },
+    {
+      "category": "credentials",
+      "file": "lib/general.cpp",
+      "line": 315,
+      "text": "switcher->settingsLockPassword = newPassword.toStdString();"
+    },
+    {
+      "category": "network",
+      "file": "lib/general.cpp",
+      "line": 334,
+      "text": "// Only checking for Twitch tokens and websocket connections for now"
+    },
+    {
+      "category": "network",
+      "file": "lib/general.cpp",
+      "line": 338,
+      "text": "OBSDataArrayAutoRelease websocketConnections ="
+    },
+    {
+      "category": "network",
+      "file": "lib/general.cpp",
+      "line": 339,
+      "text": "obs_data_get_array(data, \"websocketConnections\");"
+    },
+    {
+      "category": "network",
+      "file": "lib/general.cpp",
+      "line": 347,
+      "text": "return isNotEmpty(twitchTokens) || isNotEmpty(websocketConnections) ||"
+    },
+    {
+      "category": "file-write",
+      "file": "lib/general.cpp",
+      "line": 353,
+      "text": "QString directory = QFileDialog::getSaveFileName("
+    },
+    {
+      "category": "file-write",
+      "file": "lib/general.cpp",
+      "line": 364,
+      "text": "QFile file(directory);"
+    },
+    {
+      "category": "file-write",
+      "file": "lib/general.cpp",
+      "line": 387,
+      "text": "QString path = QFileDialog::getOpenFileName("
+    },
+    {
+      "category": "file-write",
+      "file": "lib/general.cpp",
+      "line": 398,
+      "text": "QFile file(path);"
+    },
+    {
+      "category": "persistence",
+      "file": "lib/general.cpp",
+      "line": 574,
+      "text": "// Reset on startup and scene collection change"
+    },
+    {
+      "category": "credentials",
+      "file": "lib/general.cpp",
+      "line": 648,
+      "text": "obs_data_set_string(obj, \"settingsLockPassword\","
+    },
+    {
+      "category": "credentials",
+      "file": "lib/general.cpp",
+      "line": 649,
+      "text": "settingsLockPassword.c_str());"
+    },
+    {
+      "category": "credentials",
+      "file": "lib/general.cpp",
+      "line": 724,
+      "text": "settingsLockPassword = obs_data_get_string(obj, \"settingsLockPassword\");"
+    },
+    {
+      "category": "input-hooks",
+      "file": "lib/switcher-data.cpp",
+      "line": 238,
+      "text": "static void registerHotkeys()"
+    },
+    {
+      "category": "input-hooks",
+      "file": "lib/switcher-data.cpp",
+      "line": 310,
+      "text": "registerHotkeys();"
+    },
+    {
+      "category": "credentials",
+      "file": "lib/switcher-data.hpp",
+      "line": 168,
+      "text": "std::string settingsLockPassword;"
+    },
+    {
+      "category": "code-execution",
+      "file": "lib/legacy/switch-audio.cpp",
+      "line": 310,
+      "text": "void AudioSwitch::load(obs_data_t *obj)"
+    },
+    {
+      "category": "code-execution",
+      "file": "lib/legacy/switch-audio.cpp",
+      "line": 312,
+      "text": "SceneSwitcherEntry::load(obj);"
+    },
+    {
+      "category": "code-execution",
+      "file": "lib/legacy/switch-audio.cpp",
+      "line": 335,
+      "text": "void AudioSwitchFallback::load(obs_data_t *obj)"
+    },
+    {
+      "category": "code-execution",
+      "file": "lib/legacy/switch-audio.cpp",
+      "line": 337,
+      "text": "SceneSwitcherEntry::load(obj, \"audioFallbackTargetType\","
+    },
+    {
+      "category": "code-execution",
+      "file": "lib/legacy/switch-audio.hpp",
+      "line": 39,
+      "text": "void load(obs_data_t *obj);"
+    },
+    {
+      "category": "code-execution",
+      "file": "lib/legacy/switch-audio.hpp",
+      "line": 58,
+      "text": "void load(obs_data_t *obj);"
+    },
+    {
+      "category": "code-execution",
+      "file": "lib/legacy/switch-executable.cpp",
+      "line": 196,
+      "text": "void ExecutableSwitch::load(obs_data_t *obj)"
+    },
+    {
+      "category": "code-execution",
+      "file": "lib/legacy/switch-executable.cpp",
+      "line": 198,
+      "text": "SceneSwitcherEntry::load(obj);"
+    },
+    {
+      "category": "code-execution",
+      "file": "lib/legacy/switch-executable.hpp",
+      "line": 23,
+      "text": "void load(obs_data_t *obj);"
+    },
+    {
+      "category": "file-write",
+      "file": "lib/legacy/switch-file.cpp",
+      "line": 11,
+      "text": "#include <QFileDialog>"
+    },
+    {
+      "category": "file-write",
+      "file": "lib/legacy/switch-file.cpp",
+      "line": 26,
+      "text": "if (!GetSwitcher() || !GetSwitcher()->fileIO.writeEnabled ||"
+    },
+    {
+      "category": "file-write",
+      "file": "lib/legacy/switch-file.cpp",
+      "line": 27,
+      "text": "GetSwitcher()->fileIO.writePath.empty()) {"
+    },
+    {
+      "category": "file-write",
+      "file": "lib/legacy/switch-file.cpp",
+      "line": 31,
+      "text": "QFile file(QString::fromStdString(GetSwitcher()->fileIO.writePath));"
+    },
+    {
+      "category": "file-write",
+      "file": "lib/legacy/switch-file.cpp",
+      "line": 49,
+      "text": "QString path = QFileDialog::getOpenFileName("
+    },
+    {
+      "category": "file-write",
+      "file": "lib/legacy/switch-file.cpp",
+      "line": 101,
+      "text": "switcher->fileIO.writeEnabled = false;"
+    },
+    {
+      "category": "file-write",
+      "file": "lib/legacy/switch-file.cpp",
+      "line": 102,
+      "text": "switcher->fileIO.writePath = \"\";"
+    },
+    {
+      "category": "file-write",
+      "file": "lib/legacy/switch-file.cpp",
+      "line": 105,
+      "text": "switcher->fileIO.writeEnabled = true;"
+    },
+    {
+      "category": "file-write",
+      "file": "lib/legacy/switch-file.cpp",
+      "line": 106,
+      "text": "switcher->fileIO.writePath = text.toUtf8().constData();"
+    },
+    {
+      "category": "file-write",
+      "file": "lib/legacy/switch-file.cpp",
+      "line": 111,
+      "text": "QString path = QFileDialog::getOpenFileName("
+    },
+    {
+      "category": "file-write",
+      "file": "lib/legacy/switch-file.cpp",
+      "line": 123,
+      "text": "if (!fileIO.writeEnabled || fileIO.writePath.empty()) {"
+    },
+    {
+      "category": "file-write",
+      "file": "lib/legacy/switch-file.cpp",
+      "line": 127,
+      "text": "QFile file(QString::fromStdString(fileIO.writePath));"
+    },
+    {
+      "category": "file-write",
+      "file": "lib/legacy/switch-file.cpp",
+      "line": 147,
+      "text": "QFile file(QString::fromStdString(fileIO.readPath));"
+    },
+    {
+      "category": "network",
+      "file": "lib/legacy/switch-file.cpp",
+      "line": 189,
+      "text": "CurlHelper::SetOpt(CURLOPT_URL, url.c_str());"
+    },
+    {
+      "category": "network",
+      "file": "lib/legacy/switch-file.cpp",
+      "line": 190,
+      "text": "CurlHelper::SetOpt(CURLOPT_WRITEFUNCTION, WriteCallback);"
+    },
+    {
+      "category": "network",
+      "file": "lib/legacy/switch-file.cpp",
+      "line": 191,
+      "text": "CurlHelper::SetOpt(CURLOPT_WRITEDATA, &readBuffer);"
+    },
+    {
+      "category": "network",
+      "file": "lib/legacy/switch-file.cpp",
+      "line": 198,
+      "text": "CurlHelper::SetOpt(CURLOPT_TIMEOUT, 1);"
+    },
+    {
+      "category": "file-write",
+      "file": "lib/legacy/switch-file.cpp",
+      "line": 237,
+      "text": "QFile file(QString::fromStdString(s.file));"
+    },
+    {
+      "category": "file-write",
+      "file": "lib/legacy/switch-file.cpp",
+      "line": 243,
+      "text": "QDateTime newLastMod = QFileInfo(file).lastModified();"
+    },
+    {
+      "category": "file-write",
+      "file": "lib/legacy/switch-file.cpp",
+      "line": 398,
+      "text": "obs_data_set_bool(obj, \"writeEnabled\", fileIO.writeEnabled);"
+    },
+    {
+      "category": "file-write",
+      "file": "lib/legacy/switch-file.cpp",
+      "line": 399,
+      "text": "obs_data_set_string(obj, \"writePath\", fileIO.writePath.c_str());"
+    },
+    {
+      "category": "file-write",
+      "file": "lib/legacy/switch-file.cpp",
+      "line": 422,
+      "text": "fileIO.writeEnabled = obs_data_get_bool(obj, \"writeEnabled\");"
+    },
+    {
+      "category": "file-write",
+      "file": "lib/legacy/switch-file.cpp",
+      "line": 423,
+      "text": "fileIO.writePath = obs_data_get_string(obj, \"writePath\");"
+    },
+    {
+      "category": "file-write",
+      "file": "lib/legacy/switch-file.cpp",
+      "line": 461,
+      "text": "QString::fromStdString(switcher->fileIO.writePath.c_str()));"
+    },
+    {
+      "category": "code-execution",
+      "file": "lib/legacy/switch-file.cpp",
+      "line": 484,
+      "text": "void FileSwitch::load(obs_data_t *obj)"
+    },
+    {
+      "category": "code-execution",
+      "file": "lib/legacy/switch-file.cpp",
+      "line": 486,
+      "text": "SceneSwitcherEntry::load(obj);"
+    },
+    {
+      "category": "file-write",
+      "file": "lib/legacy/switch-file.cpp",
+      "line": 629,
+      "text": "QString path = QFileDialog::getOpenFileName("
+    },
+    {
+      "category": "code-execution",
+      "file": "lib/legacy/switch-file.hpp",
+      "line": 37,
+      "text": "void load(obs_data_t *obj);"
+    },
+    {
+      "category": "code-execution",
+      "file": "lib/legacy/switch-generic.cpp",
+      "line": 108,
+      "text": "void SceneSwitcherEntry::load(obs_data_t *obj, const char *targetTypeLoadName,"
+    },
+    {
+      "category": "code-execution",
+      "file": "lib/legacy/switch-generic.hpp",
+      "line": 33,
+      "text": "virtual void load(obs_data_t *obj,"
+    },
+    {
+      "category": "code-execution",
+      "file": "lib/legacy/switch-idle.cpp",
+      "line": 246,
+      "text": "void IdleData::load(obs_data_t *obj)"
+    },
+    {
+      "category": "code-execution",
+      "file": "lib/legacy/switch-idle.cpp",
+      "line": 248,
+      "text": "SceneSwitcherEntry::load(obj, \"idleTargetType\", \"idleSceneName\","
+    },
+    {
+      "category": "code-execution",
+      "file": "lib/legacy/switch-idle.hpp",
+      "line": 24,
+      "text": "void load(obs_data_t *obj);"
+    },
+    {
+      "category": "code-execution",
+      "file": "lib/legacy/switch-media.cpp",
+      "line": 286,
+      "text": "void MediaSwitch::load(obs_data_t *obj)"
+    },
+    {
+      "category": "code-execution",
+      "file": "lib/legacy/switch-media.cpp",
+      "line": 288,
+      "text": "SceneSwitcherEntry::load(obj);"
+    },
+    {
+      "category": "code-execution",
+      "file": "lib/legacy/switch-media.hpp",
+      "line": 46,
+      "text": "void load(obs_data_t *obj);"
+    },
+    {
+      "category": "code-execution",
+      "file": "lib/legacy/switch-random.cpp",
+      "line": 164,
+      "text": "void RandomSwitch::load(obs_data_t *obj)"
+    },
+    {
+      "category": "code-execution",
+      "file": "lib/legacy/switch-random.cpp",
+      "line": 166,
+      "text": "SceneSwitcherEntry::load(obj, \"targetType\", \"scene\");"
+    },
+    {
+      "category": "code-execution",
+      "file": "lib/legacy/switch-random.hpp",
+      "line": 19,
+      "text": "void load(obs_data_t *obj);"
+    },
+    {
+      "category": "input-hooks",
+      "file": "lib/legacy/switch-screen-region.cpp",
+      "line": 163,
+      "text": "std::pair<int, int> cursorPos = GetCursorPos();"
+    },
+    {
+      "category": "input-hooks",
+      "file": "lib/legacy/switch-screen-region.cpp",
+      "line": 198,
+      "text": "std::pair<int, int> position = GetCursorPos();"
+    },
+    {
+      "category": "code-execution",
+      "file": "lib/legacy/switch-screen-region.cpp",
+      "line": 279,
+      "text": "void ScreenRegionSwitch::load(obs_data_t *obj)"
+    },
+    {
+      "category": "code-execution",
+      "file": "lib/legacy/switch-screen-region.cpp",
+      "line": 281,
+      "text": "SceneSwitcherEntry::load(obj);"
+    },
+    {
+      "category": "code-execution",
+      "file": "lib/legacy/switch-screen-region.hpp",
+      "line": 23,
+      "text": "void load(obs_data_t *obj);"
+    },
+    {
+      "category": "file-write",
+      "file": "lib/legacy/switch-sequence.cpp",
+      "line": 10,
+      "text": "#include <QFileDialog>"
+    },
+    {
+      "category": "file-write",
+      "file": "lib/legacy/switch-sequence.cpp",
+      "line": 96,
+      "text": "QString directory = QFileDialog::getSaveFileName("
+    },
+    {
+      "category": "file-write",
+      "file": "lib/legacy/switch-sequence.cpp",
+      "line": 106,
+      "text": "QFile file(directory);"
+    },
+    {
+      "category": "file-write",
+      "file": "lib/legacy/switch-sequence.cpp",
+      "line": 119,
+      "text": "QString directory = QFileDialog::getOpenFileName("
+    },
+    {
+      "category": "file-write",
+      "file": "lib/legacy/switch-sequence.cpp",
+      "line": 130,
+      "text": "QFile file(directory);"
+    },
+    {
+      "category": "code-execution",
+      "file": "lib/legacy/switch-sequence.cpp",
+      "line": 170,
+      "text": "edit.exec();"
+    },
+    {
+      "category": "code-execution",
+      "file": "lib/legacy/switch-sequence.cpp",
+      "line": 349,
+      "text": "void SceneSequenceSwitch::load(obs_data_t *obj, bool saveExt)"
+    },
+    {
+      "category": "code-execution",
+      "file": "lib/legacy/switch-sequence.cpp",
+      "line": 351,
+      "text": "SceneSwitcherEntry::load(obj);"
+    },
+    {
+      "category": "code-execution",
+      "file": "lib/legacy/switch-sequence.cpp",
+      "line": 373,
+      "text": "cur->extendedSequence->load(array_obj, false);"
+    },
+    {
+      "category": "code-execution",
+      "file": "lib/legacy/switch-sequence.hpp",
+      "line": 34,
+      "text": "void load(obs_data_t *obj, bool saveExt = true);"
+    },
+    {
+      "category": "code-execution",
+      "file": "lib/legacy/switch-time.cpp",
+      "line": 217,
+      "text": "void TimeSwitch::load(obs_data_t *obj)"
+    },
+    {
+      "category": "code-execution",
+      "file": "lib/legacy/switch-time.cpp",
+      "line": 219,
+      "text": "SceneSwitcherEntry::load(obj);"
+    },
+    {
+      "category": "code-execution",
+      "file": "lib/legacy/switch-time.hpp",
+      "line": 36,
+      "text": "void load(obs_data_t *obj);"
+    },
+    {
+      "category": "code-execution",
+      "file": "lib/legacy/switch-transitions.cpp",
+      "line": 338,
+      "text": "void SceneTransition::load(obs_data_t *obj)"
+    },
+    {
+      "category": "code-execution",
+      "file": "lib/legacy/switch-transitions.cpp",
+      "line": 340,
+      "text": "SceneSwitcherEntry::load(obj, \"targetType\", \"Scene1\");"
+    },
+    {
+      "category": "code-execution",
+      "file": "lib/legacy/switch-transitions.cpp",
+      "line": 468,
+      "text": "void DefaultSceneTransition::load(obs_data_t *obj)"
+    },
+    {
+      "category": "code-execution",
+      "file": "lib/legacy/switch-transitions.cpp",
+      "line": 470,
+      "text": "SceneSwitcherEntry::load(obj, \"targetType\", \"Scene\");"
+    },
+    {
+      "category": "code-execution",
+      "file": "lib/legacy/switch-transitions.hpp",
+      "line": 16,
+      "text": "void load(obs_data_t *obj);"
+    },
+    {
+      "category": "code-execution",
+      "file": "lib/legacy/switch-transitions.hpp",
+      "line": 34,
+      "text": "void load(obs_data_t *obj);"
+    },
+    {
+      "category": "file-write",
+      "file": "lib/legacy/switch-video.cpp",
+      "line": 9,
+      "text": "#include <QFileDialog>"
+    },
+    {
+      "category": "file-write",
+      "file": "lib/legacy/switch-video.cpp",
+      "line": 111,
+      "text": "QString filePath = QFileDialog::getSaveFileName(this);"
+    },
+    {
+      "category": "file-write",
+      "file": "lib/legacy/switch-video.cpp",
+      "line": 116,
+      "text": "QFile file(filePath);"
+    },
+    {
+      "category": "code-execution",
+      "file": "lib/legacy/switch-video.cpp",
+      "line": 245,
+      "text": "void VideoSwitch::load(obs_data_t *obj)"
+    },
+    {
+      "category": "code-execution",
+      "file": "lib/legacy/switch-video.cpp",
+      "line": 247,
+      "text": "SceneSwitcherEntry::load(obj);"
+    },
+    {
+      "category": "file-write",
+      "file": "lib/legacy/switch-video.cpp",
+      "line": 565,
+      "text": "QString path = QFileDialog::getOpenFileName("
+    },
+    {
+      "category": "code-execution",
+      "file": "lib/legacy/switch-video.hpp",
+      "line": 45,
+      "text": "void load(obs_data_t *obj);"
+    },
+    {
+      "category": "code-execution",
+      "file": "lib/legacy/switch-window.cpp",
+      "line": 358,
+      "text": "void WindowSwitch::load(obs_data_t *obj)"
+    },
+    {
+      "category": "code-execution",
+      "file": "lib/legacy/switch-window.cpp",
+      "line": 360,
+      "text": "SceneSwitcherEntry::load(obj);"
+    },
+    {
+      "category": "code-execution",
+      "file": "lib/legacy/switch-window.hpp",
+      "line": 24,
+      "text": "void load(obs_data_t *obj);"
+    },
+    {
+      "category": "code-execution",
+      "file": "lib/linux/advanced-scene-switcher-nix.cpp",
+      "line": 684,
+      "text": "msgBox.exec();"
+    },
+    {
+      "category": "file-write",
+      "file": "lib/linux/kwin-helpers.cpp",
+      "line": 6,
+      "text": "#include <QFile>"
+    },
+    {
+      "category": "file-write",
+      "file": "lib/linux/kwin-helpers.cpp",
+      "line": 7,
+      "text": "#include <QFileDevice>"
+    },
+    {
+      "category": "file-write",
+      "file": "lib/linux/kwin-helpers.cpp",
+      "line": 136,
+      "text": "if (const QDir dir; !dir.mkpath(QFileInfo(scriptPath).absolutePath())) {"
+    },
+    {
+      "category": "file-write",
+      "file": "lib/linux/kwin-helpers.cpp",
+      "line": 142,
+      "text": "QFile scriptFile(scriptPath);"
+    },
+    {
+      "category": "file-write",
+      "file": "lib/linux/kwin-helpers.cpp",
+      "line": 149,
+      "text": "scriptFile.setPermissions(QFileDevice::ReadOwner |"
+    },
+    {
+      "category": "file-write",
+      "file": "lib/linux/kwin-helpers.cpp",
+      "line": 150,
+      "text": "QFileDevice::WriteOwner);"
+    },
+    {
+      "category": "code-execution",
+      "file": "lib/macro/macro-action-loop.cpp",
+      "line": 73,
+      "text": "bool MacroActionLoop::Load(obs_data_t *obj)"
+    },
+    {
+      "category": "code-execution",
+      "file": "lib/macro/macro-action-loop.cpp",
+      "line": 75,
+      "text": "MacroAction::Load(obj);"
+    },
+    {
+      "category": "code-execution",
+      "file": "lib/macro/macro-action-loop.cpp",
+      "line": 81,
+      "text": "_loopMacro->Load(loopMacroData);"
+    },
+    {
+      "category": "code-execution",
+      "file": "lib/macro/macro-action-loop.cpp",
+      "line": 109,
+      "text": "copy->_loopMacro->Load(data);"
+    },
+    {
+      "category": "code-execution",
+      "file": "lib/macro/macro-action-loop.hpp",
+      "line": 18,
+      "text": "bool Load(obs_data_t *obj);"
+    },
+    {
+      "category": "code-execution",
+      "file": "lib/macro/macro-action-macro.cpp",
+      "line": 259,
+      "text": "bool MacroActionMacro::Load(obs_data_t *obj)"
+    },
+    {
+      "category": "code-execution",
+      "file": "lib/macro/macro-action-macro.cpp",
+      "line": 261,
+      "text": "MacroAction::Load(obj);"
+    },
+    {
+      "category": "code-execution",
+      "file": "lib/macro/macro-action-macro.cpp",
+      "line": 277,
+      "text": "_nestedMacro->Load(nestedMacroData);"
+    },
+    {
+      "category": "code-execution",
+      "file": "lib/macro/macro-action-macro.cpp",
+      "line": 314,
+      "text": "copy->_nestedMacro->Load(data);"
+    },
+    {
+      "category": "code-execution",
+      "file": "lib/macro/macro-action-macro.cpp",
+      "line": 939,
+      "text": "void MacroActionMacro::RunOptions::Load(obs_data_t *obj)"
+    },
+    {
+      "category": "code-execution",
+      "file": "lib/macro/macro-action-macro.hpp",
+      "line": 24,
+      "text": "bool Load(obs_data_t *obj);"
+    },
+    {
+      "category": "code-execution",
+      "file": "lib/macro/macro-action-macro.hpp",
+      "line": 34,
+      "text": "void Load(obs_data_t *obj);"
+    },
+    {
+      "category": "code-execution",
+      "file": "lib/macro/macro-action-queue.cpp",
+      "line": 104,
+      "text": "bool MacroActionQueue::Load(obs_data_t *obj)"
+    },
+    {
+      "category": "code-execution",
+      "file": "lib/macro/macro-action-queue.cpp",
+      "line": 106,
+      "text": "MacroAction::Load(obj);"
+    },
+    {
+      "category": "code-execution",
+      "file": "lib/macro/macro-action-queue.hpp",
+      "line": 16,
+      "text": "bool Load(obs_data_t *obj);"
+    },
+    {
+      "category": "code-execution",
+      "file": "lib/macro/macro-action-variable-group.hpp",
+      "line": 26,
+      "text": "virtual void Load(obs_data_t *, MacroActionVariable &) {}"
+    },
+    {
+      "category": "code-execution",
+      "file": "lib/macro/macro-action-variable-input.cpp",
+      "line": 77,
+      "text": "void VariableActionInput::Load(obs_data_t *obj, MacroActionVariable &)"
+    },
+    {
+      "category": "code-execution",
+      "file": "lib/macro/macro-action-variable-input.hpp",
+      "line": 13,
+      "text": "void Load(obs_data_t *, MacroActionVariable &) override;"
+    },
+    {
+      "category": "code-execution",
+      "file": "lib/macro/macro-action-variable-json.cpp",
+      "line": 45,
+      "text": "void VariableActionJson::Load(obs_data_t *obj, MacroActionVariable &)"
+    },
+    {
+      "category": "code-execution",
+      "file": "lib/macro/macro-action-variable-json.hpp",
+      "line": 13,
+      "text": "void Load(obs_data_t *, MacroActionVariable &) override;"
+    },
+    {
+      "category": "code-execution",
+      "file": "lib/macro/macro-action-variable-macro.cpp",
+      "line": 49,
+      "text": "void VariableActionMacro::Load(obs_data_t *obj, MacroActionVariable &action)"
+    },
+    {
+      "category": "code-execution",
+      "file": "lib/macro/macro-action-variable-macro.hpp",
+      "line": 18,
+      "text": "void Load(obs_data_t *, MacroActionVariable &) override;"
+    },
+    {
+      "category": "code-execution",
+      "file": "lib/macro/macro-action-variable-math.cpp",
+      "line": 73,
+      "text": "void VariableActionMath::Load(obs_data_t *obj, MacroActionVariable &)"
+    },
+    {
+      "category": "code-execution",
+      "file": "lib/macro/macro-action-variable-math.hpp",
+      "line": 15,
+      "text": "void Load(obs_data_t *, MacroActionVariable &) override;"
+    },
+    {
+      "category": "code-execution",
+      "file": "lib/macro/macro-action-variable-scene.cpp",
+      "line": 67,
+      "text": "void VariableActionScene::Load(obs_data_t *obj, MacroActionVariable &)"
+    },
+    {
+      "category": "code-execution",
+      "file": "lib/macro/macro-action-variable-scene.hpp",
+      "line": 12,
+      "text": "void Load(obs_data_t *, MacroActionVariable &) override;"
+    },
+    {
+      "category": "code-execution",
+      "file": "lib/macro/macro-action-variable-string.cpp",
+      "line": 89,
+      "text": "void VariableActionString::Load(obs_data_t *obj, MacroActionVariable &)"
+    },
+    {
+      "category": "code-execution",
+      "file": "lib/macro/macro-action-variable-string.hpp",
+      "line": 14,
+      "text": "void Load(obs_data_t *, MacroActionVariable &) override;"
+    },
+    {
+      "category": "code-execution",
+      "file": "lib/macro/macro-action-variable-time.cpp",
+      "line": 46,
+      "text": "void VariableActionTime::Load(obs_data_t *obj, MacroActionVariable &)"
+    },
+    {
+      "category": "code-execution",
+      "file": "lib/macro/macro-action-variable-time.hpp",
+      "line": 15,
+      "text": "void Load(obs_data_t *, MacroActionVariable &) override;"
+    },
+    {
+      "category": "code-execution",
+      "file": "lib/macro/macro-action-variable.cpp",
+      "line": 74,
+      "text": "bool MacroActionVariable::Load(obs_data_t *obj)"
+    },
+    {
+      "category": "code-execution",
+      "file": "lib/macro/macro-action-variable.cpp",
+      "line": 76,
+      "text": "MacroAction::Load(obj);"
+    },
+    {
+      "category": "persistence",
+      "file": "lib/macro/macro-dock-settings.cpp",
+      "line": 76,
+      "text": "// OBS on startup"
+    },
+    {
+      "category": "input-hooks",
+      "file": "lib/macro/macro-settings.cpp",
+      "line": 62,
+      "text": "obs_data_set_bool(data, \"newMacroRegisterHotkey\","
+    },
+    {
+      "category": "input-hooks",
+      "file": "lib/macro/macro-settings.cpp",
+      "line": 63,
+      "text": "_newMacroRegisterHotkeys);"
+    },
+    {
+      "category": "input-hooks",
+      "file": "lib/macro/macro-settings.cpp",
+      "line": 86,
+      "text": "_newMacroRegisterHotkeys ="
+    },
+    {
+      "category": "input-hooks",
+      "file": "lib/macro/macro-settings.cpp",
+      "line": 87,
+      "text": "obs_data_get_bool(data, \"newMacroRegisterHotkey\");"
+    },
+    {
+      "category": "input-hooks",
+      "file": "lib/macro/macro-settings.cpp",
+      "line": 109,
+      "text": "_newMacroRegisterHotkeys(new QCheckBox(obs_module_text("
+    },
+    {
+      "category": "input-hooks",
+      "file": "lib/macro/macro-settings.cpp",
+      "line": 110,
+      "text": "\"AdvSceneSwitcher.macroTab.newMacroRegisterHotkey\"))),"
+    },
+    {
+      "category": "input-hooks",
+      "file": "lib/macro/macro-settings.cpp",
+      "line": 117,
+      "text": "_currentMacroRegisterHotkeys(new QCheckBox(obs_module_text("
+    },
+    {
+      "category": "input-hooks",
+      "file": "lib/macro/macro-settings.cpp",
+      "line": 118,
+      "text": "\"AdvSceneSwitcher.macroTab.currentRegisterHotkeys\"))),"
+    },
+    {
+      "category": "input-hooks",
+      "file": "lib/macro/macro-settings.cpp",
+      "line": 206,
+      "text": "hotkeyLayout->addWidget(_newMacroRegisterHotkeys);"
+    },
+    {
+      "category": "input-hooks",
+      "file": "lib/macro/macro-settings.cpp",
+      "line": 207,
+      "text": "hotkeyLayout->addWidget(_currentMacroRegisterHotkeys);"
+    },
+    {
+      "category": "input-hooks",
+      "file": "lib/macro/macro-settings.cpp",
+      "line": 355,
+      "text": "_newMacroRegisterHotkeys->setChecked(settings._newMacroRegisterHotkeys);"
+    },
+    {
+      "category": "input-hooks",
+      "file": "lib/macro/macro-settings.cpp",
+      "line": 371,
+      "text": "_currentMacroRegisterHotkeys->hide();"
+    },
+    {
+      "category": "input-hooks",
+      "file": "lib/macro/macro-settings.cpp",
+      "line": 379,
+      "text": "_currentMacroRegisterHotkeys->setChecked(macro->PauseHotkeysEnabled());"
+    },
+    {
+      "category": "input-hooks",
+      "file": "lib/macro/macro-settings.cpp",
+      "line": 506,
+      "text": "userInput._newMacroRegisterHotkeys ="
+    },
+    {
+      "category": "input-hooks",
+      "file": "lib/macro/macro-settings.cpp",
+      "line": 507,
+      "text": "dialog._newMacroRegisterHotkeys->isChecked();"
+    },
+    {
+      "category": "input-hooks",
+      "file": "lib/macro/macro-settings.cpp",
+      "line": 518,
+      "text": "dialog._currentMacroRegisterHotkeys->isChecked());"
+    },
+    {
+      "category": "input-hooks",
+      "file": "lib/macro/macro-settings.hpp",
+      "line": 28,
+      "text": "bool _newMacroRegisterHotkeys = true;"
+    },
+    {
+      "category": "input-hooks",
+      "file": "lib/macro/macro-settings.hpp",
+      "line": 59,
+      "text": "QCheckBox *_newMacroRegisterHotkeys;"
+    },
+    {
+      "category": "input-hooks",
+      "file": "lib/macro/macro-settings.hpp",
+      "line": 64,
+      "text": "QCheckBox *_currentMacroRegisterHotkeys;"
+    },
+    {
+      "category": "network",
+      "file": "lib/macro/macro-websocket-trigger.cpp",
+      "line": 1,
+      "text": "#include \"websocket-api.hpp\""
+    },
+    {
+      "category": "network",
+      "file": "lib/macro/macro-websocket-trigger.cpp",
+      "line": 22,
+      "text": "RegisterWebsocketRequest(runMacroMessage,"
+    },
+    {
+      "category": "network",
+      "file": "lib/macro/macro-websocket-trigger.cpp",
+      "line": 24,
+      "text": "RegisterWebsocketRequest(setVariablesMessage,"
+    },
+    {
+      "category": "network",
+      "file": "lib/macro/macro-websocket-trigger.cpp",
+      "line": 39,
+      "text": "\"ignoring invalid variable entry in \\\"%s\\\" websocket message (missing \\\"name\\\")\","
+    },
+    {
+      "category": "network",
+      "file": "lib/macro/macro-websocket-trigger.cpp",
+      "line": 46,
+      "text": "\"ignoring invalid variable entry in \\\"%s\\\" websocket message (missing \\\"value\\\")\","
+    },
+    {
+      "category": "network",
+      "file": "lib/macro/macro-websocket-trigger.cpp",
+      "line": 58,
+      "text": "\"ignoring invalid variable name \\\"%s\\\" in \\\"%s\\\" websocket message\","
+    },
+    {
+      "category": "network",
+      "file": "lib/macro/macro-websocket-trigger.cpp",
+      "line": 71,
+      "text": "\"ignoring invalid \\\"%s\\\" websocket message (missing \\\"name\\\")\","
+    },
+    {
+      "category": "network",
+      "file": "lib/macro/macro-websocket-trigger.cpp",
+      "line": 82,
+      "text": "\"ignoring invalid \\\"%s\\\" websocket message (macro \\\"%s\\\") not found\","
+    },
+    {
+      "category": "network",
+      "file": "lib/macro/macro-websocket-trigger.cpp",
+      "line": 103,
+      "text": "\"ignoring invalid \\\"%s\\\" websocket message (missing \\\"variables\\\")\","
+    },
+    {
+      "category": "input-hooks",
+      "file": "lib/macro/macro.cpp",
+      "line": 44,
+      "text": "if (settings._newMacroRegisterHotkeys) {"
+    },
+    {
+      "category": "input-hooks",
+      "file": "lib/macro/macro.cpp",
+      "line": 47,
+      "text": "_registerHotkeys = settings._newMacroRegisterHotkeys;"
+    },
+    {
+      "category": "input-hooks",
+      "file": "lib/macro/macro.cpp",
+      "line": 65,
+      "text": "group->_registerHotkeys = false;"
+    },
+    {
+      "category": "network",
+      "file": "lib/macro/macro.cpp",
+      "line": 393,
+      "text": "match ? std::bind(&Macro::RunActions, this,"
+    },
+    {
+      "category": "network",
+      "file": "lib/macro/macro.cpp",
+      "line": 395,
+      "text": ": std::bind(&Macro::RunElseActions, this,"
+    },
+    {
+      "category": "input-hooks",
+      "file": "lib/macro/macro.cpp",
+      "line": 873,
+      "text": "macro->_registerHotkeys = false;"
+    },
+    {
+      "category": "input-hooks",
+      "file": "lib/macro/macro.cpp",
+      "line": 919,
+      "text": "obs_data_set_bool(obj, \"registerHotkeys\", _registerHotkeys);"
+    },
+    {
+      "category": "input-hooks",
+      "file": "lib/macro/macro.cpp",
+      "line": 1013,
+      "text": "obs_data_set_default_bool(obj, \"registerHotkeys\", true);"
+    },
+    {
+      "category": "input-hooks",
+      "file": "lib/macro/macro.cpp",
+      "line": 1014,
+      "text": "_registerHotkeys = !_isNested &&"
+    },
+    {
+      "category": "input-hooks",
+      "file": "lib/macro/macro.cpp",
+      "line": 1015,
+      "text": "obs_data_get_bool(obj, \"registerHotkeys\");"
+    },
+    {
+      "category": "input-hooks",
+      "file": "lib/macro/macro.cpp",
+      "line": 1101,
+      "text": "if (_registerHotkeys) {"
+    },
+    {
+      "category": "input-hooks",
+      "file": "lib/macro/macro.cpp",
+      "line": 1182,
+      "text": "if (_registerHotkeys == value) {"
+    },
+    {
+      "category": "input-hooks",
+      "file": "lib/macro/macro.cpp",
+      "line": 1186,
+      "text": "if (_registerHotkeys) {"
+    },
+    {
+      "category": "input-hooks",
+      "file": "lib/macro/macro.cpp",
+      "line": 1191,
+      "text": "_registerHotkeys = value;"
+    },
+    {
+      "category": "input-hooks",
+      "file": "lib/macro/macro.cpp",
+      "line": 1196,
+      "text": "return _registerHotkeys;"
+    },
+    {
+      "category": "input-hooks",
+      "file": "lib/macro/macro.cpp",
+      "line": 1226,
+      "text": "static obs_hotkey_id registerHotkeyHelper(const std::string prefix,"
+    },
+    {
+      "category": "input-hooks",
+      "file": "lib/macro/macro.cpp",
+      "line": 1252,
+      "text": "_pauseHotkey = registerHotkeyHelper("
+    },
+    {
+      "category": "input-hooks",
+      "file": "lib/macro/macro.cpp",
+      "line": 1255,
+      "text": "_unpauseHotkey = registerHotkeyHelper("
+    },
+    {
+      "category": "input-hooks",
+      "file": "lib/macro/macro.cpp",
+      "line": 1258,
+      "text": "_togglePauseHotkey = registerHotkeyHelper("
+    },
+    {
+      "category": "persistence",
+      "file": "lib/macro/macro.cpp",
+      "line": 1418,
+      "text": "\"skip execution of macro \\\"%s\\\" at startup\","
+    },
+    {
+      "category": "input-hooks",
+      "file": "lib/macro/macro.hpp",
+      "line": 220,
+      "text": "bool _registerHotkeys = true;"
+    },
+    {
+      "category": "file-write",
+      "file": "lib/utils/backup.cpp",
+      "line": 13,
+      "text": "#include <QFileDialog>"
+    },
+    {
+      "category": "file-write",
+      "file": "lib/utils/backup.cpp",
+      "line": 31,
+      "text": "QString path = QFileDialog::getSaveFileName("
+    },
+    {
+      "category": "file-write",
+      "file": "lib/utils/backup.cpp",
+      "line": 42,
+      "text": "QFile file(path);"
+    },
+    {
+      "category": "file-write",
+      "file": "lib/utils/backup.cpp",
+      "line": 84,
+      "text": "QString dirPath = QFileInfo(settingsFile).absolutePath();"
+    },
+    {
+      "category": "file-write",
+      "file": "lib/utils/backup.cpp",
+      "line": 95,
+      "text": "QFile file(settingsFile);"
+    },
+    {
+      "category": "file-write",
+      "file": "lib/utils/crash-handler.cpp",
+      "line": 13,
+      "text": "#include <QFile>"
+    },
+    {
+      "category": "file-write",
+      "file": "lib/utils/crash-handler.cpp",
+      "line": 67,
+      "text": "QFile file(sentinelFile);"
+    },
+    {
+      "category": "file-write",
+      "file": "lib/utils/crash-handler.cpp",
+      "line": 88,
+      "text": "QString dirPath = QFileInfo(sentinelFile).absolutePath();"
+    },
+    {
+      "category": "file-write",
+      "file": "lib/utils/crash-handler.cpp",
+      "line": 99,
+      "text": "QFile file(sentinelFile);"
+    },
+    {
+      "category": "file-write",
+      "file": "lib/utils/curl-helper.cpp",
+      "line": 5,
+      "text": "#include <QFileInfo>"
+    },
+    {
+      "category": "file-write",
+      "file": "lib/utils/curl-helper.cpp",
+      "line": 97,
+      "text": "QFileInfo libPath("
+    },
+    {
+      "category": "network",
+      "file": "lib/utils/curl-helper.cpp",
+      "line": 120,
+      "text": "_init = (initFunction)_lib->resolve(\"curl_easy_init\");"
+    },
+    {
+      "category": "network",
+      "file": "lib/utils/curl-helper.cpp",
+      "line": 121,
+      "text": "_setopt = (setOptFunction)_lib->resolve(\"curl_easy_setopt\");"
+    },
+    {
+      "category": "network",
+      "file": "lib/utils/curl-helper.cpp",
+      "line": 123,
+      "text": "_perform = (performFunction)_lib->resolve(\"curl_easy_perform\");"
+    },
+    {
+      "category": "network",
+      "file": "lib/utils/curl-helper.cpp",
+      "line": 124,
+      "text": "_cleanup = (cleanupFunction)_lib->resolve(\"curl_easy_cleanup\");"
+    },
+    {
+      "category": "network",
+      "file": "lib/utils/curl-helper.cpp",
+      "line": 125,
+      "text": "_error = (errorFunction)_lib->resolve(\"curl_easy_strerror\");"
+    },
+    {
+      "category": "network",
+      "file": "lib/utils/curl-helper.hpp",
+      "line": 13,
+      "text": "template<typename... Args> static CURLcode SetOpt(CURLoption, Args...);"
+    },
+    {
+      "category": "network",
+      "file": "lib/utils/curl-helper.hpp",
+      "line": 26,
+      "text": "typedef CURLcode (*setOptFunction)(CURL *, CURLoption, ...);"
+    },
+    {
+      "category": "network",
+      "file": "lib/utils/curl-helper.hpp",
+      "line": 50,
+      "text": "inline CURLcode CurlHelper::SetOpt(CURLoption option, Args... args)"
+    },
+    {
+      "category": "file-write",
+      "file": "lib/utils/file-selection.cpp",
+      "line": 5,
+      "text": "#include <QFileDialog>"
+    },
+    {
+      "category": "file-write",
+      "file": "lib/utils/file-selection.cpp",
+      "line": 47,
+      "text": "QFileInfo fileInfo(path);"
+    },
+    {
+      "category": "file-write",
+      "file": "lib/utils/file-selection.cpp",
+      "line": 60,
+      "text": "path = QFileDialog::getSaveFileName(this, _browseTitle,"
+    },
+    {
+      "category": "file-write",
+      "file": "lib/utils/file-selection.cpp",
+      "line": 63,
+      "text": "path = QFileDialog::getOpenFileName(this, _browseTitle,"
+    },
+    {
+      "category": "file-write",
+      "file": "lib/utils/file-selection.cpp",
+      "line": 66,
+      "text": "path = QFileDialog::getExistingDirectory(this, _browseTitle,"
+    },
+    {
+      "category": "file-write",
+      "file": "lib/utils/path-helpers.cpp",
+      "line": 7,
+      "text": "#include <QFile>"
+    },
+    {
+      "category": "file-write",
+      "file": "lib/utils/path-helpers.cpp",
+      "line": 35,
+      "text": "QFile file(path);"
+    },
+    {
+      "category": "network",
+      "file": "lib/utils/scene-switch-helpers.cpp",
+      "line": 7,
+      "text": "#include <obs-websocket-api.h>"
+    },
+    {
+      "category": "network",
+      "file": "lib/utils/scene-switch-helpers.cpp",
+      "line": 178,
+      "text": "obs_websocket_request_response_free("
+    },
+    {
+      "category": "network",
+      "file": "lib/utils/scene-switch-helpers.cpp",
+      "line": 179,
+      "text": "obs_websocket_call_request(\"CallVendorRequest\", data));"
+    },
+    {
+      "category": "network",
+      "file": "lib/utils/switch-button.hpp",
+      "line": 8,
+      "text": "Based on https://github.com/KDAB/kdabtv/blob/master/Styling-Qt-Widgets/toggleswitch.h"
+    },
+    {
+      "category": "input-hooks",
+      "file": "lib/utils/utility.cpp",
+      "line": 11,
+      "text": "std::pair<int, int> GetCursorPos()"
+    },
+    {
+      "category": "input-hooks",
+      "file": "lib/utils/utility.hpp",
+      "line": 15,
+      "text": "EXPORT std::pair<int, int> GetCursorPos();"
+    },
+    {
+      "category": "network",
+      "file": "lib/utils/websocket-api.cpp",
+      "line": 1,
+      "text": "#include \"websocket-api.hpp\""
+    },
+    {
+      "category": "network",
+      "file": "lib/utils/websocket-api.cpp",
+      "line": 2,
+      "text": "#include \"obs-websocket-api.h\""
+    },
+    {
+      "category": "network",
+      "file": "lib/utils/websocket-api.cpp",
+      "line": 6,
+      "text": "// Must be after \"obs-websocket-api.h\" to avoid logging function conflict"
+    },
+    {
+      "category": "network",
+      "file": "lib/utils/websocket-api.cpp",
+      "line": 20,
+      "text": "static obs_websocket_vendor vendor;"
+    },
+    {
+      "category": "network",
+      "file": "lib/utils/websocket-api.cpp",
+      "line": 22,
+      "text": "static void registerWebsocketVendor();"
+    },
+    {
+      "category": "network",
+      "file": "lib/utils/websocket-api.cpp",
+      "line": 29,
+      "text": "AddPluginPostLoadStep(registerWebsocketVendor);"
+    },
+    {
+      "category": "network",
+      "file": "lib/utils/websocket-api.cpp",
+      "line": 31,
+      "text": "SendWebsocketVendorEvent(\"AdvancedSceneSwitcherStarted\","
+    },
+    {
+      "category": "network",
+      "file": "lib/utils/websocket-api.cpp",
+      "line": 35,
+      "text": "SendWebsocketVendorEvent(\"AdvancedSceneSwitcherStopped\","
+    },
+    {
+      "category": "network",
+      "file": "lib/utils/websocket-api.cpp",
+      "line": 42,
+      "text": "registerWebsocketVendorRequest(const char *requestName,"
+    },
+    {
+      "category": "network",
+      "file": "lib/utils/websocket-api.cpp",
+      "line": 43,
+      "text": "obs_websocket_request_callback_function callback)"
+    },
+    {
+      "category": "network",
+      "file": "lib/utils/websocket-api.cpp",
+      "line": 45,
+      "text": "if (!obs_websocket_vendor_register_request(vendor, requestName,"
+    },
+    {
+      "category": "network",
+      "file": "lib/utils/websocket-api.cpp",
+      "line": 48,
+      "text": "\"Failed to register \\\"%s\\\" request with obs-websocket.\","
+    },
+    {
+      "category": "network",
+      "file": "lib/utils/websocket-api.cpp",
+      "line": 53,
+      "text": "static void registerWebsocketVendor()"
+    },
+    {
+      "category": "network",
+      "file": "lib/utils/websocket-api.cpp",
+      "line": 55,
+      "text": "vendor = obs_websocket_register_vendor(VendorName);"
+    },
+    {
+      "category": "network",
+      "file": "lib/utils/websocket-api.cpp",
+      "line": 58,
+      "text": "\"Vendor registration failed! (obs-websocket should have logged something if installed properly.)\");"
+    },
+    {
+      "category": "network",
+      "file": "lib/utils/websocket-api.cpp",
+      "line": 62,
+      "text": "auto api_version = obs_websocket_get_api_version();"
+    },
+    {
+      "category": "network",
+      "file": "lib/utils/websocket-api.cpp",
+      "line": 65,
+      "text": "\"Unable to fetch obs-websocket plugin API version.\");"
+    },
+    {
+      "category": "network",
+      "file": "lib/utils/websocket-api.cpp",
+      "line": 69,
+      "text": "\"Unsupported obs-websocket plugin API version for calling requests.\");"
+    },
+    {
+      "category": "network",
+      "file": "lib/utils/websocket-api.cpp",
+      "line": 73,
+      "text": "registerWebsocketVendorRequest(VendorRequestStart,"
+    },
+    {
+      "category": "network",
+      "file": "lib/utils/websocket-api.cpp",
+      "line": 77,
+      "text": "registerWebsocketVendorRequest(VendorRequestStop,"
+    },
+    {
+      "category": "network",
+      "file": "lib/utils/websocket-api.cpp",
+      "line": 81,
+      "text": "registerWebsocketVendorRequest("
+    },
+    {
+      "category": "network",
+      "file": "lib/utils/websocket-api.cpp",
+      "line": 87,
+      "text": "registerWebsocketVendorRequest("
+    },
+    {
+      "category": "network",
+      "file": "lib/utils/websocket-api.cpp",
+      "line": 95,
+      "text": "const char *GetWebsocketVendorName()"
+    },
+    {
+      "category": "network",
+      "file": "lib/utils/websocket-api.cpp",
+      "line": 100,
+      "text": "void RegisterWebsocketRequest("
+    },
+    {
+      "category": "network",
+      "file": "lib/utils/websocket-api.cpp",
+      "line": 118,
+      "text": "if (!obs_websocket_vendor_register_request("
+    },
+    {
+      "category": "network",
+      "file": "lib/utils/websocket-api.cpp",
+      "line": 122,
+      "text": "\"Failed to register \\\"%s\\\" request with obs-websocket.\","
+    },
+    {
+      "category": "network",
+      "file": "lib/utils/websocket-api.cpp",
+      "line": 128,
+      "text": "void SendWebsocketVendorEvent(const std::string &eventName, obs_data_t *data)"
+    },
+    {
+      "category": "network",
+      "file": "lib/utils/websocket-api.cpp",
+      "line": 130,
+      "text": "if (OBSIsShuttingDown() || !obs_get_module(\"obs-websocket\")) {"
+    },
+    {
+      "category": "network",
+      "file": "lib/utils/websocket-api.cpp",
+      "line": 134,
+      "text": "obs_websocket_vendor_emit_event(vendor, eventName.c_str(), data);"
+    },
+    {
+      "category": "network",
+      "file": "lib/utils/websocket-api.hpp",
+      "line": 10,
+      "text": "EXPORT const char *GetWebsocketVendorName();"
+    },
+    {
+      "category": "network",
+      "file": "lib/utils/websocket-api.hpp",
+      "line": 11,
+      "text": "EXPORT void RegisterWebsocketRequest("
+    },
+    {
+      "category": "network",
+      "file": "lib/utils/websocket-api.hpp",
+      "line": 14,
+      "text": "EXPORT void SendWebsocketVendorEvent(const std::string &eventName,"
+    },
+    {
+      "category": "network",
+      "file": "plugins/base/macro-action-audio.cpp",
+      "line": 242,
+      "text": "// https://github.com/obsproject/obs-studio/issues/7912"
+    },
+    {
+      "category": "network",
+      "file": "plugins/base/macro-action-clipboard.cpp",
+      "line": 37,
+      "text": "CurlHelper::SetOpt(CURLOPT_URL, url);"
+    },
+    {
+      "category": "network",
+      "file": "plugins/base/macro-action-clipboard.cpp",
+      "line": 38,
+      "text": "CurlHelper::SetOpt(CURLOPT_HTTPGET, 1L);"
+    },
+    {
+      "category": "network",
+      "file": "plugins/base/macro-action-clipboard.cpp",
+      "line": 39,
+      "text": "CurlHelper::SetOpt(CURLOPT_TIMEOUT_MS, 30000);"
+    },
+    {
+      "category": "network",
+      "file": "plugins/base/macro-action-clipboard.cpp",
+      "line": 40,
+      "text": "CurlHelper::SetOpt(CURLOPT_WRITEFUNCTION, writeCallback);"
+    },
+    {
+      "category": "network",
+      "file": "plugins/base/macro-action-clipboard.cpp",
+      "line": 41,
+      "text": "CurlHelper::SetOpt(CURLOPT_WRITEDATA, &response);"
+    },
+    {
+      "category": "file-write",
+      "file": "plugins/base/macro-action-file.cpp",
+      "line": 4,
+      "text": "#include <QFileDialog>"
+    },
+    {
+      "category": "file-write",
+      "file": "plugins/base/macro-action-file.cpp",
+      "line": 5,
+      "text": "#include <QFile>"
+    },
+    {
+      "category": "file-write",
+      "file": "plugins/base/macro-action-file.cpp",
+      "line": 27,
+      "text": "QFile file(path);"
+    },
+    {
+      "category": "network",
+      "file": "plugins/base/macro-action-http-legacy.cpp",
+      "line": 41,
+      "text": "CurlHelper::SetOpt(CURLOPT_HTTPHEADER, headers);"
+    },
+    {
+      "category": "network",
+      "file": "plugins/base/macro-action-http-legacy.cpp",
+      "line": 47,
+      "text": "CurlHelper::SetOpt(CURLOPT_URL, _url.c_str());"
+    },
+    {
+      "category": "network",
+      "file": "plugins/base/macro-action-http-legacy.cpp",
+      "line": 48,
+      "text": "CurlHelper::SetOpt(CURLOPT_HTTPGET, 1L);"
+    },
+    {
+      "category": "network",
+      "file": "plugins/base/macro-action-http-legacy.cpp",
+      "line": 49,
+      "text": "CurlHelper::SetOpt(CURLOPT_TIMEOUT_MS, _timeout.Milliseconds());"
+    },
+    {
+      "category": "network",
+      "file": "plugins/base/macro-action-http-legacy.cpp",
+      "line": 54,
+      "text": "CurlHelper::SetOpt(CURLOPT_WRITEFUNCTION, WriteCB);"
+    },
+    {
+      "category": "network",
+      "file": "plugins/base/macro-action-http-legacy.cpp",
+      "line": 56,
+      "text": "CurlHelper::SetOpt(CURLOPT_WRITEFUNCTION, DropCB);"
+    },
+    {
+      "category": "network",
+      "file": "plugins/base/macro-action-http-legacy.cpp",
+      "line": 58,
+      "text": "CurlHelper::SetOpt(CURLOPT_WRITEDATA, &response);"
+    },
+    {
+      "category": "file-write",
+      "file": "plugins/base/macro-action-play-audio.cpp",
+      "line": 13,
+      "text": "#include <QFileInfo>"
+    },
+    {
+      "category": "file-write",
+      "file": "plugins/base/macro-action-play-audio.cpp",
+      "line": 134,
+      "text": "if (!QFileInfo::exists(QString::fromStdString(path))) {"
+    },
+    {
+      "category": "credentials",
+      "file": "plugins/base/macro-action-streaming.cpp",
+      "line": 32,
+      "text": "{MacroActionStream::Action::PASSWORD,"
+    },
+    {
+      "category": "credentials",
+      "file": "plugins/base/macro-action-streaming.cpp",
+      "line": 33,
+      "text": "\"AdvSceneSwitcher.action.streaming.type.password\"},"
+    },
+    {
+      "category": "credentials",
+      "file": "plugins/base/macro-action-streaming.cpp",
+      "line": 119,
+      "text": "case Action::PASSWORD:"
+    },
+    {
+      "category": "credentials",
+      "file": "plugins/base/macro-action-streaming.cpp",
+      "line": 120,
+      "text": "SetStreamSettingsValue(\"password\", _stringValue, true);"
+    },
+    {
+      "category": "credentials",
+      "file": "plugins/base/macro-action-streaming.cpp",
+      "line": 186,
+      "text": "_showPassword(new QPushButton()),"
+    },
+    {
+      "category": "credentials",
+      "file": "plugins/base/macro-action-streaming.cpp",
+      "line": 194,
+      "text": "_showPassword->setMaximumWidth(22);"
+    },
+    {
+      "category": "credentials",
+      "file": "plugins/base/macro-action-streaming.cpp",
+      "line": 195,
+      "text": "_showPassword->setFlat(true);"
+    },
+    {
+      "category": "credentials",
+      "file": "plugins/base/macro-action-streaming.cpp",
+      "line": 196,
+      "text": "_showPassword->setStyleSheet("
+    },
+    {
+      "category": "credentials",
+      "file": "plugins/base/macro-action-streaming.cpp",
+      "line": 210,
+      "text": "QWidget::connect(_showPassword, SIGNAL(pressed()), this,"
+    },
+    {
+      "category": "credentials",
+      "file": "plugins/base/macro-action-streaming.cpp",
+      "line": 211,
+      "text": "SLOT(ShowPassword()));"
+    },
+    {
+      "category": "credentials",
+      "file": "plugins/base/macro-action-streaming.cpp",
+      "line": 212,
+      "text": "QWidget::connect(_showPassword, SIGNAL(released()), this,"
+    },
+    {
+      "category": "credentials",
+      "file": "plugins/base/macro-action-streaming.cpp",
+      "line": 213,
+      "text": "SLOT(HidePassword()));"
+    },
+    {
+      "category": "credentials",
+      "file": "plugins/base/macro-action-streaming.cpp",
+      "line": 223,
+      "text": "{\"{{showPassword}}\", _showPassword},"
+    },
+    {
+      "category": "credentials",
+      "file": "plugins/base/macro-action-streaming.cpp",
+      "line": 257,
+      "text": "void MacroActionStreamEdit::ShowPassword()"
+    },
+    {
+      "category": "credentials",
+      "file": "plugins/base/macro-action-streaming.cpp",
+      "line": 259,
+      "text": "SetButtonIcon(_showPassword, GetThemeTypeName() == \"Light\""
+    },
+    {
+      "category": "credentials",
+      "file": "plugins/base/macro-action-streaming.cpp",
+      "line": 265,
+      "text": "void MacroActionStreamEdit::HidePassword()"
+    },
+    {
+      "category": "credentials",
+      "file": "plugins/base/macro-action-streaming.cpp",
+      "line": 267,
+      "text": "SetButtonIcon(_showPassword, \":res/images/invisible.svg\");"
+    },
+    {
+      "category": "credentials",
+      "file": "plugins/base/macro-action-streaming.cpp",
+      "line": 268,
+      "text": "_stringValue->setEchoMode(QLineEdit::PasswordEchoOnEdit);"
+    },
+    {
+      "category": "credentials",
+      "file": "plugins/base/macro-action-streaming.cpp",
+      "line": 284,
+      "text": "action == MacroActionStream::Action::PASSWORD;"
+    },
+    {
+      "category": "credentials",
+      "file": "plugins/base/macro-action-streaming.cpp",
+      "line": 292,
+      "text": "if (action == MacroActionStream::Action::PASSWORD ||"
+    },
+    {
+      "category": "credentials",
+      "file": "plugins/base/macro-action-streaming.cpp",
+      "line": 294,
+      "text": "_stringValue->setEchoMode(QLineEdit::PasswordEchoOnEdit);"
+    },
+    {
+      "category": "credentials",
+      "file": "plugins/base/macro-action-streaming.cpp",
+      "line": 295,
+      "text": "_showPassword->show();"
+    },
+    {
+      "category": "credentials",
+      "file": "plugins/base/macro-action-streaming.cpp",
+      "line": 296,
+      "text": "HidePassword();"
+    },
+    {
+      "category": "credentials",
+      "file": "plugins/base/macro-action-streaming.cpp",
+      "line": 299,
+      "text": "_showPassword->hide();"
+    },
+    {
+      "category": "credentials",
+      "file": "plugins/base/macro-action-streaming.cpp",
+      "line": 306,
+      "text": "action == MacroActionStream::Action::PASSWORD);"
+    },
+    {
+      "category": "credentials",
+      "file": "plugins/base/macro-action-streaming.cpp",
+      "line": 331,
+      "text": "case MacroActionStream::Action::PASSWORD: {"
+    },
+    {
+      "category": "credentials",
+      "file": "plugins/base/macro-action-streaming.cpp",
+      "line": 338,
+      "text": "{MacroActionStream::Action::PASSWORD,"
+    },
+    {
+      "category": "credentials",
+      "file": "plugins/base/macro-action-streaming.cpp",
+      "line": 339,
+      "text": "\"password\"},"
+    },
+    {
+      "category": "credentials",
+      "file": "plugins/base/macro-action-streaming.hpp",
+      "line": 31,
+      "text": "PASSWORD,"
+    },
+    {
+      "category": "credentials",
+      "file": "plugins/base/macro-action-streaming.hpp",
+      "line": 68,
+      "text": "void ShowPassword();"
+    },
+    {
+      "category": "credentials",
+      "file": "plugins/base/macro-action-streaming.hpp",
+      "line": 69,
+      "text": "void HidePassword();"
+    },
+    {
+      "category": "credentials",
+      "file": "plugins/base/macro-action-streaming.hpp",
+      "line": 76,
+      "text": "QPushButton *_showPassword;"
+    },
+    {
+      "category": "input-hooks",
+      "file": "plugins/base/macro-condition-cursor.cpp",
+      "line": 56,
+      "text": "const auto &[x, y] = GetCursorPos();"
+    },
+    {
+      "category": "input-hooks",
+      "file": "plugins/base/macro-condition-cursor.cpp",
+      "line": 278,
+      "text": "std::pair<int, int> position = GetCursorPos();"
+    },
+    {
+      "category": "file-write",
+      "file": "plugins/base/macro-condition-file.cpp",
+      "line": 7,
+      "text": "#include <QFileInfo>"
+    },
+    {
+      "category": "file-write",
+      "file": "plugins/base/macro-condition-file.cpp",
+      "line": 38,
+      "text": "QFile file(QString::fromStdString(_file));"
+    },
+    {
+      "category": "file-write",
+      "file": "plugins/base/macro-condition-file.cpp",
+      "line": 57,
+      "text": "QFile file(QString::fromStdString(path));"
+    },
+    {
+      "category": "file-write",
+      "file": "plugins/base/macro-condition-file.cpp",
+      "line": 75,
+      "text": "QFile file(QString::fromStdString(_file));"
+    },
+    {
+      "category": "file-write",
+      "file": "plugins/base/macro-condition-file.cpp",
+      "line": 76,
+      "text": "QDateTime newLastMod = QFileInfo(file).lastModified();"
+    },
+    {
+      "category": "file-write",
+      "file": "plugins/base/macro-condition-file.cpp",
+      "line": 144,
+      "text": "QFileInfo info(QString::fromStdString(_file));"
+    },
+    {
+      "category": "file-write",
+      "file": "plugins/base/macro-condition-file.cpp",
+      "line": 149,
+      "text": "QFileInfo info(QString::fromStdString(_file));"
+    },
+    {
+      "category": "file-write",
+      "file": "plugins/base/macro-condition-file.cpp",
+      "line": 154,
+      "text": "QFileInfo info(QString::fromStdString(_file));"
+    },
+    {
+      "category": "file-write",
+      "file": "plugins/base/macro-condition-file.cpp",
+      "line": 163,
+      "text": "QFileInfo info(QString::fromStdString(_file));"
+    },
+    {
+      "category": "file-write",
+      "file": "plugins/base/macro-condition-folder.cpp",
+      "line": 7,
+      "text": "#include <QFileInfo>"
+    },
+    {
+      "category": "file-write",
+      "file": "plugins/base/macro-condition-folder.cpp",
+      "line": 185,
+      "text": "QFileInfo fileInfo(path);"
+    },
+    {
+      "category": "file-write",
+      "file": "plugins/base/macro-condition-folder.cpp",
+      "line": 214,
+      "text": "_watcher = std::make_unique<QFileSystemWatcher>();"
+    },
+    {
+      "category": "file-write",
+      "file": "plugins/base/macro-condition-folder.hpp",
+      "line": 7,
+      "text": "#include <QFileSystemWatcher>"
+    },
+    {
+      "category": "file-write",
+      "file": "plugins/base/macro-condition-folder.hpp",
+      "line": 53,
+      "text": "std::unique_ptr<QFileSystemWatcher> _watcher;"
+    },
+    {
+      "category": "file-write",
+      "file": "plugins/base/macro-condition-slideshow.cpp",
+      "line": 5,
+      "text": "#include <QFileInfo>"
+    },
+    {
+      "category": "credentials",
+      "file": "plugins/base/macro-condition-streaming.cpp",
+      "line": 258,
+      "text": "_streamKey->setEchoMode(QLineEdit::PasswordEchoOnEdit);"
+    },
+    {
+      "category": "credentials",
+      "file": "plugins/base/utils/connection-manager.cpp",
+      "line": 123,
+      "text": "_password(pass),"
+    },
+    {
+      "category": "credentials",
+      "file": "plugins/base/utils/connection-manager.cpp",
+      "line": 139,
+      "text": "_password = other._password;"
+    },
+    {
+      "category": "credentials",
+      "file": "plugins/base/utils/connection-manager.cpp",
+      "line": 155,
+      "text": "_password = other._password;"
+    },
+    {
+      "category": "credentials",
+      "file": "plugins/base/utils/connection-manager.cpp",
+      "line": 187,
+      "text": "_client.Connect(GetURI(), _password, _reconnect, _reconnectDelay);"
+    },
+    {
+      "category": "credentials",
+      "file": "plugins/base/utils/connection-manager.cpp",
+      "line": 194,
+      "text": "_client.Connect(GetURI(), _password, _reconnect,"
+    },
+    {
+      "category": "credentials",
+      "file": "plugins/base/utils/connection-manager.cpp",
+      "line": 224,
+      "text": "_password = obs_data_get_string(obj, \"password\");"
+    },
+    {
+      "category": "credentials",
+      "file": "plugins/base/utils/connection-manager.cpp",
+      "line": 230,
+      "text": "_client.Connect(GetURI(), _password, _reconnect,"
+    },
+    {
+      "category": "credentials",
+      "file": "plugins/base/utils/connection-manager.cpp",
+      "line": 243,
+      "text": "obs_data_set_string(obj, \"password\", _password.c_str());"
+    },
+    {
+      "category": "credentials",
+      "file": "plugins/base/utils/connection-manager.cpp",
+      "line": 388,
+      "text": "_password(new QLineEdit()),"
+    },
+    {
+      "category": "credentials",
+      "file": "plugins/base/utils/connection-manager.cpp",
+      "line": 389,
+      "text": "_showPassword(new QPushButton()),"
+    },
+    {
+      "category": "credentials",
+      "file": "plugins/base/utils/connection-manager.cpp",
+      "line": 400,
+      "text": "_showPassword->setMaximumWidth(22);"
+    },
+    {
+      "category": "credentials",
+      "file": "plugins/base/utils/connection-manager.cpp",
+      "line": 401,
+      "text": "_showPassword->setFlat(true);"
+    },
+    {
+      "category": "credentials",
+      "file": "plugins/base/utils/connection-manager.cpp",
+      "line": 402,
+      "text": "_showPassword->setStyleSheet("
+    },
+    {
+      "category": "credentials",
+      "file": "plugins/base/utils/connection-manager.cpp",
+      "line": 411,
+      "text": "_password->setText(QString::fromStdString(settings._password));"
+    },
+    {
+      "category": "credentials",
+      "file": "plugins/base/utils/connection-manager.cpp",
+      "line": 423,
+      "text": "QWidget::connect(_showPassword, SIGNAL(pressed()), this,"
+    },
+    {
+      "category": "credentials",
+      "file": "plugins/base/utils/connection-manager.cpp",
+      "line": 424,
+      "text": "SLOT(ShowPassword()));"
+    },
+    {
+      "category": "credentials",
+      "file": "plugins/base/utils/connection-manager.cpp",
+      "line": 425,
+      "text": "QWidget::connect(_showPassword, SIGNAL(released()), this,"
+    },
+    {
+      "category": "credentials",
+      "file": "plugins/base/utils/connection-manager.cpp",
+      "line": 426,
+      "text": "SLOT(HidePassword()));"
+    },
+    {
+      "category": "credentials",
+      "file": "plugins/base/utils/connection-manager.cpp",
+      "line": 463,
+      "text": "\"AdvSceneSwitcher.connection.password\")),"
+    },
+    {
+      "category": "credentials",
+      "file": "plugins/base/utils/connection-manager.cpp",
+      "line": 466,
+      "text": "passLayout->addWidget(_password);"
+    },
+    {
+      "category": "credentials",
+      "file": "plugins/base/utils/connection-manager.cpp",
+      "line": 467,
+      "text": "passLayout->addWidget(_showPassword);"
+    },
+    {
+      "category": "credentials",
+      "file": "plugins/base/utils/connection-manager.cpp",
+      "line": 503,
+      "text": "HidePassword();"
+    },
+    {
+      "category": "input-hooks",
+      "file": "plugins/base/utils/source-interaction-step.cpp",
+      "line": 138,
+      "text": "obs_mouse_event e{};"
+    },
+    {
+      "category": "input-hooks",
+      "file": "plugins/base/utils/source-interaction-step.cpp",
+      "line": 145,
+      "text": "obs_mouse_event e{};"
+    },
+    {
+      "category": "input-hooks",
+      "file": "plugins/base/utils/source-interaction-step.cpp",
+      "line": 154,
+      "text": "obs_mouse_event e{};"
+    },
+    {
+      "category": "input-hooks",
+      "file": "plugins/base/utils/windows/windows.cpp",
+      "line": 160,
+      "text": "SendInput(1, &ip, sizeof(INPUT));"
+    },
+    {
+      "category": "input-hooks",
+      "file": "plugins/base/utils/windows/windows.cpp",
+      "line": 174,
+      "text": "SendInput(1, &ip, sizeof(INPUT));"
+    },
+    {
+      "category": "file-outside",
+      "file": "plugins/video/parameter-wrappers.cpp",
+      "line": 121,
+      "text": "// to \"ProgramData/.../plugins/advanced-scene-switcher/data\","
+    },
+    {
+      "category": "file-outside",
+      "file": "plugins/video/parameter-wrappers.cpp",
+      "line": 349,
+      "text": "// to \"ProgramData/.../plugins/advanced-scene-switcher/data\","
+    },
+    {
+      "category": "persistence",
+      "file": "tests/catch.hpp",
+      "line": 15552,
+      "text": "// There cannot be exceptions at startup in no-exception mode."
+    },
+    {
+      "category": "persistence",
+      "file": "tests/catch.hpp",
+      "line": 15562,
+      "text": "Catch::cerr() << \"Errors occurred during startup!\" << '\\n';"
+    }
+  ]
+}

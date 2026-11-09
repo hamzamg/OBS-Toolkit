@@ -1,0 +1,29 @@
+{
+  "tool": "OBS-Counter",
+  "ref": "1.2.0",
+  "files_scanned": 1,
+  "summary": {
+    "code-execution": 0,
+    "process-spawn": 0,
+    "network": 2,
+    "persistence": 0,
+    "input-hooks": 0,
+    "credentials": 0,
+    "file-write": 0,
+    "file-outside": 0
+  },
+  "findings": [
+    {
+      "category": "network",
+      "file": "hotkey_counter.py",
+      "line": 223,
+      "text": "<a href=\"https://github.com/upgradeQ/Obscounter\"> Webpage </a>"
+    },
+    {
+      "category": "network",
+      "file": "hotkey_counter.py",
+      "line": 225,
+      "text": "<a href=\"https://github.com/upgradeQ\"> upgradeQ </a> <br>"
+    }
+  ]
+}

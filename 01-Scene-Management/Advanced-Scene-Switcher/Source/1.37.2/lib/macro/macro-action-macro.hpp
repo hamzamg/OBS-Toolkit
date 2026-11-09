@@ -1,0 +1,150 @@
+#pragma once
+#include "macro-action-edit.hpp"
+#include "macro.hpp"
+#include "macro-edit.hpp"
+#include "macro-input.hpp"
+#include "macro-selection.hpp"
+#include "macro-segment-selection.hpp"
+#include "regex-config.hpp"
+#include "resizable-widget.hpp"
+#include "variable-line-edit.hpp"
+
+#include <QCheckBox>
+#include <QHBoxLayout>
+#include <QLabel>
+
+namespace advss {
+
+class MacroActionMacro final : public MacroRefAction {
+public:
+	MacroActionMacro(Macro *m);
+	bool PerformAction();
+	void LogAction() const;
+	bool Save(obs_data_t *obj) const;
+	bool Load(obs_data_t *obj);
+	bool PostLoad();
+	std::string GetShortDesc() const;
+	std::string GetId() const { return id; };
+	static std::shared_ptr<MacroAction> Create(Macro *m);
+	std::shared_ptr<MacroAction> Copy() const;
+	void ResolveVariablesToFixedValues();
+
+	struct RunOptions {
+		void Save(obs_data_t *obj) const;
+		void Load(obs_data_t *obj);
+		enum class Logic {
+			IGNORE_CONDITIONS,
+			CONDITIONS,
+			INVERT_CONDITIONS,
+		};
+		Logic logic;
+		bool reevaluateConditionState = false;
+		bool runElseActions = false;
+		bool skipWhenPaused = true;
+		bool setInputs = false;
+		StringList inputs;
+		MacroRef macro;
+	};
+
+	enum class Action {
+		PAUSE,
+		UNPAUSE,
+		RESET_COUNTER,
+		RUN_ACTIONS,
+		STOP,
+		DISABLE_ACTION,
+		ENABLE_ACTION,
+		TOGGLE_ACTION,
+		TOGGLE_PAUSE,
+		NESTED_MACRO,
+		GET_INFO,
+		RUN_MACRO,
+	};
+
+	void SetAction(Action);
+	Action GetAction() const { return _action; }
+
+	enum class SelectionType { INDEX, LABEL, ID };
+
+	SelectionType _actionSelectionType = SelectionType::INDEX;
+	bool _useElseSection = false;
+	IntVariable _actionIndex = 1;
+	StringVariable _label = "Custom label";
+	std::string _actionId;
+	RegexConfig _regex;
+	RunOptions _runOptions = {};
+	std::shared_ptr<Macro> _nestedMacro;
+	int _customWidgetHeight = 0;
+
+private:
+	void SetupTempVars();
+	void RunActions(Macro *actionMacro) const;
+	void AdjustActionState(Macro *) const;
+
+	Action _action = Action::NESTED_MACRO;
+
+	static bool _registered;
+	static const std::string id;
+};
+
+class MacroActionMacroEdit final : public ResizableWidget {
+	Q_OBJECT
+
+public:
+	MacroActionMacroEdit(
+		QWidget *parent,
+		std::shared_ptr<MacroActionMacro> entryData = nullptr);
+	~MacroActionMacroEdit();
+	void UpdateEntryData();
+	static QWidget *Create(QWidget *, std::shared_ptr<MacroAction>);
+
+private slots:
+	void MacroChanged(const QString &text);
+	void ActionChanged(int value);
+	void ActionSelectionTypeChanged(int value);
+	void ActionIndexChanged(const IntVariable &value);
+	void LabelChanged();
+	void ActionTypeChanged(int value);
+	void RegexChanged(const RegexConfig &);
+	void ConditionMacroChanged(const QString &text);
+	void ConditionBehaviorChanged(int value);
+	void ReevaluateConditionStateChanged(int value);
+	void ActionSectionChanged(int value);
+	void SkipWhenPausedChanged(int value);
+	void SetInputsChanged(int value);
+	void InputsChanged(const StringList &);
+
+signals:
+	void HeaderInfoChanged(const QString &);
+
+private:
+	void SetWidgetVisibility();
+	void SetupMacroInput(Macro *) const;
+
+	QComboBox *_actions;
+	MacroSelection *_macros;
+	QComboBox *_actionSelectionType;
+	MacroSegmentSelection *_actionIndex;
+	VariableLineEdit *_label;
+	FilterComboBox *_actionTypes;
+	RegexConfigWidget *_regex;
+	MacroSelection *_conditionMacros;
+	QComboBox *_conditionBehaviors;
+	QCheckBox *_reevaluateConditionState;
+	QComboBox *_actionSections;
+	QCheckBox *_skipWhenPaused;
+	QLabel *_noConditionsWarning;
+	HelpIcon *_runMacroHelp;
+	QCheckBox *_setInputs;
+	MacroInputEdit *_inputs;
+	QHBoxLayout *_entryLayout;
+	QHBoxLayout *_conditionLayout;
+	QHBoxLayout *_reevaluateConditionStateLayout;
+	QHBoxLayout *_setInputsLayout;
+	MacroEdit *_nestedMacro;
+
+	std::shared_ptr<MacroActionMacro> _entryData;
+	bool _loading = true;
+};
+
+} // namespace advss

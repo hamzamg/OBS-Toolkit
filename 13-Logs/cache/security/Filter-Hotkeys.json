@@ -1,0 +1,41 @@
+{
+  "tool": "Filter-Hotkeys",
+  "ref": "1.0.2",
+  "files_scanned": 2,
+  "summary": {
+    "code-execution": 0,
+    "process-spawn": 0,
+    "network": 4,
+    "persistence": 0,
+    "input-hooks": 0,
+    "credentials": 0,
+    "file-write": 0,
+    "file-outside": 0
+  },
+  "findings": [
+    {
+      "category": "network",
+      "file": "filter_hotkeys_audio.lua",
+      "line": 3,
+      "text": "-- file, You can obtain one at https://mozilla.org/MPL/2.0/."
+    },
+    {
+      "category": "network",
+      "file": "filter_hotkeys_audio.lua",
+      "line": 14,
+      "text": "local info = {} -- obs_source_info https://obsproject.com/docs/reference-sources.html"
+    },
+    {
+      "category": "network",
+      "file": "filter_hotkeys_video.lua",
+      "line": 3,
+      "text": "-- file, You can obtain one at https://mozilla.org/MPL/2.0/."
+    },
+    {
+      "category": "network",
+      "file": "filter_hotkeys_video.lua",
+      "line": 14,
+      "text": "local info = {} -- obs_source_info https://obsproject.com/docs/reference-sources.html"
+    }
+  ]
+}

@@ -1,0 +1,262 @@
+/*************************************************************************
+ * This file is part of tuna
+ * git.vrsal.xyz/alex/tuna
+ * Copyright 2023 univrsal <uni@vrsal.xyz>.
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, version 2 of the License.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *************************************************************************/
+
+#include "music_control.hpp"
+#include "../query/music_source.hpp"
+#include "../util/config.hpp"
+#include "../util/constants.hpp"
+#include "../util/tuna_thread.hpp"
+#include "../util/utility.hpp"
+#include "ui_music_control.h"
+#include <QMenu>
+#include <QScreen>
+#include <QSizePolicy>
+#include <QStyle>
+#include <obs-frontend-api.h>
+
+class music_control* music_dock = nullptr;
+
+QRect desktop_rect()
+{
+    QRegion virtualGeometry;
+    for (auto screen : QGuiApplication::screens()) {
+        virtualGeometry += screen->geometry();
+    }
+    return virtualGeometry.boundingRect();
+}
+
+music_control::music_control(QWidget* parent)
+    : QDockWidget(parent)
+    , ui(new Ui::music_control)
+{
+    ui->setupUi(this);
+
+    setVisible(false); /* Invisible by default to prevent it from showing until Geometry is loaded */
+    const char* geo = CGET_STR(CFG_DOCK_GEOMETRY);
+    if (!geo) {
+        QByteArray arr = QByteArray::fromBase64(geo);
+        restoreGeometry(arr);
+
+        QRect wg = normalGeometry();
+        if (!util::window_pos_valid(wg)) {
+            QRect r = desktop_rect();
+            setGeometry(QStyle::alignedRect(Qt::LeftToRight, Qt::AlignCenter, size(), r));
+        }
+    }
+    connect(ui->cb_source, qOverload<int>(&QComboBox::currentIndexChanged), this, &music_control::source_changed);
+    this->setContextMenuPolicy(Qt::CustomContextMenu);
+    m_timer = new QTimer(this);
+    connect(m_timer, SIGNAL(timeout()), SLOT(refresh_play_state()));
+
+    connect(this, SIGNAL(customContextMenuRequested(QPoint)), this, SLOT(showcontextmenu(QPoint)));
+
+    /* This is dependent on tuna thread speed so lowering this wouldn't make a difference */
+    m_timer->start(700);
+
+    m_song_text = new scroll_text(this);
+    m_song_text->setMinimumWidth(200);
+    m_song_text->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
+    ui->control_layout->insertWidget(ui->control_layout->count() - 2, m_song_text, 0, Qt::AlignBottom);
+
+    ui->volume_widget->setVisible(CGET_BOOL(CFG_DOCK_VOLUME_VISIBLE));
+    m_song_text->setVisible(CGET_BOOL(CFG_DOCK_INFO_VISIBLE));
+    ui->cb_source->setVisible(CGET_BOOL(CFG_DOCK_SOURCE_VISIBLE));
+}
+
+void music_control::save_settings()
+{
+    if (config::instance) {
+        CSET_BOOL(CFG_DOCK_VOLUME_VISIBLE, ui->volume_widget->isVisible());
+        CSET_BOOL(CFG_DOCK_INFO_VISIBLE, m_song_text->isVisible());
+        CSET_BOOL(CFG_DOCK_SOURCE_VISIBLE, ui->cb_source->isVisible());
+    }
+}
+
+music_control::~music_control()
+{
+    CSET_BOOL(CFG_DOCK_VISIBLE, isVisible());
+    if (isVisible()) {
+        CSET_STR(CFG_DOCK_GEOMETRY, saveGeometry().toBase64().constData());
+        config_save_safe(config::instance, "tmp", nullptr);
+    }
+
+    delete ui;
+    delete m_song_text;
+    deleteLater();
+}
+
+void music_control::add_source(const QString& display, const QString& id)
+{
+    ui->cb_source->addItem(display, id);
+}
+
+void music_control::select_source(int index)
+{
+    ui->cb_source->setCurrentIndex(index);
+}
+
+void music_control::on_btn_prev_clicked()
+{
+    music_sources::selected_source()->execute_capability(CAP_PREV_SONG);
+}
+
+void music_control::on_btn_play_pause_clicked()
+{
+    music_sources::selected_source()->execute_capability(CAP_PLAY_PAUSE);
+}
+
+void music_control::on_btn_next_clicked()
+{
+    music_sources::selected_source()->execute_capability(CAP_NEXT_SONG);
+}
+
+void music_control::refresh_play_state()
+{
+    static QString last_title = "";
+    song copy;
+
+    tuna_thread::copy_mutex.lock();
+    copy = tuna_thread::copy;
+    tuna_thread::copy_mutex.unlock();
+    QString icon = copy.get<int>(meta::STATUS) == state_playing ? "://images/icons/pause.svg" : "://images/icons/play.svg";
+    ui->btn_play_pause->setIcon(QIcon(icon));
+
+    /* refresh song info */
+    if (copy.get(meta::TITLE) != last_title) {
+        QString info = utf8_to_qt(T_DOCK_SONG_INFO);
+        if (copy.get<int>(meta::STATUS) <= state_paused) {
+            last_title = copy.get(meta::TITLE);
+            QString artists, title = copy.get(meta::TITLE);
+            artists = copy.get<QStringList>(meta::ARTIST).join(", ");
+            // Icecast and window title don't provide these
+            if (!artists.isEmpty()) {
+                info.append(artists);
+                info.append(" - ");
+            }
+            info.append(title);
+            last_title = title;
+        } else {
+            info.append(config::placeholder);
+            last_title = "n/a";
+        }
+        info.replace("%s", " ");
+        m_song_text->set_text(info);
+    }
+
+    refresh_source();
+    last_thread_state = tuna_thread::thread_flag;
+    setEnabled(tuna_thread::thread_flag);
+    save_settings();
+}
+
+void music_control::refresh_source()
+{
+    uint32_t flags = 0;
+    {
+        auto src = music_sources::selected_source();
+        if (src)
+            flags = src->get_capabilities();
+    }
+
+    bool next = flags & CAP_NEXT_SONG, prev = flags & CAP_NEXT_SONG, play = flags & CAP_PLAY_PAUSE,
+         stop = flags & CAP_STOP_SONG;
+
+    ui->btn_next->setVisible(next);
+    ui->btn_prev->setVisible(prev);
+    ui->btn_play_pause->setVisible(play);
+    ui->btn_stop->setVisible(stop);
+
+    if (play || stop || next || prev) {
+        ui->control_widget->setVisible(true);
+    } else {
+        ui->control_widget->setVisible(false);
+    }
+
+    ui->btn_volup->setVisible(flags & CAP_VOLUME_UP);
+    ui->btn_voldown->setVisible(flags & CAP_VOLUME_DOWN);
+
+    if (ui->btn_volup->isVisible() || ui->btn_voldown->isVisible()) {
+        ui->volume_widget->setVisible(true);
+    } else {
+        ui->volume_widget->setVisible(false);
+    }
+}
+
+void music_control::on_btn_stop_clicked()
+{
+    music_sources::selected_source()->execute_capability(CAP_STOP_SONG);
+}
+
+void music_control::showcontextmenu(const QPoint& pos)
+{
+    QMenu contextMenu(T_DOCK_MENU_TITLE, this);
+
+    QAction title(T_DOCK_TOGGLE_INFO, this);
+    QAction volume(T_DOCK_TOGGLE_VOLUME, this);
+    QAction source(T_DOCK_TOGGLE_SOURCE, this);
+
+    connect(&title, SIGNAL(triggered()), this, SLOT(toggle_title()));
+    connect(&volume, SIGNAL(triggered()), this, SLOT(toggle_volume()));
+    connect(&source, SIGNAL(triggered()), this, SLOT(toggle_source()));
+
+    contextMenu.addAction(&title);
+    contextMenu.addAction(&volume);
+    contextMenu.addAction(&source);
+
+    contextMenu.exec(mapToGlobal(pos));
+}
+
+void music_control::toggle_title()
+{
+    m_song_text->setVisible(!m_song_text->isVisible());
+    save_settings();
+}
+
+void music_control::toggle_volume()
+{
+    auto flags = music_sources::selected_source()->get_capabilities();
+    if (flags & CAP_VOLUME_UP || flags & CAP_VOLUME_DOWN)
+        ui->volume_widget->setVisible(!ui->volume_widget->isVisible());
+    save_settings();
+}
+
+void music_control::toggle_source()
+{
+    ui->cb_source->setVisible(!ui->cb_source->isVisible());
+}
+
+void music_control::source_changed(int index)
+{
+    auto id = ui->cb_source->itemData(index).toString();
+    // This gets called during startup which would always set the selected source
+    // to Spotify which we don't want
+    if (config::post_load) {
+        music_sources::select(qt_to_utf8(id));
+        CSET_STR(CFG_SELECTED_SOURCE, qt_to_utf8(id));
+    }
+}
+
+void music_control::on_btn_voldown_clicked()
+{
+    music_sources::selected_source()->execute_capability(CAP_VOLUME_DOWN);
+}
+
+void music_control::on_btn_volup_clicked()
+{
+    music_sources::selected_source()->execute_capability(CAP_VOLUME_UP);
+}

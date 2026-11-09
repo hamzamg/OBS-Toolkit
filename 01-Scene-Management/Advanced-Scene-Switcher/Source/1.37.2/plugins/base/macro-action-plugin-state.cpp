@@ -1,0 +1,408 @@
+#include "macro-action-plugin-state.hpp"
+#include "layout-helpers.hpp"
+#include "plugin-state-helpers.hpp"
+#include "selection-helpers.hpp"
+#include "source-helpers.hpp"
+#include "ui-helpers.hpp"
+
+#include <condition_variable>
+#include <obs-frontend-api.h>
+#include <QMainWindow>
+#include <thread>
+
+using namespace std::chrono_literals;
+
+namespace advss {
+
+const std::string MacroActionPluginState::id = "plugin_state";
+
+bool MacroActionPluginState::_registered = MacroActionFactory::Register(
+	MacroActionPluginState::id,
+	{MacroActionPluginState::Create, MacroActionPluginStateEdit::Create,
+	 "AdvSceneSwitcher.action.pluginState"});
+
+const static std::map<NoMatchBehavior, std::string> noMatchValues = {
+	{NoMatchBehavior::NO_SWITCH,
+	 "AdvSceneSwitcher.generalTab.generalBehavior.onNoMatch.dontSwitch"},
+	{NoMatchBehavior::SWITCH,
+	 "AdvSceneSwitcher.generalTab.generalBehavior.onNoMatch.switchTo"},
+	{NoMatchBehavior::RANDOM_SWITCH,
+	 "AdvSceneSwitcher.generalTab.generalBehavior.onNoMatch.switchToRandom"},
+};
+
+static void stopPlugin()
+{
+	std::thread t([]() { StopPlugin(); });
+	t.detach();
+}
+
+static void importSettings(const std::string &path)
+{
+	if (SettingsWindowIsOpened()) {
+		return;
+	}
+	OBSDataAutoRelease obj = obs_data_create_from_json_file(path.c_str());
+	if (!obj) {
+		return;
+	}
+	LoadPluginSettings(obj);
+}
+
+static void setNoMatchBehaviour(int value, OBSWeakSource &scene)
+{
+	SetPluginNoMatchBehavior(static_cast<NoMatchBehavior>(value));
+	if (GetPluginNoMatchBehavior() == NoMatchBehavior::SWITCH) {
+		SetNoMatchScene(scene);
+	}
+}
+
+static void closeOBSWindow(void *)
+{
+	blog(LOG_WARNING, "closing OBS window now!");
+	auto obsWindow =
+		static_cast<QMainWindow *>(obs_frontend_get_main_window());
+	if (obsWindow) {
+		obsWindow->close();
+	} else {
+		blog(LOG_WARNING,
+		     "OBS shutdown was aborted - failed to get QMainWindow");
+	}
+}
+
+static void askTerminateOBS(void *)
+{
+	static std::mutex mtx;
+	static std::mutex waitMutex;
+	static std::condition_variable cv;
+	static bool abortTerminate;
+	static bool stopWaiting;
+	static std::chrono::high_resolution_clock::time_point
+		lastShutdownAttempt{};
+
+	// Don't allow multiple simultaneous instances of the shutdown dialog
+	std::unique_lock<std::mutex> lock(mtx, std::try_to_lock);
+	if (!lock.owns_lock()) {
+		blog(LOG_INFO,
+		     "OBS shutdown dialog already triggered - ignoring additional request");
+		return;
+	}
+
+	// Prevent the user from locking himself out of controlling OBS by
+	// continuously opening the shutdown dialog
+	auto now = std::chrono::high_resolution_clock::now();
+	if (lastShutdownAttempt + 5s > now) {
+		blog(LOG_INFO,
+		     "OBS shutdown dialog already triggered recently - ignoring request");
+		return;
+	}
+	lastShutdownAttempt = now;
+
+	abortTerminate = false;
+	stopWaiting = false;
+
+	// Give the user a 10s grace period during which the shutdown can be aborted
+	std::thread thread([]() {
+		std::unique_lock<std::mutex> lock(waitMutex);
+		if (cv.wait_for(lock, 10s, [] { return stopWaiting; })) {
+			if (abortTerminate) {
+				blog(LOG_INFO, "OBS shutdown was aborted");
+			} else {
+				closeOBSWindow(nullptr);
+			}
+		} else {
+			closeOBSWindow(nullptr);
+		}
+	});
+	thread.detach();
+
+	// Ask the user how to proceed
+	abortTerminate = !DisplayMessage(
+		obs_module_text(
+			"AdvSceneSwitcher.action.pluginState.terminateConfirm"),
+		true, false);
+	stopWaiting = true;
+
+	// This closes OBS immediately if shutdown was confirmed
+	cv.notify_all();
+
+	lock.unlock();
+}
+
+bool MacroActionPluginState::PerformAction()
+{
+	switch (_action) {
+	case Action::STOP:
+		stopPlugin();
+		break;
+	case Action::NO_MATCH_BEHAVIOUR:
+		setNoMatchBehaviour(_value, _scene);
+		break;
+	case Action::IMPORT_SETTINGS:
+		importSettings(_settingsPath);
+		// There is no point in continuing
+		// The settings will be invalid
+		return false;
+	case Action::TERMINATE: {
+		std::thread thread([this]() {
+			obs_queue_task(OBS_TASK_UI,
+				       this->_confirmShutdown ? askTerminateOBS
+							      : closeOBSWindow,
+				       nullptr, false);
+		});
+		thread.detach();
+		break;
+	}
+	case Action::ENABLE_MACRO_HIGHLIGHTING:
+		SetMacroHighlightingEnabled(true);
+		break;
+	case Action::DISABLE_MACRO_HIGHLIGHTING:
+		SetMacroHighlightingEnabled(false);
+		break;
+	case Action::TOGGLE_MACRO_HIGHLIGHTING:
+		SetMacroHighlightingEnabled(!IsMacroHighlightingEnabled());
+		break;
+	default:
+		break;
+	}
+	return true;
+}
+
+void MacroActionPluginState::LogAction() const
+{
+	switch (_action) {
+	case Action::STOP:
+		blog(LOG_INFO, "stop() called by macro");
+		break;
+	case Action::NO_MATCH_BEHAVIOUR:
+		ablog(LOG_INFO, "setting no match to %d", _value);
+		break;
+	case Action::IMPORT_SETTINGS:
+		ablog(LOG_INFO, "importing settings from %s",
+		      _settingsPath.c_str());
+		break;
+	case Action::TERMINATE:
+		ablog(LOG_INFO, "sending terminate signal to OBS in 10s");
+		break;
+	case Action::ENABLE_MACRO_HIGHLIGHTING:
+		ablog(LOG_INFO, "enable macro highlighting");
+		break;
+	case Action::DISABLE_MACRO_HIGHLIGHTING:
+		ablog(LOG_INFO, "disable macro highlighting");
+		break;
+	case Action::TOGGLE_MACRO_HIGHLIGHTING:
+		ablog(LOG_INFO, "toggle macro highlighting");
+		break;
+	default:
+		blog(LOG_WARNING, "ignored unknown pluginState action %d",
+		     static_cast<int>(_action));
+		break;
+	}
+}
+
+bool MacroActionPluginState::Save(obs_data_t *obj) const
+{
+	MacroAction::Save(obj);
+	obs_data_set_int(obj, "action", static_cast<int>(_action));
+	obs_data_set_int(obj, "value", _value);
+	obs_data_set_string(obj, "scene", GetWeakSourceName(_scene).c_str());
+	_settingsPath.Save(obj, "settingsPath");
+	obs_data_set_bool(obj, "confirmShutdown", _confirmShutdown);
+	return true;
+}
+
+bool MacroActionPluginState::Load(obs_data_t *obj)
+{
+	MacroAction::Load(obj);
+	_action = static_cast<MacroActionPluginState::Action>(
+		obs_data_get_int(obj, "action"));
+	_value = obs_data_get_int(obj, "value");
+	const char *sceneName = obs_data_get_string(obj, "scene");
+	_scene = GetWeakSourceByName(sceneName);
+	_settingsPath.Load(obj, "settingsPath");
+	if (obs_data_has_user_value(obj, "confirmShutdown")) {
+		_confirmShutdown = obs_data_get_bool(obj, "confirmShutdown");
+	}
+	return true;
+}
+
+std::shared_ptr<MacroAction> MacroActionPluginState::Create(Macro *m)
+{
+	return std::make_shared<MacroActionPluginState>(m);
+}
+
+std::shared_ptr<MacroAction> MacroActionPluginState::Copy() const
+{
+	return std::make_shared<MacroActionPluginState>(*this);
+}
+
+void MacroActionPluginState::ResolveVariablesToFixedValues()
+{
+	_settingsPath = std::string(_settingsPath);
+}
+
+static inline void populateActionSelection(QComboBox *list)
+{
+	const static std::map<MacroActionPluginState::Action, std::string> actionTypes = {
+		{MacroActionPluginState::Action::STOP,
+		 "AdvSceneSwitcher.action.pluginState.type.stop"},
+		{MacroActionPluginState::Action::NO_MATCH_BEHAVIOUR,
+		 "AdvSceneSwitcher.action.pluginState.type.noMatch"},
+		{MacroActionPluginState::Action::IMPORT_SETTINGS,
+		 "AdvSceneSwitcher.action.pluginState.type.import"},
+		{MacroActionPluginState::Action::TERMINATE,
+		 "AdvSceneSwitcher.action.pluginState.type.terminate"},
+		{MacroActionPluginState::Action::ENABLE_MACRO_HIGHLIGHTING,
+		 "AdvSceneSwitcher.action.pluginState.type.enableMacroHighlighting"},
+		{MacroActionPluginState::Action::DISABLE_MACRO_HIGHLIGHTING,
+		 "AdvSceneSwitcher.action.pluginState.type.disableMacroHighlighting"},
+		{MacroActionPluginState::Action::TOGGLE_MACRO_HIGHLIGHTING,
+		 "AdvSceneSwitcher.action.pluginState.type.toggleMacroHighlighting"},
+	};
+
+	for (const auto &[_, name] : actionTypes) {
+		list->addItem(obs_module_text(name.c_str()));
+	}
+}
+
+static inline void populateValueSelection(QComboBox *list,
+					  MacroActionPluginState::Action action)
+{
+	if (action == MacroActionPluginState::Action::NO_MATCH_BEHAVIOUR) {
+		for (const auto &[_, name] : noMatchValues) {
+			list->addItem(obs_module_text(name.c_str()));
+		}
+	}
+}
+
+MacroActionPluginStateEdit::MacroActionPluginStateEdit(
+	QWidget *parent, std::shared_ptr<MacroActionPluginState> entryData)
+	: QWidget(parent),
+	  _actions(new QComboBox(this)),
+	  _values(new QComboBox(this)),
+	  _scenes(new QComboBox(this)),
+	  _settings(new FileSelection()),
+	  _settingsWarning(new QLabel(obs_module_text(
+		  "AdvSceneSwitcher.action.pluginState.importWarning"))),
+	  _confirmShutdown(new QCheckBox(obs_module_text(
+		  "AdvSceneSwitcher.action.pluginState.confirmShutdown")))
+{
+	populateActionSelection(_actions);
+	PopulateSceneSelection(_scenes);
+
+	QWidget::connect(_actions, SIGNAL(currentIndexChanged(int)), this,
+			 SLOT(ActionChanged(int)));
+	QWidget::connect(_values, SIGNAL(currentIndexChanged(int)), this,
+			 SLOT(ValueChanged(int)));
+	QWidget::connect(_scenes, SIGNAL(currentTextChanged(const QString &)),
+			 this, SLOT(SceneChanged(const QString &)));
+	QWidget::connect(_settings, SIGNAL(PathChanged(const QString &)), this,
+			 SLOT(PathChanged(const QString &)));
+	QWidget::connect(_confirmShutdown, SIGNAL(stateChanged(int)), this,
+			 SLOT(ConfirmShutdownChanged(int)));
+
+	auto entryLayout = new QHBoxLayout;
+	PlaceWidgets(
+		obs_module_text("AdvSceneSwitcher.action.pluginState.entry"),
+		entryLayout,
+		{{"{{actions}}", _actions},
+		 {"{{values}}", _values},
+		 {"{{scenes}}", _scenes},
+		 {"{{settings}}", _settings}});
+	auto layout = new QVBoxLayout;
+	layout->addLayout(entryLayout);
+	layout->addWidget(_settingsWarning);
+	layout->addWidget(_confirmShutdown);
+	setLayout(layout);
+
+	_entryData = entryData;
+	UpdateEntryData();
+	_loading = false;
+}
+
+void MacroActionPluginStateEdit::UpdateEntryData()
+{
+	if (!_entryData) {
+		return;
+	}
+	_actions->setCurrentIndex(static_cast<int>(_entryData->_action));
+	populateValueSelection(_values, _entryData->_action);
+	_values->setCurrentIndex(_entryData->_value);
+	_scenes->setCurrentText(GetWeakSourceName(_entryData->_scene).c_str());
+	_settings->SetPath(_entryData->_settingsPath);
+	_confirmShutdown->setChecked(_entryData->_confirmShutdown);
+	SetWidgetVisibility();
+}
+
+void MacroActionPluginStateEdit::ActionChanged(int value)
+{
+	{
+		GUARD_LOADING_AND_LOCK();
+		_entryData->_action =
+			static_cast<MacroActionPluginState::Action>(value);
+		SetWidgetVisibility();
+	}
+
+	_values->clear();
+	populateValueSelection(_values, _entryData->_action);
+}
+
+void MacroActionPluginStateEdit::ValueChanged(int value)
+{
+	GUARD_LOADING_AND_LOCK();
+	_entryData->_value = value;
+	SetWidgetVisibility();
+}
+
+void MacroActionPluginStateEdit::SceneChanged(const QString &text)
+{
+	GUARD_LOADING_AND_LOCK();
+	_entryData->_scene = GetWeakSourceByQString(text);
+}
+
+void MacroActionPluginStateEdit::PathChanged(const QString &text)
+{
+	GUARD_LOADING_AND_LOCK();
+	_entryData->_settingsPath = text.toStdString();
+}
+
+void MacroActionPluginStateEdit::ConfirmShutdownChanged(int value)
+{
+	GUARD_LOADING_AND_LOCK();
+	_entryData->_confirmShutdown = value;
+}
+
+void MacroActionPluginStateEdit::SetWidgetVisibility()
+{
+	if (!_entryData) {
+		return;
+	}
+
+	_values->hide();
+	_scenes->hide();
+	_settings->hide();
+	_settingsWarning->hide();
+	_confirmShutdown->hide();
+
+	switch (_entryData->_action) {
+	case MacroActionPluginState::Action::STOP:
+		break;
+	case MacroActionPluginState::Action::NO_MATCH_BEHAVIOUR:
+		_values->show();
+		if (static_cast<NoMatchBehavior>(_entryData->_value) ==
+		    NoMatchBehavior::SWITCH) {
+			_scenes->show();
+		}
+		break;
+	case MacroActionPluginState::Action::IMPORT_SETTINGS:
+		_settings->show();
+		_settingsWarning->show();
+		break;
+	case MacroActionPluginState::Action::TERMINATE:
+		_confirmShutdown->show();
+		break;
+	default:
+		break;
+	}
+}
+
+} // namespace advss

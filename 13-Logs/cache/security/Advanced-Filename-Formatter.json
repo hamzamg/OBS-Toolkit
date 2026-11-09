@@ -1,0 +1,83 @@
+{
+  "tool": "Advanced-Filename-Formatter",
+  "ref": "1.5.0",
+  "files_scanned": 2,
+  "summary": {
+    "code-execution": 3,
+    "process-spawn": 3,
+    "network": 5,
+    "persistence": 0,
+    "input-hooks": 0,
+    "credentials": 0,
+    "file-write": 0,
+    "file-outside": 0
+  },
+  "findings": [
+    {
+      "category": "network",
+      "file": "adv-ff.py",
+      "line": 17,
+      "text": "along with this program. If not, see <http://www.gnu.org/licenses/>."
+    },
+    {
+      "category": "process-spawn",
+      "file": "adv-ff.py",
+      "line": 22,
+      "text": "import subprocess"
+    },
+    {
+      "category": "code-execution",
+      "file": "adv-ff.py",
+      "line": 23,
+      "text": "import importlib.metadata as meta"
+    },
+    {
+      "category": "process-spawn",
+      "file": "adv-ff.py",
+      "line": 89,
+      "text": "subprocess.check_call([*py_executable, '-m', 'ensurepip']) # Flatpak is weirdge"
+    },
+    {
+      "category": "process-spawn",
+      "file": "adv-ff.py",
+      "line": 91,
+      "text": "subprocess.check_call([*py_executable, '-m', 'pip', 'install', *options, '--upgrade', 'pyparsing'])"
+    },
+    {
+      "category": "code-execution",
+      "file": "adv-ff.py",
+      "line": 510,
+      "text": "return eval(compile(node, \"<string>\", \"eval\"), {'__builtins__': None}, ex_locals), 200"
+    },
+    {
+      "category": "code-execution",
+      "file": "adv-ff.py",
+      "line": 535,
+      "text": "return eval(compile(node, \"<string>\", \"eval\"), {'__builtins__': None}, if_locals), 200"
+    },
+    {
+      "category": "network",
+      "file": "adv-ff.py",
+      "line": 1230,
+      "text": "\"Please read <a href='https://github.com/Penwy/adv-ff/blob/main/docs/doc.md'>the docs</a>.\""
+    },
+    {
+      "category": "network",
+      "file": "adv-ff.py",
+      "line": 1235,
+      "text": "\"<font color=#ff0000>This script requires the <a href='https://pypi.org/project/pyparsing/'>PyParsing</a> module to properly function, but it wasn't found and failed to i"
+    },
+    {
+      "category": "network",
+      "file": "adv-ff.py",
+      "line": 1236,
+      "text": "\"<font color=#ff0000>Check <a href='https://github.com/Penwy/adv-ff/tree/main/pyparsing-troubleshoot'>this page</a> for possible solutions.</font><br>\""
+    },
+    {
+      "category": "network",
+      "file": "pyparsing-troubleshoot/print_info.py",
+      "line": 17,
+      "text": "along with this program. If not, see <http://www.gnu.org/licenses/>."
+    }
+  ]
+}

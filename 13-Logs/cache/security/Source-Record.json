@@ -1,0 +1,443 @@
+{
+  "tool": "Source-Record",
+  "ref": "0.4.8",
+  "files_scanned": 19,
+  "summary": {
+    "code-execution": 0,
+    "process-spawn": 0,
+    "network": 70,
+    "persistence": 0,
+    "input-hooks": 0,
+    "credentials": 1,
+    "file-write": 0,
+    "file-outside": 0
+  },
+  "findings": [
+    {
+      "category": "network",
+      "file": "obs-websocket-api.h",
+      "line": 2,
+      "text": "obs-websocket"
+    },
+    {
+      "category": "network",
+      "file": "obs-websocket-api.h",
+      "line": 17,
+      "text": "with this program. If not, see <https://www.gnu.org/licenses/>"
+    },
+    {
+      "category": "network",
+      "file": "obs-websocket-api.h",
+      "line": 20,
+      "text": "#ifndef _OBS_WEBSOCKET_API_H"
+    },
+    {
+      "category": "network",
+      "file": "obs-websocket-api.h",
+      "line": 21,
+      "text": "#define _OBS_WEBSOCKET_API_H"
+    },
+    {
+      "category": "network",
+      "file": "obs-websocket-api.h",
+      "line": 25,
+      "text": "#define OBS_WEBSOCKET_API_VERSION 2"
+    },
+    {
+      "category": "network",
+      "file": "obs-websocket-api.h",
+      "line": 31,
+      "text": "typedef void *obs_websocket_vendor;"
+    },
+    {
+      "category": "network",
+      "file": "obs-websocket-api.h",
+      "line": 32,
+      "text": "typedef void (*obs_websocket_request_callback_function)(obs_data_t *, obs_data_t *, void *);"
+    },
+    {
+      "category": "network",
+      "file": "obs-websocket-api.h",
+      "line": 34,
+      "text": "struct obs_websocket_request_response {"
+    },
+    {
+      "category": "network",
+      "file": "obs-websocket-api.h",
+      "line": 42,
+      "text": "struct obs_websocket_request_callback {"
+    },
+    {
+      "category": "network",
+      "file": "obs-websocket-api.h",
+      "line": 43,
+      "text": "obs_websocket_request_callback_function callback;"
+    },
+    {
+      "category": "network",
+      "file": "obs-websocket-api.h",
+      "line": 51,
+      "text": "static inline proc_handler_t *obs_websocket_get_ph(void)"
+    },
+    {
+      "category": "network",
+      "file": "obs-websocket-api.h",
+      "line": 57,
+      "text": "if (!proc_handler_call(global_ph, \"obs_websocket_api_get_ph\", &cd))"
+    },
+    {
+      "category": "network",
+      "file": "obs-websocket-api.h",
+      "line": 58,
+      "text": "blog(LOG_DEBUG, \"Unable to fetch obs-websocket proc handler object. obs-websocket not installed?\");"
+    },
+    {
+      "category": "network",
+      "file": "obs-websocket-api.h",
+      "line": 65,
+      "text": "static inline bool obs_websocket_ensure_ph(void)"
+    },
+    {
+      "category": "network",
+      "file": "obs-websocket-api.h",
+      "line": 68,
+      "text": "_ph = obs_websocket_get_ph();"
+    },
+    {
+      "category": "network",
+      "file": "obs-websocket-api.h",
+      "line": 72,
+      "text": "static inline bool obs_websocket_vendor_run_simple_proc(obs_websocket_vendor vendor, const char *proc_name, calldata_t *cd)"
+    },
+    {
+      "category": "network",
+      "file": "obs-websocket-api.h",
+      "line": 74,
+      "text": "if (!obs_websocket_ensure_ph())"
+    },
+    {
+      "category": "network",
+      "file": "obs-websocket-api.h",
+      "line": 88,
+      "text": "// Gets the API version built with the obs-websocket plugin"
+    },
+    {
+      "category": "network",
+      "file": "obs-websocket-api.h",
+      "line": 89,
+      "text": "static inline unsigned int obs_websocket_get_api_version(void)"
+    },
+    {
+      "category": "network",
+      "file": "obs-websocket-api.h",
+      "line": 91,
+      "text": "if (!obs_websocket_ensure_ph())"
+    },
+    {
+      "category": "network",
+      "file": "obs-websocket-api.h",
+      "line": 106,
+      "text": "// Calls an obs-websocket request. Free response with `obs_websocket_request_response_free()`"
+    },
+    {
+      "category": "network",
+      "file": "obs-websocket-api.h",
+      "line": 107,
+      "text": "static inline struct obs_websocket_request_response *obs_websocket_call_request(const char *request_type, obs_data_t *request_data"
+    },
+    {
+      "category": "network",
+      "file": "obs-websocket-api.h",
+      "line": 113,
+      "text": "if (!obs_websocket_ensure_ph())"
+    },
+    {
+      "category": "network",
+      "file": "obs-websocket-api.h",
+      "line": 127,
+      "text": "struct obs_websocket_request_response *ret = (struct obs_websocket_request_response *)calldata_ptr(&cd, \"response\");"
+    },
+    {
+      "category": "network",
+      "file": "obs-websocket-api.h",
+      "line": 134,
+      "text": "// Free a request response object returned by `obs_websocket_call_request()`"
+    },
+    {
+      "category": "network",
+      "file": "obs-websocket-api.h",
+      "line": 135,
+      "text": "static inline void obs_websocket_request_response_free(struct obs_websocket_request_response *response)"
+    },
+    {
+      "category": "network",
+      "file": "obs-websocket-api.h",
+      "line": 151,
+      "text": "static inline obs_websocket_vendor obs_websocket_register_vendor(const char *vendor_name)"
+    },
+    {
+      "category": "network",
+      "file": "obs-websocket-api.h",
+      "line": 153,
+      "text": "if (!obs_websocket_ensure_ph())"
+    },
+    {
+      "category": "network",
+      "file": "obs-websocket-api.h",
+      "line": 161,
+      "text": "obs_websocket_vendor ret = calldata_ptr(&cd, \"vendor\");"
+    },
+    {
+      "category": "network",
+      "file": "obs-websocket-api.h",
+      "line": 168,
+      "text": "static inline bool obs_websocket_vendor_register_request(obs_websocket_vendor vendor, const char *request_type,"
+    },
+    {
+      "category": "network",
+      "file": "obs-websocket-api.h",
+      "line": 169,
+      "text": "obs_websocket_request_callback_function request_callback, void *priv_data)"
+    },
+    {
+      "category": "network",
+      "file": "obs-websocket-api.h",
+      "line": 173,
+      "text": "struct obs_websocket_request_callback cb = {request_callback, priv_data};"
+    },
+    {
+      "category": "network",
+      "file": "obs-websocket-api.h",
+      "line": 178,
+      "text": "bool success = obs_websocket_vendor_run_simple_proc(vendor, \"vendor_request_register\", &cd);"
+    },
+    {
+      "category": "network",
+      "file": "obs-websocket-api.h",
+      "line": 185,
+      "text": "static inline bool obs_websocket_vendor_unregister_request(obs_websocket_vendor vendor, const char *request_type)"
+    },
+    {
+      "category": "network",
+      "file": "obs-websocket-api.h",
+      "line": 191,
+      "text": "bool success = obs_websocket_vendor_run_simple_proc(vendor, \"vendor_request_unregister\", &cd);"
+    },
+    {
+      "category": "network",
+      "file": "obs-websocket-api.h",
+      "line": 199,
+      "text": "static inline bool obs_websocket_vendor_emit_event(obs_websocket_vendor vendor, const char *event_name, obs_data_t *event_data)"
+    },
+    {
+      "category": "network",
+      "file": "obs-websocket-api.h",
+      "line": 206,
+      "text": "bool success = obs_websocket_vendor_run_simple_proc(vendor, \"vendor_event_emit\", &cd);"
+    },
+    {
+      "category": "network",
+      "file": "source-record.c",
+      "line": 8,
+      "text": "#include \"obs-websocket-api.h\""
+    },
+    {
+      "category": "network",
+      "file": "source-record.c",
+      "line": 1525,
+      "text": "\"<a href=\\\"https://obsproject.com/forum/resources/source-record.1285/\\\">Source Record</a> (\" PROJECT_VERSION"
+    },
+    {
+      "category": "network",
+      "file": "source-record.c",
+      "line": 1526,
+      "text": "\") by <a href=\\\"https://www.exeldro.com\\\">Exeldro</a>\","
+    },
+    {
+      "category": "credentials",
+      "file": "source-record.c",
+      "line": 1640,
+      "text": "obs_properties_add_text(stream, \"key\", obs_module_text(\"Key\"), OBS_TEXT_PASSWORD);"
+    },
+    {
+      "category": "network",
+      "file": "source-record.c",
+      "line": 1791,
+      "text": "\"<a href=\\\"https://obsproject.com/forum/resources/source-record.1285/\\\">Source Record</a> (\" PROJECT_VERSION"
+    },
+    {
+      "category": "network",
+      "file": "source-record.c",
+      "line": 1792,
+      "text": "\") by <a href=\\\"https://www.exeldro.com\\\">Exeldro</a>\","
+    },
+    {
+      "category": "network",
+      "file": "source-record.c",
+      "line": 2070,
+      "text": "static void websocket_start_record(obs_data_t *request_data, obs_data_t *response_data, void *param)"
+    },
+    {
+      "category": "network",
+      "file": "source-record.c",
+      "line": 2103,
+      "text": "static void websocket_pause_record(obs_data_t *request_data, obs_data_t *response_data, void *param)"
+    },
+    {
+      "category": "network",
+      "file": "source-record.c",
+      "line": 2134,
+      "text": "static void websocket_unpause_record(obs_data_t *request_data, obs_data_t *response_data, void *param)"
+    },
+    {
+      "category": "network",
+      "file": "source-record.c",
+      "line": 2165,
+      "text": "static void websocket_split_record(obs_data_t *request_data, obs_data_t *response_data, void *param)"
+    },
+    {
+      "category": "network",
+      "file": "source-record.c",
+      "line": 2196,
+      "text": "static void websocket_add_chapter_record(obs_data_t *request_data, obs_data_t *response_data, void *param)"
+    },
+    {
+      "category": "network",
+      "file": "source-record.c",
+      "line": 2227,
+      "text": "static void websocket_stop_record(obs_data_t *request_data, obs_data_t *response_data, void *param)"
+    },
+    {
+      "category": "network",
+      "file": "source-record.c",
+      "line": 2319,
+      "text": "static void websocket_start_replay_buffer(obs_data_t *request_data, obs_data_t *response_data, void *param)"
+    },
+    {
+      "category": "network",
+      "file": "source-record.c",
+      "line": 2352,
+      "text": "static void websocket_stop_replay_buffer(obs_data_t *request_data, obs_data_t *response_data, void *param)"
+    },
+    {
+      "category": "network",
+      "file": "source-record.c",
+      "line": 2383,
+      "text": "static void websocket_save_replay_buffer(obs_data_t *request_data, obs_data_t *response_data, void *param)"
+    },
+    {
+      "category": "network",
+      "file": "source-record.c",
+      "line": 2452,
+      "text": "static void websocket_start_stream(obs_data_t *request_data, obs_data_t *response_data, void *param)"
+    },
+    {
+      "category": "network",
+      "file": "source-record.c",
+      "line": 2485,
+      "text": "static void websocket_stop_stream(obs_data_t *request_data, obs_data_t *response_data, void *param)"
+    },
+    {
+      "category": "network",
+      "file": "source-record.c",
+      "line": 2523,
+      "text": "vendor = obs_websocket_register_vendor(\"source-record\");"
+    },
+    {
+      "category": "network",
+      "file": "source-record.c",
+      "line": 2524,
+      "text": "obs_websocket_vendor_register_request(vendor, \"record_start\", websocket_start_record, NULL);"
+    },
+    {
+      "category": "network",
+      "file": "source-record.c",
+      "line": 2525,
+      "text": "obs_websocket_vendor_register_request(vendor, \"record_pause\", websocket_pause_record, NULL);"
+    },
+    {
+      "category": "network",
+      "file": "source-record.c",
+      "line": 2526,
+      "text": "obs_websocket_vendor_register_request(vendor, \"record_unpause\", websocket_unpause_record, NULL);"
+    },
+    {
+      "category": "network",
+      "file": "source-record.c",
+      "line": 2527,
+      "text": "obs_websocket_vendor_register_request(vendor, \"record_split\", websocket_split_record, NULL);"
+    },
+    {
+      "category": "network",
+      "file": "source-record.c",
+      "line": 2528,
+      "text": "obs_websocket_vendor_register_request(vendor, \"record_add_chapter\", websocket_add_chapter_record, NULL);"
+    },
+    {
+      "category": "network",
+      "file": "source-record.c",
+      "line": 2529,
+      "text": "obs_websocket_vendor_register_request(vendor, \"record_stop\", websocket_stop_record, NULL);"
+    },
+    {
+      "category": "network",
+      "file": "source-record.c",
+      "line": 2530,
+      "text": "obs_websocket_vendor_register_request(vendor, \"replay_buffer_start\", websocket_start_replay_buffer, NULL);"
+    },
+    {
+      "category": "network",
+      "file": "source-record.c",
+      "line": 2531,
+      "text": "obs_websocket_vendor_register_request(vendor, \"replay_buffer_stop\", websocket_stop_replay_buffer, NULL);"
+    },
+    {
+      "category": "network",
+      "file": "source-record.c",
+      "line": 2532,
+      "text": "obs_websocket_vendor_register_request(vendor, \"replay_buffer_save\", websocket_save_replay_buffer, NULL);"
+    },
+    {
+      "category": "network",
+      "file": "source-record.c",
+      "line": 2533,
+      "text": "obs_websocket_vendor_register_request(vendor, \"stream_start\", websocket_start_stream, NULL);"
+    },
+    {
+      "category": "network",
+      "file": "source-record.c",
+      "line": 2534,
+      "text": "obs_websocket_vendor_register_request(vendor, \"stream_stop\", websocket_stop_stream, NULL);"
+    },
+    {
+      "category": "network",
+      "file": ".github/scripts/Build-Windows.ps1",
+      "line": 23,
+      "text": "Write-Warning 'The obs-deps PowerShell build script requires PowerShell Core 7. Install or upgrade your PowerShell version: https://aka.ms/pscore6'"
+    },
+    {
+      "category": "network",
+      "file": ".github/scripts/check-cmake.sh",
+      "line": 49,
+      "text": "-path ./plugins/obs-websocket/deps \\"
+    },
+    {
+      "category": "network",
+      "file": ".github/scripts/check-format.sh",
+      "line": 2,
+      "text": "# Original source https://github.com/Project-OSRM/osrm-backend/blob/master/scripts/format.sh"
+    },
+    {
+      "category": "network",
+      "file": ".github/scripts/check-format.sh",
+      "line": 52,
+      "text": "-path ./plugins/obs-websocket/deps \\"
+    },
+    {
+      "category": "network",
+      "file": ".github/scripts/Package-Windows.ps1",
+      "line": 18,
+      "text": "Write-Warning 'The obs-deps PowerShell build script requires PowerShell Core 7. Install or upgrade your PowerShell version: https://aka.ms/pscore6'"
+    }
+  ]
+}

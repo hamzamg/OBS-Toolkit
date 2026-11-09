@@ -1,0 +1,77 @@
+{
+  "tool": "Shaderfilter",
+  "ref": "2.6.1",
+  "files_scanned": 18,
+  "summary": {
+    "code-execution": 0,
+    "process-spawn": 0,
+    "network": 10,
+    "persistence": 0,
+    "input-hooks": 0,
+    "credentials": 0,
+    "file-write": 0,
+    "file-outside": 0
+  },
+  "findings": [
+    {
+      "category": "network",
+      "file": "obs-shaderfilter.c",
+      "line": 1,
+      "text": "// Version 2.0 by Exeldro https://github.com/exeldro/obs-shaderfilter"
+    },
+    {
+      "category": "network",
+      "file": "obs-shaderfilter.c",
+      "line": 2,
+      "text": "// Version 1.21 by Charles Fettinger https://github.com/Oncorporation/obs-shaderfilter"
+    },
+    {
+      "category": "network",
+      "file": "obs-shaderfilter.c",
+      "line": 3,
+      "text": "// original version by nleseul https://github.com/nleseul/obs-shaderfilter"
+    },
+    {
+      "category": "network",
+      "file": "obs-shaderfilter.c",
+      "line": 2536,
+      "text": "\"<a href=\\\"https://obsproject.com/forum/resources/obs-shaderfilter.1736/\\\">obs-shaderfilter</a> (\" PROJECT_VERSION"
+    },
+    {
+      "category": "network",
+      "file": "obs-shaderfilter.c",
+      "line": 2537,
+      "text": "\") by <a href=\\\"https://www.exeldro.com\\\">Exeldro</a>\","
+    },
+    {
+      "category": "network",
+      "file": ".github/scripts/Build-Windows.ps1",
+      "line": 23,
+      "text": "Write-Warning 'The obs-deps PowerShell build script requires PowerShell Core 7. Install or upgrade your PowerShell version: https://aka.ms/pscore6'"
+    },
+    {
+      "category": "network",
+      "file": ".github/scripts/check-cmake.sh",
+      "line": 49,
+      "text": "-path ./plugins/obs-websocket/deps \\"
+    },
+    {
+      "category": "network",
+      "file": ".github/scripts/check-format.sh",
+      "line": 2,
+      "text": "# Original source https://github.com/Project-OSRM/osrm-backend/blob/master/scripts/format.sh"
+    },
+    {
+      "category": "network",
+      "file": ".github/scripts/check-format.sh",
+      "line": 52,
+      "text": "-path ./plugins/obs-websocket/deps \\"
+    },
+    {
+      "category": "network",
+      "file": ".github/scripts/Package-Windows.ps1",
+      "line": 18,
+      "text": "Write-Warning 'The obs-deps PowerShell build script requires PowerShell Core 7. Install or upgrade your PowerShell version: https://aka.ms/pscore6'"
+    }
+  ]
+}

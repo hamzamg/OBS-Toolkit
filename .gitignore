@@ -1,0 +1,11 @@
+# GitHub rejects files larger than 100 MB. The two files below stay on disk
+# in the local library (Test-Library.ps1 still verifies them) but are not
+# tracked by git. Both are re-obtainable:
+# - the SceneSwitcher installer: gh release download, or Update-Library.ps1
+# - the psd: inside the upstream source snapshot of OBS Screen Studio
+
+# 105.20 MB downloaded asset (SHA-256 recorded in MANIFEST.json)
+01-Scene-Management/Advanced-Scene-Switcher/Downloads/1.37.2/advanced-scene-switcher-1.37.2-windows-x64-Installer.exe
+
+# 93.86 MB upstream design asset inside a pinned source snapshot
+05-Screen-Production/OBS-Screen-Studio/Source/5739bc01f0d503f08b3fb21ddbfebfd42d387dcf/scene example/obs-zoom-blured-bg.psd

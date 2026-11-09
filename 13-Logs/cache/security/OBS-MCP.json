@@ -1,0 +1,359 @@
+{
+  "tool": "OBS-MCP",
+  "ref": "v0.2.0",
+  "files_scanned": 24,
+  "summary": {
+    "code-execution": 4,
+    "process-spawn": 0,
+    "network": 31,
+    "persistence": 2,
+    "input-hooks": 0,
+    "credentials": 19,
+    "file-write": 0,
+    "file-outside": 1
+  },
+  "findings": [
+    {
+      "category": "network",
+      "file": "install.bat",
+      "line": 26,
+      "text": "echo Download manually from: https://www.python.org/downloads/"
+    },
+    {
+      "category": "network",
+      "file": "install.bat",
+      "line": 42,
+      "text": "echo Download from: https://www.python.org/downloads/"
+    },
+    {
+      "category": "network",
+      "file": "install.bat",
+      "line": 58,
+      "text": "echo Download from: https://www.python.org/downloads/"
+    },
+    {
+      "category": "network",
+      "file": "install.bat",
+      "line": 66,
+      "text": "echo Download from: https://www.python.org/downloads/"
+    },
+    {
+      "category": "file-outside",
+      "file": "install.bat",
+      "line": 131,
+      "text": "set \"CONFIG_DIR=%APPDATA%\\Claude\""
+    },
+    {
+      "category": "credentials",
+      "file": "install.bat",
+      "line": 161,
+      "text": "echo \"OBS_PASSWORD\": \"\""
+    },
+    {
+      "category": "credentials",
+      "file": "install.bat",
+      "line": 178,
+      "text": "echo \"OBS_PASSWORD\": \"\""
+    },
+    {
+      "category": "credentials",
+      "file": "install.bat",
+      "line": 225,
+      "text": "echo \"OBS_PASSWORD\": \"\""
+    },
+    {
+      "category": "credentials",
+      "file": "install.bat",
+      "line": 242,
+      "text": "echo \"OBS_PASSWORD\": \"\""
+    },
+    {
+      "category": "network",
+      "file": "install.bat",
+      "line": 264,
+      "text": "echo 2. Enable the WebSocket server:"
+    },
+    {
+      "category": "network",
+      "file": "install.bat",
+      "line": 265,
+      "text": "echo Tools ^> WebSocket Server Settings ^> Enable WebSocket server"
+    },
+    {
+      "category": "credentials",
+      "file": "install.bat",
+      "line": 266,
+      "text": "echo (default port 4455 - if you set a password there, put it in"
+    },
+    {
+      "category": "credentials",
+      "file": "install.bat",
+      "line": 267,
+      "text": "echo OBS_PASSWORD in your AI client's config)"
+    },
+    {
+      "category": "network",
+      "file": "install.bat",
+      "line": 271,
+      "text": "echo OBS Studio must be open with the WebSocket server enabled for MCP to work."
+    },
+    {
+      "category": "network",
+      "file": "install.bat",
+      "line": 273,
+      "text": "echo Docs: https://github.com/xDarkzx/OBS_MCP"
+    },
+    {
+      "category": "network",
+      "file": "install.sh",
+      "line": 47,
+      "text": "echo \" /bin/bash -c \\\"\\$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)\\\"\""
+    },
+    {
+      "category": "network",
+      "file": "install.sh",
+      "line": 63,
+      "text": "echo \" Install Python 3.10+ manually: https://www.python.org/downloads/\""
+    },
+    {
+      "category": "network",
+      "file": "install.sh",
+      "line": 85,
+      "text": "echo \" Or: https://www.python.org/downloads/\""
+    },
+    {
+      "category": "network",
+      "file": "install.sh",
+      "line": 100,
+      "text": "echo \" Please upgrade Python: https://www.python.org/downloads/\""
+    },
+    {
+      "category": "credentials",
+      "file": "install.sh",
+      "line": 239,
+      "text": "echo ' \"OBS_PASSWORD\": \"\"'"
+    },
+    {
+      "category": "credentials",
+      "file": "install.sh",
+      "line": 253,
+      "text": "\"OBS_PASSWORD\": \"\""
+    },
+    {
+      "category": "credentials",
+      "file": "install.sh",
+      "line": 298,
+      "text": "echo ' \"OBS_PASSWORD\": \"\"'"
+    },
+    {
+      "category": "credentials",
+      "file": "install.sh",
+      "line": 312,
+      "text": "\"OBS_PASSWORD\": \"\""
+    },
+    {
+      "category": "network",
+      "file": "install.sh",
+      "line": 335,
+      "text": "echo \" 2. Enable the WebSocket server:\""
+    },
+    {
+      "category": "network",
+      "file": "install.sh",
+      "line": 336,
+      "text": "echo \" Tools > WebSocket Server Settings > Enable WebSocket server\""
+    },
+    {
+      "category": "credentials",
+      "file": "install.sh",
+      "line": 337,
+      "text": "echo \" (default port 4455 — if you set a password there, put it in\""
+    },
+    {
+      "category": "credentials",
+      "file": "install.sh",
+      "line": 338,
+      "text": "echo \" OBS_PASSWORD in your AI client's config)\""
+    },
+    {
+      "category": "network",
+      "file": "install.sh",
+      "line": 342,
+      "text": "echo \" OBS Studio must be open with the WebSocket server enabled for MCP to work.\""
+    },
+    {
+      "category": "network",
+      "file": "install.sh",
+      "line": 344,
+      "text": "echo \" Docs: https://github.com/xDarkzx/OBS_MCP\""
+    },
+    {
+      "category": "credentials",
+      "file": "obs_mcp/main.py",
+      "line": 14,
+      "text": "# obsws-python logs the OBS password in plaintext (\"Connecting with"
+    },
+    {
+      "category": "credentials",
+      "file": "obs_mcp/main.py",
+      "line": 15,
+      "text": "# parameters: ... password='...'\") at INFO on every connect. Raise it above"
+    },
+    {
+      "category": "network",
+      "file": "obs_mcp/main.py",
+      "line": 25,
+      "text": "\"Control OBS Studio via obs-websocket v5. Requires OBS Studio running \""
+    },
+    {
+      "category": "network",
+      "file": "obs_mcp/main.py",
+      "line": 26,
+      "text": "\"with Tools > WebSocket Server Settings enabled. Connection defaults \""
+    },
+    {
+      "category": "credentials",
+      "file": "obs_mcp/main.py",
+      "line": 27,
+      "text": "\"to localhost:4455 with no password — override with OBS_HOST/OBS_PORT/\""
+    },
+    {
+      "category": "credentials",
+      "file": "obs_mcp/main.py",
+      "line": 28,
+      "text": "\"OBS_PASSWORD environment variables if yours differs.\\n\\n\""
+    },
+    {
+      "category": "network",
+      "file": "obs_mcp/obs_client.py",
+      "line": 3,
+      "text": "obsws-python's ReqClient blocks on the underlying WebSocket call; every"
+    },
+    {
+      "category": "credentials",
+      "file": "obs_mcp/obs_client.py",
+      "line": 28,
+      "text": "password = os.environ.get(\"OBS_PASSWORD\", \"\")"
+    },
+    {
+      "category": "credentials",
+      "file": "obs_mcp/obs_client.py",
+      "line": 30,
+      "text": "return obsws.ReqClient(host=host, port=port, password=password, timeout=5)"
+    },
+    {
+      "category": "network",
+      "file": "obs_mcp/obs_client.py",
+      "line": 35,
+      "text": "f\"Make sure OBS Studio is running with the WebSocket server \""
+    },
+    {
+      "category": "network",
+      "file": "obs_mcp/obs_client.py",
+      "line": 36,
+      "text": "f\"enabled (Tools > WebSocket Server Settings) and that \""
+    },
+    {
+      "category": "credentials",
+      "file": "obs_mcp/obs_client.py",
+      "line": 37,
+      "text": "f\"OBS_HOST/OBS_PORT/OBS_PASSWORD match its settings.\","
+    },
+    {
+      "category": "network",
+      "file": "obs_mcp/obs_client.py",
+      "line": 48,
+      "text": "\"\"\"Call any obs-websocket v5 request by name. Returns response fields as a dict."
+    },
+    {
+      "category": "network",
+      "file": "obs_mcp/obs_client.py",
+      "line": 53,
+      "text": "socket. Serialize every call (connect included) through one lock so"
+    },
+    {
+      "category": "code-execution",
+      "file": "obs_mcp/tool_registry.py",
+      "line": 1,
+      "text": "import importlib"
+    },
+    {
+      "category": "persistence",
+      "file": "obs_mcp/tool_registry.py",
+      "line": 13,
+      "text": "# when adding a new obs_mcp/tools/*.py module. Lets startup fail loud if a"
+    },
+    {
+      "category": "code-execution",
+      "file": "obs_mcp/tool_registry.py",
+      "line": 30,
+      "text": "module = importlib.import_module(f\"obs_mcp.tools.{name}\")"
+    },
+    {
+      "category": "network",
+      "file": "obs_mcp/tools/general_tools.py",
+      "line": 1,
+      "text": "\"\"\"General OBS tools — version/stats, hotkeys, custom events, vendor requests.\"\"\""
+    },
+    {
+      "category": "network",
+      "file": "obs_mcp/tools/general_tools.py",
+      "line": 11,
+      "text": "\"\"\"OBS/obs-websocket version info, platform, and the full list of requests"
+    },
+    {
+      "category": "network",
+      "file": "obs_mcp/tools/general_tools.py",
+      "line": 23,
+      "text": "\"\"\"Broadcast a CustomEvent to all subscribed obs-websocket clients."
+    },
+    {
+      "category": "network",
+      "file": "obs_mcp/tools/general_tools.py",
+      "line": 88,
+      "text": "realm: \"OBS_WEBSOCKET_DATA_REALM_GLOBAL\" or \"OBS_WEBSOCKET_DATA_REALM_PROFILE\"."
+    },
+    {
+      "category": "network",
+      "file": "obs_mcp/tools/general_tools.py",
+      "line": 99,
+      "text": "realm: \"OBS_WEBSOCKET_DATA_REALM_GLOBAL\" or \"OBS_WEBSOCKET_DATA_REALM_PROFILE\"."
+    },
+    {
+      "category": "network",
+      "file": "obs_mcp/tools/media_tools.py",
+      "line": 42,
+      "text": "action: One of OBS_WEBSOCKET_MEDIA_INPUT_ACTION_PLAY, _PAUSE,"
+    },
+    {
+      "category": "network",
+      "file": "obs_mcp/tools/ui_tools.py",
+      "line": 47,
+      "text": "video_mix_type: OBS_WEBSOCKET_VIDEO_MIX_TYPE_PREVIEW, _PROGRAM, or _MULTIVIEW."
+    },
+    {
+      "category": "persistence",
+      "file": "tests/test_tool_registry.py",
+      "line": 6,
+      "text": "copy of the repo, with no error at install or startup."
+    },
+    {
+      "category": "code-execution",
+      "file": "tests/test_tool_registry.py",
+      "line": 21,
+      "text": "module = __import__(f\"obs_mcp.tools.{name}\", fromlist=[\"register\"])"
+    },
+    {
+      "category": "network",
+      "file": "tests/test_tool_registry.py",
+      "line": 50,
+      "text": "\"\"\"148 tools = full obs-websocket v5 coverage minus Sleep (batch-only,"
+    },
+    {
+      "category": "code-execution",
+      "file": "tests/test_tool_registry.py",
+      "line": 58,
+      "text": "module = __import__(f\"obs_mcp.tools.{name}\", fromlist=[\"register\"])"
+    }
+  ]
+}

@@ -1,0 +1,8 @@
+- Add support for OBS 33
+- Add gif support
+- Add periodic glitch shader
+- Add german translation by wOOtiTv
+- Add tooltip annotation
+- Improve conversion of mod
+- Fix zoom_blur_transition.shader for opengl
+- Fix converting commented return

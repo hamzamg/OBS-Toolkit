@@ -1,0 +1,149 @@
+{
+  "tool": "Autostarter",
+  "ref": "v2.1.0",
+  "files_scanned": 17,
+  "summary": {
+    "code-execution": 5,
+    "process-spawn": 4,
+    "network": 4,
+    "persistence": 0,
+    "input-hooks": 0,
+    "credentials": 0,
+    "file-write": 9,
+    "file-outside": 0
+  },
+  "findings": [
+    {
+      "category": "network",
+      "file": ".github/scripts/Build-Windows.ps1",
+      "line": 24,
+      "text": "Write-Warning 'The obs-deps PowerShell build script requires PowerShell Core 7. Install or upgrade your PowerShell version: https://aka.ms/pscore6'"
+    },
+    {
+      "category": "network",
+      "file": ".github/scripts/Package-Windows.ps1",
+      "line": 24,
+      "text": "Write-Warning 'The packaging script requires PowerShell Core 7. Install or upgrade your PowerShell version: https://aka.ms/pscore6'"
+    },
+    {
+      "category": "process-spawn",
+      "file": "src/autostart.cpp",
+      "line": 85,
+      "text": "* @brief Attempts to launch a single program, either as .exe or via ShellExecute for other file types."
+    },
+    {
+      "category": "process-spawn",
+      "file": "src/autostart.cpp",
+      "line": 107,
+      "text": "// For non-exe files, use ShellExecute"
+    },
+    {
+      "category": "process-spawn",
+      "file": "src/autostart.cpp",
+      "line": 108,
+      "text": "HINSTANCE result = ShellExecuteA(NULL, \"open\","
+    },
+    {
+      "category": "process-spawn",
+      "file": "src/autostart.cpp",
+      "line": 133,
+      "text": "if (CreateProcess(NULL, // No module name (use command line)"
+    },
+    {
+      "category": "file-write",
+      "file": "src/config.cpp",
+      "line": 5,
+      "text": "#include <QFile>"
+    },
+    {
+      "category": "file-write",
+      "file": "src/config.cpp",
+      "line": 114,
+      "text": "QFile file(configPath);"
+    },
+    {
+      "category": "code-execution",
+      "file": "src/config.cpp",
+      "line": 124,
+      "text": "void PluginConfig::Load()"
+    },
+    {
+      "category": "file-write",
+      "file": "src/config.cpp",
+      "line": 127,
+      "text": "QFile file(configPath);"
+    },
+    {
+      "category": "code-execution",
+      "file": "src/config.hpp",
+      "line": 53,
+      "text": "void Load();"
+    },
+    {
+      "category": "network",
+      "file": "src/constants.hpp",
+      "line": 14,
+      "text": "inline const std::string GITHUB_URL = \"https://github.com/DaviBe92/Autostarter\";"
+    },
+    {
+      "category": "network",
+      "file": "src/plugin-main.cpp",
+      "line": 25,
+      "text": "* with this program. If not, see <https://www.gnu.org/licenses/>"
+    },
+    {
+      "category": "code-execution",
+      "file": "src/plugin-main.cpp",
+      "line": 87,
+      "text": "msgBox.exec();"
+    },
+    {
+      "category": "file-write",
+      "file": "src/settings-widget.cpp",
+      "line": 7,
+      "text": "#include <QFileDialog>"
+    },
+    {
+      "category": "file-write",
+      "file": "src/settings-widget.cpp",
+      "line": 24,
+      "text": "QFileInfo fileInfo(path);"
+    },
+    {
+      "category": "file-write",
+      "file": "src/settings-widget.cpp",
+      "line": 195,
+      "text": "QFileInfo fileInfo(widget->getPath());"
+    },
+    {
+      "category": "file-write",
+      "file": "src/settings-widget.cpp",
+      "line": 224,
+      "text": "QString filename = QFileDialog::getOpenFileName(this, \"Select Program\", \"\", \"All Files (*.*)\");"
+    },
+    {
+      "category": "file-write",
+      "file": "src/settings-widget.cpp",
+      "line": 229,
+      "text": "QFileInfo fileInfo(filename);"
+    },
+    {
+      "category": "file-write",
+      "file": "src/settings-widget.cpp",
+      "line": 265,
+      "text": "QFileInfo fileInfo(widget->getPath());"
+    },
+    {
+      "category": "code-execution",
+      "file": "src/settings-widget.cpp",
+      "line": 360,
+      "text": "dialog.exec();"
+    },
+    {
+      "category": "code-execution",
+      "file": "src/settings-widget.cpp",
+      "line": 375,
+      "text": "if (confirm.exec() == QMessageBox::Yes) {"
+    }
+  ]
+}

@@ -1,0 +1,161 @@
+{
+  "tool": "RSE-OBS-Scripts",
+  "ref": "master",
+  "files_scanned": 7,
+  "summary": {
+    "code-execution": 0,
+    "process-spawn": 3,
+    "network": 21,
+    "persistence": 0,
+    "input-hooks": 0,
+    "credentials": 0,
+    "file-write": 0,
+    "file-outside": 0
+  },
+  "findings": [
+    {
+      "category": "network",
+      "file": "auto-execute-commands.lua",
+      "line": 5,
+      "text": "** Distributed under MIT license <https://spdx.org/licenses/MIT.html>"
+    },
+    {
+      "category": "process-spawn",
+      "file": "auto-execute-commands.lua",
+      "line": 30,
+      "text": "os.execute(cmd)"
+    },
+    {
+      "category": "process-spawn",
+      "file": "auto-execute-commands.lua",
+      "line": 43,
+      "text": "os.execute(cmd)"
+    },
+    {
+      "category": "network",
+      "file": "auto-execute-commands.lua",
+      "line": 52,
+      "text": "href=\"http://engelschall.com\">Dr. Ralf S. Engelschall</a><br/>"
+    },
+    {
+      "category": "network",
+      "file": "auto-execute-commands.lua",
+      "line": 54,
+      "text": "href=\"https://spdx.org/licenses/MIT.html\">MIT license</a>"
+    },
+    {
+      "category": "process-spawn",
+      "file": "auto-execute-commands.lua",
+      "line": 111,
+      "text": "os.execute(cmd)"
+    },
+    {
+      "category": "network",
+      "file": "clone-template-scene.lua",
+      "line": 5,
+      "text": "** Distributed under MIT license <https://spdx.org/licenses/MIT.html>"
+    },
+    {
+      "category": "network",
+      "file": "clone-template-scene.lua",
+      "line": 224,
+      "text": "href=\"http://engelschall.com\">Dr. Ralf S. Engelschall</a><br/>"
+    },
+    {
+      "category": "network",
+      "file": "clone-template-scene.lua",
+      "line": 226,
+      "text": "href=\"https://spdx.org/licenses/MIT.html\">MIT license</a>"
+    },
+    {
+      "category": "network",
+      "file": "enforce-current-scenes.lua",
+      "line": 5,
+      "text": "** Distributed under MIT license <https://spdx.org/licenses/MIT.html>"
+    },
+    {
+      "category": "network",
+      "file": "enforce-current-scenes.lua",
+      "line": 200,
+      "text": "href=\"http://engelschall.com\">Dr. Ralf S. Engelschall</a><br/>"
+    },
+    {
+      "category": "network",
+      "file": "enforce-current-scenes.lua",
+      "line": 202,
+      "text": "href=\"https://spdx.org/licenses/MIT.html\">MIT license</a>"
+    },
+    {
+      "category": "network",
+      "file": "keyboard-event-filter.lua",
+      "line": 5,
+      "text": "** Distributed under MIT license <https://spdx.org/licenses/MIT.html>"
+    },
+    {
+      "category": "network",
+      "file": "keyboard-event-filter.lua",
+      "line": 377,
+      "text": "href=\"http://engelschall.com\">Dr. Ralf S. Engelschall</a><br/>"
+    },
+    {
+      "category": "network",
+      "file": "keyboard-event-filter.lua",
+      "line": 379,
+      "text": "href=\"https://spdx.org/licenses/MIT.html\">MIT license</a>"
+    },
+    {
+      "category": "network",
+      "file": "production-information.lua",
+      "line": 5,
+      "text": "** Distributed under MIT license <https://spdx.org/licenses/MIT.html>"
+    },
+    {
+      "category": "network",
+      "file": "production-information.lua",
+      "line": 177,
+      "text": "href=\"http://engelschall.com\">Dr. Ralf S. Engelschall</a><br/>"
+    },
+    {
+      "category": "network",
+      "file": "production-information.lua",
+      "line": 179,
+      "text": "href=\"https://spdx.org/licenses/MIT.html\">MIT license</a>"
+    },
+    {
+      "category": "network",
+      "file": "refresh-browser-sources.lua",
+      "line": 5,
+      "text": "** Distributed under MIT license <https://spdx.org/licenses/MIT.html>"
+    },
+    {
+      "category": "network",
+      "file": "refresh-browser-sources.lua",
+      "line": 41,
+      "text": "href=\"http://engelschall.com\">Dr. Ralf S. Engelschall</a><br/>"
+    },
+    {
+      "category": "network",
+      "file": "refresh-browser-sources.lua",
+      "line": 43,
+      "text": "href=\"https://spdx.org/licenses/MIT.html\">MIT license</a>"
+    },
+    {
+      "category": "network",
+      "file": "source-one-of-many.lua",
+      "line": 5,
+      "text": "** Distributed under MIT license <https://spdx.org/licenses/MIT.html>"
+    },
+    {
+      "category": "network",
+      "file": "source-one-of-many.lua",
+      "line": 105,
+      "text": "href=\"http://engelschall.com\">Dr. Ralf S. Engelschall</a><br/>"
+    },
+    {
+      "category": "network",
+      "file": "source-one-of-many.lua",
+      "line": 107,
+      "text": "href=\"https://spdx.org/licenses/MIT.html\">MIT license</a>"
+    }
+  ]
+}

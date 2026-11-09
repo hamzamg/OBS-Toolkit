@@ -1,0 +1,551 @@
+{
+  "tool": "Multi-RTMP",
+  "ref": "0.7.4",
+  "files_scanned": 25,
+  "summary": {
+    "code-execution": 6,
+    "process-spawn": 0,
+    "network": 428,
+    "persistence": 0,
+    "input-hooks": 0,
+    "credentials": 3,
+    "file-write": 0,
+    "file-outside": 0
+  },
+  "findings": [
+    {
+      "category": "network",
+      "file": ".github/scripts/Build-Windows.ps1",
+      "line": 25,
+      "text": "Write-Warning 'The obs-studio PowerShell build script requires PowerShell Core 7. Install or upgrade your PowerShell version: https://aka.ms/pscore6'"
+    },
+    {
+      "category": "network",
+      "file": ".github/scripts/Package-Windows.ps1",
+      "line": 25,
+      "text": "Write-Warning 'The packaging script requires PowerShell Core 7. Install or upgrade your PowerShell version: https://aka.ms/pscore6'"
+    },
+    {
+      "category": "network",
+      "file": "dep/nlohmann-json/json.hpp",
+      "line": 4,
+      "text": "// |_____|_____|_____|_|___| https://github.com/nlohmann/json"
+    },
+    {
+      "category": "network",
+      "file": "dep/nlohmann-json/json.hpp",
+      "line": 6,
+      "text": "// SPDX-FileCopyrightText: 2013-2022 Niels Lohmann <https://nlohmann.me>"
+    },
+    {
+      "category": "network",
+      "file": "dep/nlohmann-json/json.hpp",
+      "line": 11,
+      "text": "* documentation of the public API at https://json.nlohmann.me. This URL *"
+    },
+    {
+      "category": "network",
+      "file": "dep/nlohmann-json/json.hpp",
+      "line": 39,
+      "text": "// |_____|_____|_____|_|___| https://github.com/nlohmann/json"
+    },
+    {
+      "category": "network",
+      "file": "dep/nlohmann-json/json.hpp",
+      "line": 41,
+      "text": "// SPDX-FileCopyrightText: 2013-2022 Niels Lohmann <https://nlohmann.me>"
+    },
+    {
+      "category": "network",
+      "file": "dep/nlohmann-json/json.hpp",
+      "line": 52,
+      "text": "// |_____|_____|_____|_|___| https://github.com/nlohmann/json"
+    },
+    {
+      "category": "network",
+      "file": "dep/nlohmann-json/json.hpp",
+      "line": 54,
+      "text": "// SPDX-FileCopyrightText: 2013-2022 Niels Lohmann <https://nlohmann.me>"
+    },
+    {
+      "category": "network",
+      "file": "dep/nlohmann-json/json.hpp",
+      "line": 154,
+      "text": "// |_____|_____|_____|_|___| https://github.com/nlohmann/json"
+    },
+    {
+      "category": "network",
+      "file": "dep/nlohmann-json/json.hpp",
+      "line": 156,
+      "text": "// SPDX-FileCopyrightText: 2013-2022 Niels Lohmann <https://nlohmann.me>"
+    },
+    {
+      "category": "network",
+      "file": "dep/nlohmann-json/json.hpp",
+      "line": 177,
+      "text": "// |_____|_____|_____|_|___| https://github.com/nlohmann/json"
+    },
+    {
+      "category": "network",
+      "file": "dep/nlohmann-json/json.hpp",
+      "line": 179,
+      "text": "// SPDX-FileCopyrightText: 2013-2022 Niels Lohmann <https://nlohmann.me>"
+    },
+    {
+      "category": "network",
+      "file": "dep/nlohmann-json/json.hpp",
+      "line": 194,
+      "text": "// |_____|_____|_____|_|___| https://github.com/nlohmann/json"
+    },
+    {
+      "category": "network",
+      "file": "dep/nlohmann-json/json.hpp",
+      "line": 196,
+      "text": "// SPDX-FileCopyrightText: 2013-2022 Niels Lohmann <https://nlohmann.me>"
+    },
+    {
+      "category": "network",
+      "file": "dep/nlohmann-json/json.hpp",
+      "line": 210,
+      "text": "// |_____|_____|_____|_|___| https://github.com/nlohmann/json"
+    },
+    {
+      "category": "network",
+      "file": "dep/nlohmann-json/json.hpp",
+      "line": 212,
+      "text": "// SPDX-FileCopyrightText: 2013-2022 Niels Lohmann <https://nlohmann.me>"
+    },
+    {
+      "category": "network",
+      "file": "dep/nlohmann-json/json.hpp",
+      "line": 222,
+      "text": "// |_____|_____|_____|_|___| https://github.com/nlohmann/json"
+    },
+    {
+      "category": "network",
+      "file": "dep/nlohmann-json/json.hpp",
+      "line": 224,
+      "text": "// SPDX-FileCopyrightText: 2013-2022 Niels Lohmann <https://nlohmann.me>"
+    },
+    {
+      "category": "network",
+      "file": "dep/nlohmann-json/json.hpp",
+      "line": 235,
+      "text": "// |_____|_____|_____|_|___| https://github.com/nlohmann/json"
+    },
+    {
+      "category": "network",
+      "file": "dep/nlohmann-json/json.hpp",
+      "line": 237,
+      "text": "// SPDX-FileCopyrightText: 2013-2022 Niels Lohmann <https://nlohmann.me>"
+    },
+    {
+      "category": "network",
+      "file": "dep/nlohmann-json/json.hpp",
+      "line": 263,
+      "text": "// https://en.cppreference.com/w/cpp/experimental/is_detected"
+    },
+    {
+      "category": "network",
+      "file": "dep/nlohmann-json/json.hpp",
+      "line": 322,
+      "text": "// |_____|_____|_____|_|___| https://github.com/nlohmann/json"
+    },
+    {
+      "category": "network",
+      "file": "dep/nlohmann-json/json.hpp",
+      "line": 324,
+      "text": "// SPDX-FileCopyrightText: 2013-2022 Niels Lohmann <https://nlohmann.me>"
+    },
+    {
+      "category": "network",
+      "file": "dep/nlohmann-json/json.hpp",
+      "line": 328,
+      "text": "/* Hedley - https://nemequ.github.io/hedley"
+    },
+    {
+      "category": "network",
+      "file": "dep/nlohmann-json/json.hpp",
+      "line": 2374,
+      "text": "#error \"unsupported Clang version - see https://github.com/nlohmann/json#supported-compilers\""
+    },
+    {
+      "category": "network",
+      "file": "dep/nlohmann-json/json.hpp",
+      "line": 2378,
+      "text": "#error \"unsupported GCC version - see https://github.com/nlohmann/json#supported-compilers\""
+    },
+    {
+      "category": "network",
+      "file": "dep/nlohmann-json/json.hpp",
+      "line": 2420,
+      "text": "// std::filesystem does not work on MinGW GCC 8: https://sourceforge.net/p/mingw-w64/bugs/737/"
+    },
+    {
+      "category": "network",
+      "file": "dep/nlohmann-json/json.hpp",
+      "line": 2426,
+      "text": "// no filesystem support before GCC 8: https://en.cppreference.com/w/cpp/compiler_support"
+    },
+    {
+      "category": "network",
+      "file": "dep/nlohmann-json/json.hpp",
+      "line": 2432,
+      "text": "// no filesystem support before Clang 7: https://en.cppreference.com/w/cpp/compiler_support"
+    },
+    {
+      "category": "network",
+      "file": "dep/nlohmann-json/json.hpp",
+      "line": 2438,
+      "text": "// no filesystem support before MSVC 19.14: https://en.cppreference.com/w/cpp/compiler_support"
+    },
+    {
+      "category": "network",
+      "file": "dep/nlohmann-json/json.hpp",
+      "line": 2764,
+      "text": "// inspired from https://stackoverflow.com/a/26745591"
+    },
+    {
+      "category": "network",
+      "file": "dep/nlohmann-json/json.hpp",
+      "line": 2912,
+      "text": "// (see GCC bug https://gcc.gnu.org/bugzilla/show_bug.cgi?id=105200)"
+    },
+    {
+      "category": "network",
+      "file": "dep/nlohmann-json/json.hpp",
+      "line": 2927,
+      "text": "// |_____|_____|_____|_|___| https://github.com/nlohmann/json"
+    },
+    {
+      "category": "network",
+      "file": "dep/nlohmann-json/json.hpp",
+      "line": 2929,
+      "text": "// SPDX-FileCopyrightText: 2013-2022 Niels Lohmann <https://nlohmann.me>"
+    },
+    {
+      "category": "network",
+      "file": "dep/nlohmann-json/json.hpp",
+      "line": 3002,
+      "text": "// |_____|_____|_____|_|___| https://github.com/nlohmann/json"
+    },
+    {
+      "category": "network",
+      "file": "dep/nlohmann-json/json.hpp",
+      "line": 3004,
+      "text": "// SPDX-FileCopyrightText: 2013-2022 Niels Lohmann <https://nlohmann.me>"
+    },
+    {
+      "category": "network",
+      "file": "dep/nlohmann-json/json.hpp",
+      "line": 3044,
+      "text": "// |_____|_____|_____|_|___| https://github.com/nlohmann/json"
+    },
+    {
+      "category": "network",
+      "file": "dep/nlohmann-json/json.hpp",
+      "line": 3046,
+      "text": "// SPDX-FileCopyrightText: 2013-2022 Niels Lohmann <https://nlohmann.me>"
+    },
+    {
+      "category": "network",
+      "file": "dep/nlohmann-json/json.hpp",
+      "line": 3081,
+      "text": "// The following code is taken from https://github.com/abseil/abseil-cpp/blob/10cb35e459f5ecca5b2ff107635da0bfa41011b4/absl/utility/utility.h"
+    },
+    {
+      "category": "network",
+      "file": "dep/nlohmann-json/json.hpp",
+      "line": 3082,
+      "text": "// which is part of Google Abseil (https://github.com/abseil/abseil-cpp), licensed under the Apache License 2.0."
+    },
+    {
+      "category": "network",
+      "file": "dep/nlohmann-json/json.hpp",
+      "line": 3218,
+      "text": "// |_____|_____|_____|_|___| https://github.com/nlohmann/json"
+    },
+    {
+      "category": "network",
+      "file": "dep/nlohmann-json/json.hpp",
+      "line": 3220,
+      "text": "// SPDX-FileCopyrightText: 2013-2022 Niels Lohmann <https://nlohmann.me>"
+    },
+    {
+      "category": "network",
+      "file": "dep/nlohmann-json/json.hpp",
+      "line": 3234,
+      "text": "// |_____|_____|_____|_|___| https://github.com/nlohmann/json"
+    },
+    {
+      "category": "network",
+      "file": "dep/nlohmann-json/json.hpp",
+      "line": 3236,
+      "text": "// SPDX-FileCopyrightText: 2013-2022 Niels Lohmann <https://nlohmann.me>"
+    },
+    {
+      "category": "network",
+      "file": "dep/nlohmann-json/json.hpp",
+      "line": 3271,
+      "text": "// doesn't work with SFINAE. See https://github.com/nlohmann/json/issues/1341."
+    },
+    {
+      "category": "network",
+      "file": "dep/nlohmann-json/json.hpp",
+      "line": 3302,
+      "text": "// |_____|_____|_____|_|___| https://github.com/nlohmann/json"
+    },
+    {
+      "category": "network",
+      "file": "dep/nlohmann-json/json.hpp",
+      "line": 3304,
+      "text": "// SPDX-FileCopyrightText: 2013-2022 Niels Lohmann <https://nlohmann.me>"
+    },
+    {
+      "category": "network",
+      "file": "dep/nlohmann-json/json.hpp",
+      "line": 3322,
+      "text": "// |_____|_____|_____|_|___| https://github.com/nlohmann/json"
+    },
+    {
+      "category": "network",
+      "file": "dep/nlohmann-json/json.hpp",
+      "line": 3324,
+      "text": "// SPDX-FileCopyrightText: 2013-2022 Niels Lohmann <https://nlohmann.me>"
+    },
+    {
+      "category": "network",
+      "file": "dep/nlohmann-json/json.hpp",
+      "line": 3346,
+      "text": "// |_____|_____|_____|_|___| https://github.com/nlohmann/json"
+    },
+    {
+      "category": "network",
+      "file": "dep/nlohmann-json/json.hpp",
+      "line": 3348,
+      "text": "// SPDX-FileCopyrightText: 2013-2022 Niels Lohmann <https://nlohmann.me>"
+    },
+    {
+      "category": "network",
+      "file": "dep/nlohmann-json/json.hpp",
+      "line": 3365,
+      "text": "@see https://github.com/nlohmann"
+    },
+    {
+      "category": "network",
+      "file": "dep/nlohmann-json/json.hpp",
+      "line": 3374,
+      "text": "([argument-dependent lookup](https://en.cppreference.com/w/cpp/language/adl))"
+    },
+    {
+      "category": "network",
+      "file": "dep/nlohmann-json/json.hpp",
+      "line": 3381,
+      "text": "/// @sa https://json.nlohmann.me/api/basic_json/"
+    },
+    {
+      "category": "network",
+      "file": "dep/nlohmann-json/json.hpp",
+      "line": 3396,
+      "text": "/// @sa https://json.nlohmann.me/api/json_pointer/"
+    },
+    {
+      "category": "network",
+      "file": "dep/nlohmann-json/json.hpp",
+      "line": 3402,
+      "text": "@sa https://json.nlohmann.me/api/json/"
+    },
+    {
+      "category": "network",
+      "file": "dep/nlohmann-json/json.hpp",
+      "line": 3407,
+      "text": "/// @sa https://json.nlohmann.me/api/ordered_map/"
+    },
+    {
+      "category": "network",
+      "file": "dep/nlohmann-json/json.hpp",
+      "line": 3412,
+      "text": "/// @sa https://json.nlohmann.me/api/ordered_json/"
+    },
+    {
+      "category": "network",
+      "file": "dep/nlohmann-json/json.hpp",
+      "line": 3514,
+      "text": "// has several constructors/operator= (see https://github.com/nlohmann/json/issues/958)"
+    },
+    {
+      "category": "network",
+      "file": "dep/nlohmann-json/json.hpp",
+      "line": 3584,
+      "text": "// https://en.cppreference.com/w/cpp/types/conjunction"
+    },
+    {
+      "category": "network",
+      "file": "dep/nlohmann-json/json.hpp",
+      "line": 3591,
+      "text": "// https://en.cppreference.com/w/cpp/types/negation"
+    },
+    {
+      "category": "network",
+      "file": "dep/nlohmann-json/json.hpp",
+      "line": 3595,
+      "text": "// std::pair and std::tuple until LWG 2367 fix (see https://cplusplus.github.io/LWG/lwg-defects.html#2367)."
+    },
+    {
+      "category": "network",
+      "file": "dep/nlohmann-json/json.hpp",
+      "line": 3660,
+      "text": "// to be 100% correct, it should use https://en.cppreference.com/w/cpp/iterator/input_or_output_iterator"
+    },
+    {
+      "category": "network",
+      "file": "dep/nlohmann-json/json.hpp",
+      "line": 3661,
+      "text": "// and https://en.cppreference.com/w/cpp/iterator/sentinel_for"
+    },
+    {
+      "category": "network",
+      "file": "dep/nlohmann-json/json.hpp",
+      "line": 3677,
+      "text": "// https://blogs.msdn.microsoft.com/vcblog/2015/12/02/partial-support-for-expression-sfinae-in-vs-2015-update-1/"
+    },
+    {
+      "category": "network",
+      "file": "dep/nlohmann-json/json.hpp",
+      "line": 3777,
+      "text": "// c.f. https://github.com/nlohmann/json/pull/3073"
+    },
+    {
+      "category": "network",
+      "file": "dep/nlohmann-json/json.hpp",
+      "line": 3812,
+      "text": "// c.f. https://github.com/nlohmann/json/pull/3073"
+    },
+    {
+      "category": "network",
+      "file": "dep/nlohmann-json/json.hpp",
+      "line": 3975,
+      "text": "// to avoid useless casts (see https://github.com/nlohmann/json/issues/2893#issuecomment-889152324)"
+    },
+    {
+      "category": "network",
+      "file": "dep/nlohmann-json/json.hpp",
+      "line": 4142,
+      "text": "// |_____|_____|_____|_|___| https://github.com/nlohmann/json"
+    },
+    {
+      "category": "network",
+      "file": "dep/nlohmann-json/json.hpp",
+      "line": 4144,
+      "text": "// SPDX-FileCopyrightText: 2013-2022 Niels Lohmann <https://nlohmann.me>"
+    },
+    {
+      "category": "network",
+      "file": "dep/nlohmann-json/json.hpp",
+      "line": 4299,
+      "text": "/// @sa https://json.nlohmann.me/api/basic_json/exception/"
+    },
+    {
+      "category": "network",
+      "file": "dep/nlohmann-json/json.hpp",
+      "line": 4397,
+      "text": "/// @sa https://json.nlohmann.me/api/basic_json/parse_error/"
+    },
+    {
+      "category": "network",
+      "file": "dep/nlohmann-json/json.hpp",
+      "line": 4450,
+      "text": "/// @sa https://json.nlohmann.me/api/basic_json/invalid_iterator/"
+    },
+    {
+      "category": "network",
+      "file": "dep/nlohmann-json/json.hpp",
+      "line": 4468,
+      "text": "/// @sa https://json.nlohmann.me/api/basic_json/type_error/"
+    },
+    {
+      "category": "network",
+      "file": "dep/nlohmann-json/json.hpp",
+      "line": 4485,
+      "text": "/// @sa https://json.nlohmann.me/api/basic_json/out_of_range/"
+    },
+    {
+      "category": "network",
+      "file": "dep/nlohmann-json/json.hpp",
+      "line": 4502,
+      "text": "/// @sa https://json.nlohmann.me/api/basic_json/other_error/"
+    },
+    {
+      "category": "network",
+      "file": "dep/nlohmann-json/json.hpp",
+      "line": 4529,
+      "text": "// |_____|_____|_____|_|___| https://github.com/nlohmann/json"
+    },
+    {
+      "category": "network",
+      "file": "dep/nlohmann-json/json.hpp",
+      "line": 4531,
+      "text": "// SPDX-FileCopyrightText: 2013-2022 Niels Lohmann <https://nlohmann.me>"
+    },
+    {
+      "category": "network",
+      "file": "dep/nlohmann-json/json.hpp",
+      "line": 4553,
+      "text": "// |_____|_____|_____|_|___| https://github.com/nlohmann/json"
+    },
+    {
+      "category": "code-execution",
+      "file": "src/edit-widget.cpp",
+      "line": 354,
+      "text": "menu->exec(QCursor::pos());"
+    },
+    {
+      "category": "code-execution",
+      "file": "src/obs-multi-rtmp.cpp",
+      "line": 251,
+      "text": "donateWnd->exec();"
+    },
+    {
+      "category": "code-execution",
+      "file": "src/obs-multi-rtmp.cpp",
+      "line": 432,
+      "text": "if (msgbox->exec() != QMessageBox::Yes) {"
+    },
+    {
+      "category": "credentials",
+      "file": "src/obs-properties-widget.cpp",
+      "line": 53,
+      "text": "edit_->setEchoMode(QLineEdit::EchoMode::Password);"
+    },
+    {
+      "category": "credentials",
+      "file": "src/obs-properties-widget.cpp",
+      "line": 64,
+      "text": "edit_->setEchoMode(QLineEdit::EchoMode::Password);"
+    },
+    {
+      "category": "credentials",
+      "file": "src/obs-properties-widget.cpp",
+      "line": 125,
+      "text": "auto le = new QLineEditWithEye(updater, parent, obs_property_text_type(p) == OBS_TEXT_PASSWORD);"
+    },
+    {
+      "category": "code-execution",
+      "file": "src/push-widget.cpp",
+      "line": 407,
+      "text": "msgbox->exec();"
+    },
+    {
+      "category": "code-execution",
+      "file": "src/push-widget.cpp",
+      "line": 669,
+      "text": ").exec();"
+    },
+    {
+      "category": "code-execution",
+      "file": "src/push-widget.cpp",
+      "line": 739,
+      "text": "if (dlg->exec() == QDialog::DialogCode::Accepted)"
+    }
+  ]
+}

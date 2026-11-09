@@ -1,0 +1,197 @@
+{
+  "tool": "Libre-Macros",
+  "ref": "4.2.0",
+  "files_scanned": 4,
+  "summary": {
+    "code-execution": 6,
+    "process-spawn": 2,
+    "network": 13,
+    "persistence": 4,
+    "input-hooks": 3,
+    "credentials": 2,
+    "file-write": 0,
+    "file-outside": 0
+  },
+  "findings": [
+    {
+      "category": "network",
+      "file": "code_loader.py",
+      "line": 3,
+      "text": "Contact/URL https://www.github.com/upgradeQ/obs-libre-macros"
+    },
+    {
+      "category": "network",
+      "file": "code_loader.py",
+      "line": 17,
+      "text": "along with this program. If not, see <https://www.gnu.org/licenses/>."
+    },
+    {
+      "category": "code-execution",
+      "file": "code_loader.py",
+      "line": 47,
+      "text": "exec(code)"
+    },
+    {
+      "category": "network",
+      "file": "console.lua",
+      "line": 3,
+      "text": "Contact/URL https://www.github.com/upgradeQ/libre-macros"
+    },
+    {
+      "category": "network",
+      "file": "console.lua",
+      "line": 5,
+      "text": "Distributed under AGPL license <https://spdx.org/licenses/AGPL-3.0-or-later.html>"
+    },
+    {
+      "category": "network",
+      "file": "console.lua",
+      "line": 8,
+      "text": "print('[+] libre-macros https://www.github.com/upgradeQ/libre-macros' .. ' ' .. _ver)"
+    },
+    {
+      "category": "network",
+      "file": "console.lua",
+      "line": 18,
+      "text": "-- https://stackoverflow.com/a/8891620 by kikito"
+    },
+    {
+      "category": "input-hooks",
+      "file": "console.lua",
+      "line": 398,
+      "text": "local event = obs_mouse_event()"
+    },
+    {
+      "category": "input-hooks",
+      "file": "console.lua",
+      "line": 408,
+      "text": "local event = obs_mouse_event()"
+    },
+    {
+      "category": "input-hooks",
+      "file": "console.lua",
+      "line": 417,
+      "text": "local event = obs_mouse_event()"
+    },
+    {
+      "category": "network",
+      "file": "console.lua",
+      "line": 500,
+      "text": "-- https://stackoverflow.com/a/61269226 by Egor-Skriptunoff"
+    },
+    {
+      "category": "process-spawn",
+      "file": "console.lua",
+      "line": 529,
+      "text": "uint32_t CreateProcessA("
+    },
+    {
+      "category": "process-spawn",
+      "file": "console.lua",
+      "line": 555,
+      "text": "local ok = ffi.C.CreateProcessA(nil, command_line, nil, nil, 0, 0, nil, current_directory, si, pi) ~= 0"
+    },
+    {
+      "category": "code-execution",
+      "file": "console.lua",
+      "line": 710,
+      "text": "local js_code = \"window.addEventListener('m',e=>eval(e.detail.k));//\""
+    },
+    {
+      "category": "code-execution",
+      "file": "console.lua",
+      "line": 968,
+      "text": "local exec = assert(load(CODE_STORAGE_INIT .. code, name, \"t\", custom_env52))"
+    },
+    {
+      "category": "persistence",
+      "file": "console.lua",
+      "line": 1059,
+      "text": "self.autorun = obs_data_get_bool(settings, \"_autorun\")"
+    },
+    {
+      "category": "persistence",
+      "file": "console.lua",
+      "line": 1112,
+      "text": "elseif self.autorun then"
+    },
+    {
+      "category": "persistence",
+      "file": "console.lua",
+      "line": 1176,
+      "text": "obs_properties_add_bool(props, \"_autorun\", i18n\"auto_run\")"
+    },
+    {
+      "category": "code-execution",
+      "file": "console.lua",
+      "line": 1276,
+      "text": "function SourceDef:load(settings) SourceDef._reg_htk(self, settings) end"
+    },
+    {
+      "category": "code-execution",
+      "file": "console.lua",
+      "line": 1686,
+      "text": "function as_custom_source:load(settings) as_custom_source._reg_htk(self, settings) end"
+    },
+    {
+      "category": "persistence",
+      "file": "console.lua",
+      "line": 1690,
+      "text": "self.autorun = obs_data_get_bool(settings, \"_autorun\")"
+    },
+    {
+      "category": "network",
+      "file": "console.lua",
+      "line": 1751,
+      "text": "href=\"https://www.github.com/upgradeQ/libre-macros/blob/master/README.md\">Visit the repository README.md</a><br/>"
+    },
+    {
+      "category": "code-execution",
+      "file": "console.lua",
+      "line": 1783,
+      "text": "local run = load(obs_data_get_string(settings, \"_patches\"), \"global patches\", \"t\")"
+    },
+    {
+      "category": "network",
+      "file": "raw_websockets_interaction.py",
+      "line": 5,
+      "text": "# for version websocket 5.0.0; docs https://github.com/obsproject/obs-websocket/blob/master/docs/generated/protocol.md"
+    },
+    {
+      "category": "network",
+      "file": "raw_websockets_interaction.py",
+      "line": 6,
+      "text": "# note https://obsproject.com/forum/threads/python-script-to-connect-to-obs-websocket-server-help.173395/"
+    },
+    {
+      "category": "network",
+      "file": "raw_websockets_interaction.py",
+      "line": 8,
+      "text": "import websocket # https://pypi.org/project/websocket-client/"
+    },
+    {
+      "category": "credentials",
+      "file": "raw_websockets_interaction.py",
+      "line": 14,
+      "text": "password = \"<redacted>\" # change password here"
+    },
+    {
+      "category": "network",
+      "file": "raw_websockets_interaction.py",
+      "line": 15,
+      "text": "ws = websocket.WebSocket()"
+    },
+    {
+      "category": "credentials",
+      "file": "raw_websockets_interaction.py",
+      "line": 22,
+      "text": "hashlib.sha256((password + salt).encode(\"utf-8\")).digest()"
+    },
+    {
+      "category": "network",
+      "file": "raw_websockets_interaction.py",
+      "line": 33,
+      "text": "server_version = result[\"d\"].get(\"obsWebSocketVersion\")"
+    }
+  ]
+}

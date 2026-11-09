@@ -1,0 +1,193 @@
+#pragma once
+
+// The following helpers are used by all macro segments,
+// so it makes sense to include them here:
+#include "log-helper.hpp"
+#include "obs-module-helper.hpp"
+#include "sync-helpers.hpp"
+#include "temp-variable.hpp"
+#include "variable-ref.hpp"
+
+#include <obs-data.h>
+
+#include <QHBoxLayout>
+#include <QPushButton>
+#include <QWidget>
+
+#include <memory>
+
+class QFrame;
+class QLabel;
+class QVBoxLayout;
+
+namespace advss {
+
+class Macro;
+class Variable;
+
+struct VarMapping {
+	TempVariableRef tempVar;
+	VariableRef variable;
+};
+
+class EXPORT MacroSegment : public Lockable {
+public:
+	MacroSegment(Macro *m, bool supportsVariableValue);
+	virtual ~MacroSegment() = default;
+	Macro *GetMacro() const { return _macro; }
+	void SetIndex(int idx) { _idx = idx; }
+	int GetIndex() const { return _idx; }
+	void SetCollapsed(bool collapsed) { _collapsed = collapsed; }
+	bool GetCollapsed() const { return _collapsed; }
+	void SetVarMappingExpanded(bool expanded);
+	bool GetVarMappingExpanded() const { return _varMappingExpanded; }
+	void SetUseCustomLabel(bool enable) { _useCustomLabel = enable; }
+	bool GetUseCustomLabel() const { return _useCustomLabel; }
+	void SetCustomLabel(const std::string &label) { _customLabel = label; }
+	std::string GetCustomLabel() const { return _customLabel; }
+	virtual bool Save(obs_data_t *obj) const = 0;
+	virtual bool Load(obs_data_t *obj) = 0;
+	virtual std::vector<TempVariableRef> GetTempVarRefs() const;
+	virtual bool PostLoad();
+	virtual std::string GetShortDesc() const;
+	virtual std::string GetId() const = 0;
+	void EnableHighlight();
+	bool GetHighlightAndReset();
+	void SetEnabled(bool);
+	bool Enabled() const;
+	virtual std::string GetVariableValue() const;
+	void ApplyVarMappings();
+	const std::vector<VarMapping> &GetVarMappings() const;
+	void SetVarMappings(const std::vector<VarMapping> &mappings);
+	std::vector<TempVariable> GetOwnTempVars() const;
+	void FixupVarMappingRefs();
+
+protected:
+	friend bool SupportsVariableValue(MacroSegment *);
+	friend void IncrementVariableRef(MacroSegment *);
+	friend void DecrementVariableRef(MacroSegment *);
+	void SetVariableValue(const std::string &value);
+	bool IsReferencedInVars() const { return _variableRefs != 0; }
+
+	virtual void SetupTempVars();
+	void AddTempvar(const std::string &id, const std::string &name,
+			const std::string &description = "");
+
+	bool IsTempVarInUse(const std::string &id) const;
+	void SetTempVarValue(const std::string &id, const std::string &value);
+
+	template<typename T, typename = std::enable_if_t<
+				     std::is_same<std::decay_t<T>, bool>::value>>
+	void SetTempVarValue(const std::string &id, T value)
+	{
+		SetTempVarValue(id, value ? std::string("true")
+					  : std::string("false"));
+	}
+
+	template<typename F, typename = std::enable_if_t<std::is_invocable_v<F>>>
+	void SetTempVarValue(const std::string &id, F &&valueProvider)
+	{
+		if (IsTempVarInUse(id)) {
+			SetTempVarValue(id, valueProvider());
+		}
+	}
+
+private:
+	void ClearAvailableTempvars();
+	std::optional<const TempVariable>
+	GetTempVar(const std::string &id) const;
+	void InvalidateTempVarValues();
+
+	// Macro helpers
+	Macro *_macro = nullptr;
+	int _idx = 0;
+
+	// UI helper
+	bool _highlight = false;
+	bool _collapsed = false;
+	bool _varMappingExpanded = false;
+	bool _enabled = true;
+
+	// Custom header labels
+	bool _useCustomLabel = false;
+	std::string _customLabel = obs_module_text(
+		"AdvSceneSwitcher.macroTab.segment.defaultCustomLabel");
+
+	// Variable helpers
+	const bool _supportsVariableValue = false;
+	int _variableRefs = 0;
+	std::string _variableValue;
+	std::vector<TempVariable> _tempVariables;
+	std::vector<VarMapping> _varMappings;
+
+	friend class Macro;
+};
+
+class Section;
+
+class MacroSegmentEdit : public QWidget {
+	Q_OBJECT
+
+public:
+	MacroSegmentEdit(QWidget *parent = nullptr);
+	// Use this function to avoid accidental edits when scrolling through
+	// list of actions and conditions
+	void SetFocusPolicyOfWidgets();
+	void SetCollapsed(bool collapsed);
+	void SetSelected(bool);
+	virtual std::shared_ptr<MacroSegment> Data() const = 0;
+	virtual void SetupWidgets(bool basicSetup = false) = 0;
+	virtual void FocusTypeSelection() {}
+
+	void SetupVarMappings(MacroSegment *segment);
+
+public slots:
+	void HeaderInfoChanged(const QString &);
+	void ShowVariableMappings(bool show);
+
+protected slots:
+	void Collapsed(bool) const;
+
+protected:
+	void SetDisableEffect(bool);
+	void SetEnableAppearance(bool);
+
+	bool eventFilter(QObject *obj, QEvent *ev) override;
+
+	Section *_section;
+	QLabel *_headerInfo;
+	QWidget *_frame;
+	QVBoxLayout *_contentLayout;
+	TempVarOutputMappingsWidget *_outputMappings;
+	QPushButton *_varMappingToggle;
+	bool _allWidgetsAreSetup = false;
+
+private:
+	enum class DropLineState {
+		NONE,
+		ABOVE,
+		BELOW,
+	};
+
+	void ShowDropLine(DropLineState);
+
+	// The reason for using two separate frame widgets, each with their own
+	// stylesheet, and changing their visibility vs. using a single frame
+	// and changing the stylesheet at runtime is that the operation of
+	// adjusting the stylesheet is very expensive and can take multiple
+	// hundred milliseconds per widget.
+	// This performance impact would hurt in areas like drag and drop or
+	// emitting the "SelectionChanged" signal.
+	QFrame *_noBorderframe;
+	QFrame *_borderFrame;
+
+	// In most cases the line above the widget will be used.
+	// The lower one will only be used if the segment is the last one in
+	// the list.
+	QFrame *_dropLineAbove;
+	QFrame *_dropLineBelow;
+
+	friend class MacroSegmentList;
+};
+
+} // namespace advss

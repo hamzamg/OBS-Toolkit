@@ -1,0 +1,91 @@
+{
+  "generated_at_utc": "2026-11-09T17:31:33Z",
+  "obs_install_dir": "C:\\Program Files\\obs-studio",
+  "obs_executable": "C:\\Program Files\\obs-studio\\bin\\64bit\\obs64.exe",
+  "obs_version": "32.0.1",
+  "obs_arch": "x64",
+  "obs_portable": false,
+  "portable_marker": false,
+  "data_dir": "C:\\Users\\<user>\\AppData\\Roaming\\obs-studio",
+  "log_dir": "C:\\Users\\<user>\\AppData\\Roaming\\obs-studio\\logs",
+  "newest_log": "2026-11-02 14-34-43.txt",
+  "plugin_module_count": 31,
+  "plugin_modules": [
+    "aja-output-ui.dll",
+    "aja.dll",
+    "chrome_elf.dll",
+    "coreaudio-encoder.dll",
+    "decklink-captions.dll",
+    "decklink-output-ui.dll",
+    "decklink.dll",
+    "frontend-tools.dll",
+    "image-source.dll",
+    "libcef.dll",
+    "libEGL.dll",
+    "libGLESv2.dll",
+    "nv-filters.dll",
+    "obs-browser.dll",
+    "obs-ffmpeg.dll",
+    "obs-filters.dll",
+    "obs-nvenc.dll",
+    "obs-outputs.dll",
+    "obs-qsv11.dll",
+    "obs-text.dll",
+    "obs-transitions.dll",
+    "obs-vst.dll",
+    "obs-webrtc.dll",
+    "obs-websocket.dll",
+    "obs-x264.dll",
+    "rtmp-services.dll",
+    "text-freetype2.dll",
+    "vlc-video.dll",
+    "win-capture.dll",
+    "win-dshow.dll",
+    "win-wasapi.dll"
+  ],
+  "python_interpreters": [
+    {
+      "version": "3.15",
+      "arch": "x64",
+      "path": "C:\\Python315\\python.exe",
+      "source": "py -0p"
+    },
+    {
+      "version": "3.14",
+      "arch": "x64",
+      "path": "C:\\Users\\<user>\\AppData\\Local\\Python\\pythoncore-3.14-64\\python.exe",
+      "source": "py -0p"
+    },
+    {
+      "version": "3.13",
+      "arch": "x64",
+      "path": "C:\\Python313\\python.exe",
+      "source": "py -0p"
+    },
+    {
+      "version": "3.12",
+      "arch": "x64",
+      "path": "C:\\Program Files\\Python312\\python.exe",
+      "source": "py -0p"
+    },
+    {
+      "version": "3.8",
+      "arch": "x64",
+      "path": "C:\\Python38\\python.exe",
+      "source": "py -0p"
+    },
+    {
+      "version": "3.8",
+      "arch": "x86",
+      "path": "C:\\Users\\<user>\\Desktop\\students-Browser\\.python38-32\\python.exe",
+      "source": "py -0p"
+    }
+  ],
+  "port_4455_listening": false,
+  "port_4455_connections": [],
+  "not_readable": [
+    "OBS configured Python path (global.ini is not opened; read it in Tools > Scripts > Python Settings)",
+    "OBS WebSocket enabled state, port and password (read them in Tools > WebSocket Server Settings)",
+    "Profiles, scene collections and plugin configuration (private data, never opened)"
+  ]
+}

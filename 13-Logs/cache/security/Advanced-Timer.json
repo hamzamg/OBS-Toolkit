@@ -1,0 +1,16 @@
+{
+  "tool": "Advanced-Timer",
+  "ref": "6.0.0",
+  "files_scanned": 1,
+  "summary": {
+    "code-execution": 0,
+    "process-spawn": 0,
+    "network": 0,
+    "persistence": 0,
+    "input-hooks": 0,
+    "credentials": 0,
+    "file-write": 0,
+    "file-outside": 0
+  },
+  "findings": []
+}

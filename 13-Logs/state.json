@@ -1,0 +1,157 @@
+{
+  "schema_version": "2.0",
+  "updated_at_utc": "2026-11-09T17:36:51Z",
+  "target_dir": "C:\\Users\\<user>\\Documents\\Project\\OBS-Toolkit",
+  "config": {
+    "OBS_INSTALL_DIR": "C:\\Program Files\\obs-studio",
+    "OBS_VERSION": "32.0.1",
+    "INTENDED_USE": "personal",
+    "STALE_AFTER_MONTHS": 18,
+    "SCOPE": "all",
+    "AUTONOMY": "checkpoint",
+    "AGENT_MODE": "full"
+  },
+  "phase": 5,
+  "phases_completed": [0, 1, 2, 3, 4, 5],
+  "final_counts": {
+    "tools": 16,
+    "decisions": {
+      "INCLUDED": 13,
+      "UNVERIFIED": 1,
+      "REJECTED": 0,
+      "UNAVAILABLE": 0,
+      "DOCS-ONLY": 1,
+      "PENDING-USER": 1
+    },
+    "assets": 9,
+    "asset_bytes": 125348099,
+    "verification": {
+      "VERIFIED": 2,
+      "INTEGRITY-ONLY": 5,
+      "COMPUTED-ONLY": 2,
+      "FAILED": 0
+    },
+    "licenses_confirmed": 15,
+    "risk": {
+      "LOW": 6,
+      "MEDIUM": 9,
+      "HIGH": 1
+    },
+    "maintenance": {
+      "ACTIVE": 11,
+      "STALE": 5
+    },
+    "qa_checks": {
+      "pass": 12,
+      "fail": 0,
+      "skip": 0
+    }
+  },
+  "gates": {
+    "installer_or_script_executed": false,
+    "obs_modified": false,
+    "runtime_tested": false,
+    "obs_tripwire": "clean",
+    "defender_scan": "clean",
+    "secrets_scan": "clean",
+    "obs_python_path": "UNKNOWN"
+  },
+  "tools": {
+    "advanced-scene-switcher": {
+      "phase": "5",
+      "status": "INCLUDED",
+      "folder": "01-Scene-Management/Advanced-Scene-Switcher",
+      "note": "ref=1.37.2 commit=6b8e666d5826d3c0784d2bd16c1d309b296f1b7b"
+    },
+    "rse-obs-scripts": {
+      "phase": "5",
+      "status": "UNVERIFIED",
+      "folder": "10-Unverified/RSE-OBS-Scripts",
+      "note": "ref=master commit=59191d2ca89b1c7affd6f440da8a4b780d53c5ae; no license file"
+    },
+    "libre-macros": {
+      "phase": "5",
+      "status": "PENDING-USER",
+      "folder": "10-Unverified/Libre-Macros",
+      "note": "ref=4.2.0 commit=e56cd6922dc07302915bda02d6972f3ec3be0661; HIGH risk, awaiting decision"
+    },
+    "autostarter": {
+      "phase": "5",
+      "status": "INCLUDED",
+      "folder": "02-Scripting-and-Automation/Autostarter",
+      "note": "ref=v2.1.0 commit=fc588c2338af0500ae8086fce13490224c665500"
+    },
+    "advanced-timer": {
+      "phase": "5",
+      "status": "INCLUDED",
+      "folder": "03-Timers-and-Counters/Advanced-Timer",
+      "note": "ref=6.0.0 commit=aec9f943a81a28b7585ffdc5030439e9488a32f8"
+    },
+    "obs-counter": {
+      "phase": "5",
+      "status": "INCLUDED",
+      "folder": "03-Timers-and-Counters/OBS-Counter",
+      "note": "ref=1.2.0 commit=fd9be36fcfacc38e6fa66a076128bf4af91f327e"
+    },
+    "advanced-filename-formatter": {
+      "phase": "5",
+      "status": "INCLUDED",
+      "folder": "04-Recording-and-Organization/Advanced-Filename-Formatter",
+      "note": "ref=1.5.0 commit=6b63a10ded8bbf7a7e059fda8b352282dfab42d8"
+    },
+    "local-stream-marker": {
+      "phase": "5",
+      "status": "INCLUDED",
+      "folder": "04-Recording-and-Organization/Local-Stream-Marker",
+      "note": "ref=v1.13 commit=558baaa99989f145e2789ff824b7f58dc27612c8"
+    },
+    "source-record": {
+      "phase": "5",
+      "status": "INCLUDED",
+      "folder": "04-Recording-and-Organization/Source-Record",
+      "note": "ref=0.4.8 commit=41faf6dba11a6ac384d1e1b415a4dab534bc68ed"
+    },
+    "obs-screen-studio-script": {
+      "phase": "5",
+      "status": "INCLUDED",
+      "folder": "05-Screen-Production/OBS-Screen-Studio",
+      "note": "ref=main commit=5739bc01f0d503f08b3fb21ddbfebfd42d387dcf"
+    },
+    "shaderfilter": {
+      "phase": "5",
+      "status": "INCLUDED",
+      "folder": "05-Screen-Production/Shaderfilter",
+      "note": "ref=2.6.1 commit=73fb5c21a40cc7b051fabe91250ed9c3593dfa03"
+    },
+    "filter-hotkeys": {
+      "phase": "5",
+      "status": "INCLUDED",
+      "folder": "06-Audio-and-Media/Filter-Hotkeys",
+      "note": "ref=1.0.2 commit=1b11ae6ae62f9a79959c7700a60f28b9fa8da8e7"
+    },
+    "tuna": {
+      "phase": "5",
+      "status": "INCLUDED",
+      "folder": "06-Audio-and-Media/Tuna",
+      "note": "ref=1.9.12 commit=7ecac9874eafaac97819382bde9ab0863fa411ec"
+    },
+    "multi-rtmp": {
+      "phase": "5",
+      "status": "INCLUDED",
+      "folder": "07-Streaming/Multi-RTMP",
+      "note": "ref=0.7.4 commit=daf0d3b4578e0eef9c8a36de5b745bccc4b10aba; 0.7.4.5 available but targets OBS 32.2.1"
+    },
+    "obs-websocket": {
+      "phase": "5",
+      "status": "DOCS-ONLY",
+      "folder": "08-Remote-Control-and-AI/OBS-WebSocket",
+      "note": "ref=5.6.3 commit=1c9306b1e200704ebe192e06c893dfc06b097c43; bundled with OBS 32.0.1"
+    },
+    "obs-mcp": {
+      "phase": "5",
+      "status": "INCLUDED",
+      "folder": "08-Remote-Control-and-AI/OBS-MCP",
+      "note": "ref=v0.2.0 commit=ae557d1f63d61f1717630b9ca9a16284e38dbd24"
+    }
+  }
+}

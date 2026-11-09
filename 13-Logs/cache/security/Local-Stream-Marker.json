@@ -1,0 +1,65 @@
+{
+  "tool": "Local-Stream-Marker",
+  "ref": "v1.13",
+  "files_scanned": 1,
+  "summary": {
+    "code-execution": 0,
+    "process-spawn": 0,
+    "network": 7,
+    "persistence": 0,
+    "input-hooks": 0,
+    "credentials": 0,
+    "file-write": 1,
+    "file-outside": 0
+  },
+  "findings": [
+    {
+      "category": "file-write",
+      "file": "local-stream-marker.lua",
+      "line": 138,
+      "text": "local ok, err, code = os.rename(path, path)"
+    },
+    {
+      "category": "network",
+      "file": "local-stream-marker.lua",
+      "line": 437,
+      "text": "-- credits to koala and upgradeQ in the OBS Forum for this (https://obsproject.com/forum/threads/failed-to-accomplish-work-with-lua-scripting.158774/)"
+    },
+    {
+      "category": "network",
+      "file": "local-stream-marker.lua",
+      "line": 668,
+      "text": "-- datetime formats from https://www.lua.org/pil/22.1.html"
+    },
+    {
+      "category": "network",
+      "file": "local-stream-marker.lua",
+      "line": 726,
+      "text": "<p>Visit the documentation for more info: <a href=\"https://github.com/honganqi/OBS-Local-Stream-Marker\">github.com/honganqi/OBS-Local-Stream-Marker</a></p>"
+    },
+    {
+      "category": "network",
+      "file": "local-stream-marker.lua",
+      "line": 729,
+      "text": "<a href=\"https://twitch.tv/honganqi\">twitch.tv/honganqi</a><br>"
+    },
+    {
+      "category": "network",
+      "file": "local-stream-marker.lua",
+      "line": 730,
+      "text": "<a href=\"https://youtube.com/honganqi\">youtube.com/honganqi</a><br>"
+    },
+    {
+      "category": "network",
+      "file": "local-stream-marker.lua",
+      "line": 731,
+      "text": "<a href=\"https://discord.gg/G5rEU7bK5j\">discord.gg/G5rEU7bK5j</a><br>"
+    },
+    {
+      "category": "network",
+      "file": "local-stream-marker.lua",
+      "line": 732,
+      "text": "<a href=\"https://github.com/honganqi\">github.com/honganqi</a><br>"
+    }
+  ]
+}

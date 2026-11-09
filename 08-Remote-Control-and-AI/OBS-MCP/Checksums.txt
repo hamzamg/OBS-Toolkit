@@ -1,0 +1,4 @@
+d1d66da80817dcc7f28f3730c8eadcb8726a740c455a07bab30aa7f12a6c7101  08-Remote-Control-and-AI/OBS-MCP/Documentation/LICENSE
+447d30021f046f792b3ca328ce52df3f02998fa367063f185560a5c0a64f6914  08-Remote-Control-and-AI/OBS-MCP/Documentation/README.snapshot.md
+cf64f4f20b49ec4c911cc604b0f2e09d29ce518fdbe9fd0a72c048945550bdf5  08-Remote-Control-and-AI/OBS-MCP/Documentation/RELEASE_NOTES_v0.2.0.md
+

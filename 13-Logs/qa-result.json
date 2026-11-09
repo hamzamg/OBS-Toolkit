@@ -1,0 +1,97 @@
+{
+  "generated_at_utc": "2026-11-09T18:01:08Z",
+  "library_root": "<library>",
+  "tools": 16,
+  "assets": 1,
+  "summary": {
+    "pass": 12,
+    "fail": 0,
+    "skip": 0
+  },
+  "checks": [
+    {
+      "id": 1,
+      "name": "Layout and manifest path consistency",
+      "status": "PASS",
+      "detail": "tools=16 required-files=23",
+      "findings": []
+    },
+    {
+      "id": 2,
+      "name": "MANIFEST.json parses and validates against the schema",
+      "status": "PASS",
+      "detail": "draft-07 schema",
+      "findings": []
+    },
+    {
+      "id": 3,
+      "name": "Assets: exists, size, SHA-256, SHA256SUMS.txt",
+      "status": "PASS",
+      "detail": "assets=9",
+      "findings": []
+    },
+    {
+      "id": 4,
+      "name": "INCLUDED tools are complete",
+      "status": "PASS",
+      "detail": "included=13",
+      "findings": []
+    },
+    {
+      "id": 5,
+      "name": "Non-INCLUDED tools are quarantined or justified",
+      "status": "PASS",
+      "detail": "non-included=3",
+      "findings": []
+    },
+    {
+      "id": 6,
+      "name": "No duplicate assets and no superseded version presented as current",
+      "status": "PASS",
+      "detail": "asset-hashes=9",
+      "findings": []
+    },
+    {
+      "id": 7,
+      "name": "Markdown links, tables and fences",
+      "status": "PASS",
+      "detail": "files=35",
+      "findings": []
+    },
+    {
+      "id": 8,
+      "name": "README, LICENSES, COMPATIBILITY, DOWNLOAD_REPORT agree with the manifest",
+      "status": "PASS",
+      "detail": "tools=16 assets=9",
+      "findings": []
+    },
+    {
+      "id": 9,
+      "name": "Secrets and username scan",
+      "status": "PASS",
+      "detail": "files-scanned=54 patterns=4",
+      "findings": []
+    },
+    {
+      "id": 10,
+      "name": "OBS tripwire against the Phase 0 baseline",
+      "status": "PASS",
+      "detail": "install=2209 data-compared=1 ignored=12",
+      "findings": []
+    },
+    {
+      "id": 11,
+      "name": "Execution log shows nothing downloaded was run and nothing was installed",
+      "status": "PASS",
+      "detail": "lines=94 parsed=94 distinct-actions=30",
+      "findings": []
+    },
+    {
+      "id": 12,
+      "name": "PowerShell scripts parse and their run state is recorded",
+      "status": "PASS",
+      "detail": "scripts=8 parsed=8 logged=7 not-logged=0",
+      "findings": []
+    }
+  ]
+}

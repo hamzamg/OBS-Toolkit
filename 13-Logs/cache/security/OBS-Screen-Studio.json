@@ -1,0 +1,71 @@
+{
+  "tool": "OBS-Screen-Studio",
+  "ref": "main",
+  "files_scanned": 1,
+  "summary": {
+    "code-execution": 0,
+    "process-spawn": 3,
+    "network": 1,
+    "persistence": 1,
+    "input-hooks": 4,
+    "credentials": 0,
+    "file-write": 0,
+    "file-outside": 0
+  },
+  "findings": [
+    {
+      "category": "input-hooks",
+      "file": "obs-screen-studio.lua",
+      "line": 130,
+      "text": "BOOL GetCursorPos(LPPOINT);"
+    },
+    {
+      "category": "input-hooks",
+      "file": "obs-screen-studio.lua",
+      "line": 131,
+      "text": "short GetKeyState(int nVirtKey);"
+    },
+    {
+      "category": "input-hooks",
+      "file": "obs-screen-studio.lua",
+      "line": 244,
+      "text": "if win_point and ffi.C.GetCursorPos(win_point) ~= 0 then"
+    },
+    {
+      "category": "input-hooks",
+      "file": "obs-screen-studio.lua",
+      "line": 275,
+      "text": "local state = ffi.C.GetKeyState(vk)"
+    },
+    {
+      "category": "network",
+      "file": "obs-screen-studio.lua",
+      "line": 1013,
+      "text": "local url = \"https://ko-fi.com/kareemstudio\""
+    },
+    {
+      "category": "process-spawn",
+      "file": "obs-screen-studio.lua",
+      "line": 1015,
+      "text": "os.execute('start \"\" \"' .. url .. '\"')"
+    },
+    {
+      "category": "process-spawn",
+      "file": "obs-screen-studio.lua",
+      "line": 1017,
+      "text": "os.execute('open \"' .. url .. '\"')"
+    },
+    {
+      "category": "process-spawn",
+      "file": "obs-screen-studio.lua",
+      "line": 1019,
+      "text": "os.execute('xdg-open \"' .. url .. '\"')"
+    },
+    {
+      "category": "persistence",
+      "file": "obs-screen-studio.lua",
+      "line": 1129,
+      "text": "log(\"Startup check - finding zoom group and enforcing unzoomed state\")"
+    }
+  ]
+}

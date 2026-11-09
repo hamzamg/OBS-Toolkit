@@ -1,0 +1,153 @@
+#pragma once
+#include "macro-condition-edit.hpp"
+#include "day-of-week-selector.hpp"
+#include "duration-control.hpp"
+
+#include <QCheckBox>
+#include <QDateTimeEdit>
+#include <QComboBox>
+#include <QTimer>
+
+namespace advss {
+
+class MacroConditionDate : public MacroCondition {
+public:
+	MacroConditionDate(Macro *m) : MacroCondition(m, true) {}
+	bool CheckCondition();
+	bool Save(obs_data_t *obj) const;
+	bool Load(obs_data_t *obj);
+	std::string GetShortDesc() const;
+	std::string GetId() const { return id; };
+	static std::shared_ptr<MacroCondition> Create(Macro *m)
+	{
+		return std::make_shared<MacroConditionDate>(m);
+	}
+
+	void SetDate1(const QDate &date);
+	void SetDate2(const QDate &date);
+	void SetTime1(const QTime &time);
+	void SetTime2(const QTime &time);
+	QDateTime GetDateTime1() const;
+	QDateTime GetDateTime2() const;
+	QDateTime GetNextMatchDateTime() const;
+
+	enum class Condition {
+		AT,
+		AFTER,
+		BEFORE,
+		BETWEEN,
+		PATTERN,
+	};
+
+	QSet<DayOfWeekSelector::Day> _days = {
+		DayOfWeekSelector::Day::Monday,
+		DayOfWeekSelector::Day::Tuesday,
+		DayOfWeekSelector::Day::Wednesday,
+	};
+	bool _ignoreDate = false;
+	bool _ignoreTime = false;
+	bool _repeat = false;
+	bool _updateOnRepeat = true;
+	Duration _duration;
+	Condition _condition = Condition::AT;
+	bool _dayOfWeekCheck = true;
+	std::string _pattern = ".... .. .. .. .. ..";
+
+private:
+	bool CheckDayOfWeek(int64_t);
+	bool CheckRegularDate(int64_t);
+	bool CheckBetween(const QDateTime &now);
+	bool CheckPattern(QDateTime now, int64_t secondsSinceLastCheck);
+	void SetVariables(const QDateTime &date);
+	void SetupTempVars();
+
+	QDateTime _dateTime = QDateTime::currentDateTime();
+	QDateTime _dateTime2 = QDateTime::currentDateTime();
+	// Used depending whether or not _updateOnRepeat is set
+	QDateTime _origDateTime = QDateTime::currentDateTime();
+	QDateTime _origDateTime2 = QDateTime::currentDateTime();
+
+	static bool _registered;
+	static const std::string id;
+};
+
+class MacroConditionDateEdit : public QWidget {
+	Q_OBJECT
+
+public:
+	MacroConditionDateEdit(
+		QWidget *parent,
+		std::shared_ptr<MacroConditionDate> cond = nullptr);
+	void UpdateEntryData();
+	static QWidget *Create(QWidget *parent,
+			       std::shared_ptr<MacroCondition> cond)
+	{
+		return new MacroConditionDateEdit(
+			parent,
+			std::dynamic_pointer_cast<MacroConditionDate>(cond));
+	}
+
+private slots:
+	void DaysChanged(const QSet<DayOfWeekSelector::Day> &);
+	void ConditionChanged(int cond);
+	void DateChanged(const QDate &date);
+	void TimeChanged(const QTime &time);
+	void Date2Changed(const QDate &date);
+	void Time2Changed(const QTime &time);
+	void IgnoreDateChanged(int state);
+	void IgnoreTimeChanged(int state);
+	void RepeatChanged(int state);
+	void UpdateOnRepeatChanged(int state);
+	void DurationChanged(const Duration &seconds);
+	void AdvancedSettingsToggleClicked();
+	void ShowNextMatch();
+	void UpdateCurrentTime();
+	void PatternChanged();
+signals:
+	void HeaderInfoChanged(const QString &);
+
+protected:
+	void showEvent(QShowEvent *event) override;
+
+private:
+	void SetupSimpleView();
+	void SetupAdvancedView();
+	void SetupPatternView();
+	void SetWidgetStatus();
+	void ShowFirstDateSelection(bool visible);
+	void ShowSecondDateSelection(bool visible);
+
+	QComboBox *_weekCondition;
+	DayOfWeekSelector *_days;
+	QCheckBox *_ignoreWeekTime;
+	QTimeEdit *_weekTime;
+
+	QComboBox *_condition;
+	QDateEdit *_date;
+	QTimeEdit *_time;
+	QLabel *_separator;
+	QDateEdit *_date2;
+	QTimeEdit *_time2;
+	QCheckBox *_ignoreDate;
+	QCheckBox *_ignoreTime;
+	QCheckBox *_repeat;
+	QLabel *_nextMatchDate;
+	QCheckBox *_updateOnRepeat;
+	DurationSelection *_duration;
+	QLineEdit *_pattern;
+	QLabel *_currentDate;
+
+	QPushButton *_advancedSettingsTooggle;
+	QVBoxLayout *_simpleLayout;
+	QHBoxLayout *_advancedLayout;
+	QVBoxLayout *_repeatLayout;
+	QHBoxLayout *_repeatUpdateLayout;
+	QHBoxLayout *_patternLayout;
+
+	QTimer _timer;
+
+	std::shared_ptr<MacroConditionDate> _entryData;
+	bool _loading = true;
+};
+
+} // namespace advss

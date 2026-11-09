@@ -1,0 +1,2 @@
+- Increase max time
+- Fix freeze on unloading

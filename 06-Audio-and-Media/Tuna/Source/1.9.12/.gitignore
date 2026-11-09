@@ -1,0 +1,12 @@
+creds.txt
+*.autosave
+.DS_Store
+*.user
+build-tuna*/
+.idea
+/cmake-build-debug/
+*.generated.h
+build_*/
+.deps/
+vcpkg_installed/
+.vs/

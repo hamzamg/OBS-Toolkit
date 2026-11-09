@@ -1,0 +1,229 @@
+#include "macro-action-random.hpp"
+#include "layout-helpers.hpp"
+#include "macro-helpers.hpp"
+#include "macro-signals.hpp"
+#include "ui-helpers.hpp"
+
+#include <cstdlib>
+
+namespace advss {
+
+const std::string MacroActionRandom::id = "random";
+
+bool MacroActionRandom::_registered = MacroActionFactory::Register(
+	MacroActionRandom::id,
+	{MacroActionRandom::Create, MacroActionRandomEdit::Create,
+	 "AdvSceneSwitcher.action.random"});
+
+static bool validNextMacro(const std::shared_ptr<Macro> &macro)
+{
+	return !MacroIsPaused(macro.get());
+}
+
+static std::vector<std::shared_ptr<Macro>>
+getNextMacros(std::vector<MacroRef> &macros, MacroRef &lastRandomMacroRef,
+	      bool allowRepeat)
+{
+	std::vector<std::shared_ptr<Macro>> res;
+	if (macros.size() == 1) {
+		auto macro = macros[0].GetMacro();
+		if (validNextMacro(macro)) {
+			res.push_back(macro);
+		}
+		return res;
+	}
+
+	auto lastRandomMacro = lastRandomMacroRef.GetMacro();
+	for (auto &m : macros) {
+		auto macro = m.GetMacro();
+		if (validNextMacro(macro) &&
+		    (allowRepeat || (lastRandomMacro != macro))) {
+			res.push_back(macro);
+		}
+	}
+	return res;
+}
+
+bool MacroActionRandom::PerformAction()
+{
+	if (_macros.size() == 0) {
+		SetTempVarValue("macro", "");
+		return true;
+	}
+
+	auto macros = getNextMacros(_macros, lastRandomMacro, _allowRepeat);
+	if (macros.size() == 0) {
+		SetTempVarValue("macro", "");
+		return true;
+	}
+
+	if (macros.size() == 1) {
+		lastRandomMacro = macros[0];
+		SetTempVarValue("macro", GetMacroName(macros[0].get()));
+		return RunMacroActions(macros[0].get());
+	}
+
+	srand((unsigned int)time(0));
+	size_t idx = std::rand() % (macros.size());
+	lastRandomMacro = macros[idx];
+
+	SetTempVarValue("macro", GetMacroName(macros[idx].get()));
+
+	return RunMacroActions(macros[idx].get());
+}
+
+void MacroActionRandom::LogAction() const
+{
+	ablog(LOG_INFO, "running random macro");
+}
+
+bool MacroActionRandom::Save(obs_data_t *obj) const
+{
+	MacroAction::Save(obj);
+	SaveMacroList(obj, _macros);
+	obs_data_set_bool(obj, "allowRepeat", _allowRepeat);
+	return true;
+}
+
+bool MacroActionRandom::Load(obs_data_t *obj)
+{
+	MacroAction::Load(obj);
+	LoadMacroList(obj, _macros);
+	_allowRepeat = obs_data_get_bool(obj, "allowRepeat");
+	return true;
+}
+
+bool MacroActionRandom::PostLoad()
+{
+	return MacroAction::PostLoad() && MultiMacroRefAction::PostLoad();
+}
+
+std::shared_ptr<MacroAction> MacroActionRandom::Create(Macro *m)
+{
+	return std::make_shared<MacroActionRandom>(m);
+}
+
+std::shared_ptr<MacroAction> MacroActionRandom::Copy() const
+{
+	return std::make_shared<MacroActionRandom>(*this);
+}
+
+void MacroActionRandom::SetupTempVars()
+{
+	MacroAction::SetupTempVars();
+	AddTempvar(
+		"macro",
+		obs_module_text("AdvSceneSwitcher.tempVar.random.macro"),
+		obs_module_text(
+			"AdvSceneSwitcher.tempVar.random.macro.description"));
+}
+
+MacroActionRandomEdit::MacroActionRandomEdit(
+	QWidget *parent, std::shared_ptr<MacroActionRandom> entryData)
+	: QWidget(parent),
+	  _list(new MacroList(this, true, false)),
+	  _allowRepeat(new QCheckBox(obs_module_text(
+		  "AdvSceneSwitcher.action.random.allowRepeat")))
+{
+	QWidget::connect(_list, SIGNAL(Added(const std::string &)), this,
+			 SLOT(Add(const std::string &)));
+	QWidget::connect(_list, SIGNAL(Removed(int)), this, SLOT(Remove(int)));
+	QWidget::connect(_list, SIGNAL(Replaced(int, const std::string &)),
+			 this, SLOT(Replace(int, const std::string &)));
+	QWidget::connect(MacroSignalManager::Instance(),
+			 SIGNAL(Remove(const QString &)), this,
+			 SLOT(MacroRemove(const QString &)));
+	QWidget::connect(_allowRepeat, SIGNAL(stateChanged(int)), this,
+			 SLOT(AllowRepeatChanged(int)));
+
+	auto *entryLayout = new QHBoxLayout;
+	std::unordered_map<std::string, QWidget *> widgetPlaceholders = {};
+	PlaceWidgets(obs_module_text("AdvSceneSwitcher.action.random.entry"),
+		     entryLayout, widgetPlaceholders);
+
+	auto *mainLayout = new QVBoxLayout;
+	mainLayout->addLayout(entryLayout);
+	mainLayout->addWidget(_list);
+	mainLayout->addWidget(_allowRepeat);
+	setLayout(mainLayout);
+
+	_entryData = entryData;
+	UpdateEntryData();
+	_loading = false;
+}
+
+void MacroActionRandomEdit::UpdateEntryData()
+{
+	if (!_entryData) {
+		return;
+	}
+
+	_list->SetContent(_entryData->_macros);
+	_allowRepeat->setChecked(_entryData->_allowRepeat);
+	_allowRepeat->setVisible(ShouldShowAllowRepeat());
+	adjustSize();
+}
+
+void MacroActionRandomEdit::MacroRemove(const QString &)
+{
+	if (!_entryData) {
+		return;
+	}
+
+	auto it = _entryData->_macros.begin();
+	while (it != _entryData->_macros.end()) {
+		if (!it->GetMacro()) {
+			it = _entryData->_macros.erase(it);
+		} else {
+			++it;
+		}
+	}
+	adjustSize();
+}
+
+void MacroActionRandomEdit::Add(const std::string &name)
+{
+	GUARD_LOADING_AND_LOCK();
+	MacroRef macro(name);
+	_entryData->_macros.push_back(macro);
+	_allowRepeat->setVisible(ShouldShowAllowRepeat());
+	adjustSize();
+}
+
+void MacroActionRandomEdit::Remove(int idx)
+{
+	GUARD_LOADING_AND_LOCK();
+	_entryData->_macros.erase(std::next(_entryData->_macros.begin(), idx));
+	_allowRepeat->setVisible(ShouldShowAllowRepeat());
+	adjustSize();
+}
+
+void MacroActionRandomEdit::Replace(int idx, const std::string &name)
+{
+	GUARD_LOADING_AND_LOCK();
+	MacroRef macro(name);
+	_entryData->_macros[idx] = macro;
+	adjustSize();
+}
+
+void MacroActionRandomEdit::AllowRepeatChanged(int value)
+{
+	GUARD_LOADING_AND_LOCK();
+	_entryData->_allowRepeat = value;
+}
+
+bool MacroActionRandomEdit::ShouldShowAllowRepeat()
+{
+	if (_entryData->_macros.size() <= 1) {
+		return false;
+	}
+	const auto macro = _entryData->_macros[0].GetMacro();
+	for (const auto &m : _entryData->_macros) {
+		if (macro != m.GetMacro()) {
+			return true;
+		}
+	}
+	return false;
+}
+
+} // namespace advss

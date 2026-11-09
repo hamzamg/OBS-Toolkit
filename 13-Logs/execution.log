@@ -1,0 +1,98 @@
+2026-11-02T19:06:29Z | 0 | - | capability-check | PowerShell 7.6.9 / git 2.56.0 / native Windows 11 x64 / network ok | ok | mode=full
+2026-11-02T19:06:29Z | 0 | - | detect-obs | C:\Program Files\obs-studio | ok | version=32.0.1 arch=x64 portable=false running=false
+2026-11-02T19:06:29Z | 0 | - | detect-plugins | obs-plugins\64bit + log Loaded Modules | ok | bundled modules only; no third-party plugin dirs
+2026-11-02T19:06:29Z | 0 | - | detect-python | py -0p | ok | 3.15,3.14,3.13,3.12,3.8 x64 + 3.8-32; OBS-configured path=UNKNOWN (global.ini not opened)
+2026-11-02T19:06:29Z | 0 | - | detect-port | tcp/4455 | ok | no listener
+2026-11-02T19:06:29Z | 0 | - | baseline-snapshot | 13-Logs\obs-baseline.json | ok | install_files=2122 data_files=23 metadata only
+2026-11-02T19:06:29Z | 0 | - | skeleton | TARGET_DIR | ok | 14 top-level dirs, 16 tool folders, logs + state.json
+2026-11-02T19:06:29Z | 0 | - | config | user answers | ok | TARGET_DIR=project folder SCOPE=all AUTONOMY=checkpoint
+2026-11-02T19:07:06Z | 1 | advanced-scene-switcher | R1-resolve | https://github.com/WarmUpTill/SceneSwitcher | ok | full=WarmUpTill/SceneSwitcher archived=False fork=False branch=master pushed=2026-11-01 gh_license=GPL-2.0
+2026-11-02T19:07:07Z | 1 | rse-obs-scripts | R1-resolve | https://github.com/rse/obs-scripts | ok | full=rse/obs-scripts archived=False fork=False branch=master pushed=2024-07-14 gh_license=
+2026-11-02T19:07:07Z | 1 | libre-macros | R1-resolve | https://github.com/upgradeQ/libre-macros | ok | full=upgradeQ/libre-macros archived=False fork=False branch=master pushed=2025-11-15 gh_license=AGPL-3.0
+2026-11-02T19:07:08Z | 1 | autostarter | R1-resolve | https://github.com/DaviBe92/Autostarter | ok | full=DaviBe92/Autostarter archived=False fork=False branch=master pushed=2025-02-20 gh_license=GPL-2.0
+2026-11-02T19:07:08Z | 1 | advanced-timer | R1-resolve | https://github.com/cg2121/obs-advanced-timer | ok | full=cg2121/obs-advanced-timer archived=False fork=False branch=master pushed=2023-07-03 gh_license=GPL-2.0
+2026-11-02T19:07:08Z | 1 | obs-counter | R1-resolve | https://github.com/upgradeQ/Counter | ok | full=upgradeQ/Counter archived=False fork=False branch=master pushed=2025-03-22 gh_license=MIT
+2026-11-02T19:07:09Z | 1 | advanced-filename-formatter | R1-resolve | https://github.com/Penwy/adv-ff | ok | full=Penwy/adv-ff archived=False fork=False branch=main pushed=2026-10-26 gh_license=GPL-2.0
+2026-11-02T19:07:09Z | 1 | local-stream-marker | R1-resolve | https://github.com/honganqi/OBS-Local-Stream-Marker | ok | full=honganqi/OBS-Local-Stream-Marker archived=False fork=False branch=main pushed=2026-06-13 gh_license=MIT
+2026-11-02T19:07:10Z | 1 | source-record | R1-resolve | https://github.com/exeldro/obs-source-record | ok | full=exeldro/obs-source-record archived=False fork=False branch=master pushed=2026-07-05 gh_license=GPL-2.0
+2026-11-02T19:07:10Z | 1 | obs-screen-studio-script | R1-resolve | https://github.com/kareem-studio/OBS-Screen-Studio-script | ok | full=kareem-studio/OBS-Screen-Studio-script archived=False fork=False branch=main pushed=2026-04-19 gh_license=MIT
+2026-11-02T19:07:11Z | 1 | shaderfilter | R1-resolve | https://github.com/exeldro/obs-shaderfilter | ok | full=exeldro/obs-shaderfilter archived=False fork=True branch=master pushed=2026-10-24 gh_license=GPL-2.0
+2026-11-02T19:07:11Z | 1 | filter-hotkeys | R1-resolve | https://github.com/upgradeQ/filter-hotkeys | ok | full=upgradeQ/filter-hotkeys archived=False fork=False branch=master pushed=2024-08-08 gh_license=MPL-2.0
+2026-11-02T19:07:12Z | 1 | tuna | R1-resolve | https://github.com/univrsal/tuna | ok | full=univrsal/tuna archived=False fork=False branch=master pushed=2026-10-24 gh_license=GPL-2.0
+2026-11-02T19:07:13Z | 1 | multi-rtmp | R1-resolve | https://github.com/sorayuki/obs-multi-rtmp | ok | full=sorayuki/obs-multi-rtmp archived=False fork=False branch=master pushed=2026-10-25 gh_license=GPL-2.0
+2026-11-02T19:07:13Z | 1 | obs-websocket | R1-resolve | https://github.com/obsproject/obs-websocket | ok | full=obsproject/obs-websocket archived=False fork=False branch=master pushed=2026-10-08 gh_license=GPL-2.0
+2026-11-02T19:07:13Z | 1 | obs-mcp | R1-resolve | https://github.com/xDarkzx/OBS_MCP | ok | full=xDarkzx/OBS_MCP archived=False fork=False branch=master pushed=2026-10-14 gh_license=Apache-2.0
+2026-11-02T19:07:26Z | 1 | advanced-scene-switcher | R2-releases | https://api.github.com/repos/WarmUpTill/SceneSwitcher/releases | ok | total=100 stable=93 newest_stable=1.37.2
+2026-11-02T19:07:27Z | 1 | rse-obs-scripts | R2-releases | https://api.github.com/repos/rse/obs-scripts/releases | ok | total=0 stable=0 newest_stable=none
+2026-11-02T19:07:27Z | 1 | libre-macros | R2-releases | https://api.github.com/repos/upgradeQ/libre-macros/releases | ok | total=12 stable=12 newest_stable=4.2.0
+2026-11-02T19:07:28Z | 1 | autostarter | R2-releases | https://api.github.com/repos/DaviBe92/Autostarter/releases | ok | total=3 stable=3 newest_stable=v2.1.0
+2026-11-02T19:07:28Z | 1 | advanced-timer | R2-releases | https://api.github.com/repos/cg2121/obs-advanced-timer/releases | ok | total=8 stable=8 newest_stable=6.0.0
+2026-11-02T19:07:29Z | 1 | obs-counter | R2-releases | https://api.github.com/repos/upgradeQ/Counter/releases | ok | total=4 stable=4 newest_stable=1.2.0
+2026-11-02T19:07:29Z | 1 | advanced-filename-formatter | R2-releases | https://api.github.com/repos/Penwy/adv-ff/releases | ok | total=10 stable=10 newest_stable=1.5.0
+2026-11-02T19:07:30Z | 1 | local-stream-marker | R2-releases | https://api.github.com/repos/honganqi/OBS-Local-Stream-Marker/releases | ok | total=13 stable=13 newest_stable=v1.13
+2026-11-02T19:07:31Z | 1 | source-record | R2-releases | https://api.github.com/repos/exeldro/obs-source-record/releases | ok | total=12 stable=12 newest_stable=0.4.8
+2026-11-02T19:07:31Z | 1 | obs-screen-studio-script | R2-releases | https://api.github.com/repos/kareem-studio/OBS-Screen-Studio-script/releases | ok | total=0 stable=0 newest_stable=none
+2026-11-02T19:07:32Z | 1 | shaderfilter | R2-releases | https://api.github.com/repos/exeldro/obs-shaderfilter/releases | ok | total=22 stable=21 newest_stable=2.6.1
+2026-11-02T19:07:33Z | 1 | filter-hotkeys | R2-releases | https://api.github.com/repos/upgradeQ/filter-hotkeys/releases | ok | total=7 stable=7 newest_stable=1.0.2
+2026-11-02T19:07:33Z | 1 | tuna | R2-releases | https://api.github.com/repos/univrsal/tuna/releases | ok | total=33 stable=32 newest_stable=1.9.12
+2026-11-02T19:07:35Z | 1 | multi-rtmp | R2-releases | https://api.github.com/repos/sorayuki/obs-multi-rtmp/releases | ok | total=43 stable=37 newest_stable=0.7.4.5
+2026-11-02T19:07:36Z | 1 | obs-websocket | R2-releases | https://api.github.com/repos/obsproject/obs-websocket/releases | ok | total=26 stable=19 newest_stable=4.9.1-compat
+2026-11-02T19:07:36Z | 1 | obs-mcp | R2-releases | https://api.github.com/repos/xDarkzx/OBS_MCP/releases | ok | total=2 stable=2 newest_stable=v0.2.0
+2026-11-02T19:17:58Z | 1 | - | phase1-complete | 13-Logs\phase1-report.md | ok | 16/16 resolved; 6 INCLUDED, 4 PENDING-USER, 1 UNVERIFIED, 1 DOCS-ONLY, 0 UNAVAILABLE; no asset downloads
+2026-11-02T19:17:58Z | 1 | - | obs-evidence | obs-studio@32.0.1 shared/obs-scripting/cmake/python.cmake | ok | Windows python range 3.8<=v<3.11
+2026-11-02T19:17:58Z | 1 | - | obs-evidence | obs-studio@32.0.1 plugins/obs-websocket submodule | ok | sha=1c9306b1e200704ebe192e06c893dfc06b097c43 == tag 5.6.3
+2026-11-02T19:17:58Z | 1 | - | checkpoint | AUTONOMY=checkpoint | skip | waiting for user go/no-go
+2026-11-02T19:38:59Z | 2 | advanced-timer | D2-download | advanced-timer.lua | ok | bytes=20020 sha256=8df66dea65fa07a7e87479fda2961efaed6600c0b3e3cfd87c439f2030562ba9 url=https://github.com/cg2121/obs-advanced-timer/releases/download/6.0.0/advanced-timer.lua
+2026-11-02T19:39:02Z | 2 | advanced-timer | D4-source | Source\6.0.0 | ok | commit=aec9f943a81a28b7585ffdc5030439e9488a32f8 files=4
+2026-11-02T19:39:10Z | 2 | multi-rtmp | D2-download | obs-multi-rtmp-0.7.4.0-windows-x64.zip | ok | bytes=2111888 sha256=601c014a2962261429f736826c441192e3da6f5ceebc7807f10907e8be3326d5 url=https://github.com/sorayuki/obs-multi-rtmp/releases/download/0.7.4/obs-multi-rtmp-0.7.4.0-windows-x64.zip
+2026-11-02T19:39:13Z | 2 | multi-rtmp | D4-source | Source\0.7.4 | ok | commit=daf0d3b4578e0eef9c8a36de5b745bccc4b10aba files=181
+2026-11-02T19:39:45Z | 2 | autostarter | D2-download | autostarter.zip | ok | bytes=40781 sha256=c3023dedb7e4412237cdd3ac10430f63beee88192c3252e56125c06b23cfc609 url=https://github.com/DaviBe92/Autostarter/releases/download/v2.1.0/autostarter.zip
+2026-11-02T19:39:46Z | 2 | advanced-filename-formatter | D2-download | adv-ff.py | ok | bytes=55569 sha256=2df6c01410bc080e9ebc915f8f57d0677bc65e234c8844e75c8bb8beebac9563 url=https://github.com/Penwy/adv-ff/releases/download/1.5.0/adv-ff.py
+2026-11-02T19:39:49Z | 2 | local-stream-marker | D2-download | local-stream-marker.1.13.zip | ok | bytes=13299 sha256=777c2ed5e1c237d0b3384eca01a8c52e156237a3577c8efd549c9e8a81db954b url=https://github.com/honganqi/OBS-Local-Stream-Marker/releases/download/v1.13/local-stream-marker.1.13.zip
+2026-11-02T19:39:50Z | 2 | source-record | D2-download | source-record-0.4.8-windows.zip | ok | bytes=356380 sha256=c2e461afc42746bb8f1861f0aaef63c42f5cc436b55da1a21b3b07bc6d014074 url=https://github.com/exeldro/obs-source-record/releases/download/0.4.8/source-record-0.4.8-windows.zip
+2026-11-02T19:39:53Z | 2 | shaderfilter | D2-download | obs-shaderfilter-2.6.1-windows.zip | ok | bytes=4795506 sha256=bdb5af0c8d6afb9b488a0dd4235a26786c221fb01d9082786e51aceb0deae37d url=https://github.com/exeldro/obs-shaderfilter/releases/download/2.6.1/obs-shaderfilter-2.6.1-windows.zip
+2026-11-02T19:40:00Z | 2 | tuna | D2-download | tuna-1.9.12-windows-x64.zip | ok | bytes=7640564 sha256=e7bfd593d91d0742218a107a38b53c801a612dceabbf7b0c41ed8f9e29325d77 url=https://github.com/univrsal/tuna/releases/download/1.9.12/tuna-1.9.12-windows-x64.zip
+2026-11-02T19:40:23Z | 2 | advanced-scene-switcher | D2-download | advanced-scene-switcher-1.37.2-windows-x64-Installer.exe | ok | bytes=110314092 sha256=517b6aaa0ef5f9db0b3e6dae5ddb8c95744b15ab1d8132dfd0e4c0599390e2cd url=https://github.com/WarmUpTill/SceneSwitcher/releases/download/1.37.2/advanced-scene-switcher-1.37.2-windows-x64-Installer.exe
+2026-11-02T19:40:44Z | 2 | advanced-scene-switcher | D4-source | Source\1.37.2 | ok | commit=6b8e666d5826d3c0784d2bd16c1d309b296f1b7b files=1108
+2026-11-02T19:40:46Z | 2 | rse-obs-scripts | D4-source | Source\master | ok | commit=59191d2ca89b1c7affd6f440da8a4b780d53c5ae files=10
+2026-11-02T19:40:51Z | 2 | libre-macros | D4-source | Source\4.2.0 | ok | commit=e56cd6922dc07302915bda02d6972f3ec3be0661 files=6
+2026-11-02T19:40:52Z | 2 | autostarter | D4-source | Source\v2.1.0 | ok | commit=fc588c2338af0500ae8086fce13490224c665500 files=98
+2026-11-02T19:40:54Z | 2 | obs-counter | D4-source | Source\1.2.0 | ok | commit=fd9be36fcfacc38e6fa66a076128bf4af91f327e files=4
+2026-11-02T19:40:57Z | 2 | advanced-filename-formatter | D4-source | Source\1.5.0 | ok | commit=6b63a10ded8bbf7a7e059fda8b352282dfab42d8 files=11
+2026-11-02T19:41:09Z | 2 | local-stream-marker | D4-source | Source\v1.13 | ok | commit=558baaa99989f145e2789ff824b7f58dc27612c8 files=7
+2026-11-02T19:41:13Z | 2 | source-record | D4-source | Source\0.4.8 | ok | commit=41faf6dba11a6ac384d1e1b415a4dab534bc68ed files=74
+2026-11-02T19:42:10Z | 2 | obs-screen-studio-script | D4-source | Source\main | ok | commit=5739bc01f0d503f08b3fb21ddbfebfd42d387dcf files=9
+2026-11-02T19:42:43Z | 2 | shaderfilter | D4-source | Source\2.6.1 | ok | commit=73fb5c21a40cc7b051fabe91250ed9c3593dfa03 files=255
+2026-11-02T19:42:44Z | 2 | filter-hotkeys | D4-source | Source\1.0.2 | ok | commit=1b11ae6ae62f9a79959c7700a60f28b9fa8da8e7 files=4
+2026-11-02T19:42:48Z | 2 | tuna | D4-source | Source\1.9.12 | ok | commit=7ecac9874eafaac97819382bde9ab0863fa411ec files=209
+2026-11-02T19:42:50Z | 2 | obs-mcp | D4-source | Source\v0.2.0 | ok | commit=ae557d1f63d61f1717630b9ca9a16284e38dbd24 files=35
+2026-11-09T17:25:49Z | utilities | - | detect-obs | C:\Program Files\obs-studio | ok | version=32.0.1 arch=x64 portable=False modules=31 port4455=False
+2026-11-09T17:26:31Z | utilities | - | detect-obs | C:\Program Files\obs-studio | ok | version=32.0.1 arch=x64 portable=False modules=31 port4455=False
+2026-11-09T17:28:55Z | utilities | - | verify-checksums | SHA256SUMS.txt | ok | files=57 findings=0
+2026-11-09T17:28:59Z | utilities | - | generate-manifest | MANIFEST.json | ok | tools=16 checkOnly=True
+2026-11-09T17:29:05Z | utilities | - | update-library | check-only | ok | checked=16 update-available=0 applied=0 failures=0
+2026-11-09T17:29:32Z | utilities | - | update-library | check-only | ok | checked=16 update-available=1 applied=0 failures=0
+2026-11-09T17:29:43Z | utilities | - | update-library | apply | ok | checked=1 update-available=0 applied=0 failures=0
+2026-11-09T17:29:47Z | utilities | - | backup-obs-dryrun | C:\Users\<user>\AppData\Roaming\obs-studio | ok | items=4 files=16 bytes=311028
+2026-11-09T17:30:15Z | utilities | - | open-readme | README.md | ok | print-only
+2026-11-09T17:30:16Z | utilities | - | open-readme | README.ar.md | ok | print-only
+2026-11-09T17:30:16Z | utilities | - | open-readme | 00-Documentation/SECURITY_GUIDE.md | ok | print-only
+2026-11-09T17:31:18Z | utilities | - | detect-obs | C:\Program Files\obs-studio | ok | version=32.0.1 arch=x64 portable=False modules=31 port4455=False
+2026-11-09T17:31:33Z | utilities | - | detect-obs | C:\Program Files\obs-studio | ok | version=32.0.1 arch=x64 portable=False modules=31 port4455=False
+2026-11-09T17:34:35Z | qa | - | test-library | qa-result.json | fail | pass=8 fail=4 skip=0
+2026-11-09T17:36:00Z | qa | - | test-library | qa-result.json | ok | pass=12 fail=0 skip=0
+2026-11-09T17:08:05Z | 3 | - | generate-docs | 00-Documentation | ok | 8 guides (INSTALLATION_GUIDE WINDOWS_SETUP OBS_SCRIPTING_GUIDE OBS_BACKUP_GUIDE SECURITY_GUIDE TROUBLESHOOTING UPDATE_GUIDE GLOSSARY)
+2026-11-09T17:10:14Z | 3 | - | generate-docs | README.md README.ar.md | ok | en+ar READMEs generated from MANIFEST.json
+2026-11-09T17:12:04Z | 3 | - | generate-reports | LICENSES.md COMPATIBILITY.md DOWNLOAD_REPORT.md | ok | every count and row read from MANIFEST.json
+2026-11-09T17:13:00Z | 3 | - | generate-toolinfo | TOOL_INFO.md + Checksums.txt | ok | 16 tools, 12-section order, per-tool SHA-256
+2026-11-09T17:13:50Z | 3 | - | generate-verification | 11-Checksums\VERIFICATION_REPORT.md SHA256SUMS.txt | ok | 57 hashed files listed
+2026-11-09T17:15:54Z | 4 | - | write-utilities | 12-Utilities | ok | 8 files, Requires 7.0, StrictMode, comment-based help, shared logger
+2026-11-09T17:16:30Z | 4 | - | write-utilities | 12-Utilities\Test-Library.ps1 | ok | 12 Definition-of-Done checks
+2026-11-09T17:35:00Z | 5 | - | final-report | FINAL_REPORT.md | ok | 11 sections, every number computed from MANIFEST.json
+2026-11-09T17:36:51Z | 5 | - | state-update | 13-Logs\state.json | ok | phase=5, 16 tool statuses match MANIFEST.json
+2026-11-09T18:00:34Z | 5 | - | defender-scan | library root | ok | custom scan completed, 0 detections reference the library; 9 historical detections 2024-2025 on unrelated paths, all inactive
+2026-11-09T18:02:00Z | 5 | - | secrets-scan | authored files | ok | 0 findings in authored files; 6 upstream hits inside Source snapshots, the libre-macros helper credential already documented in its TOOL_INFO.md
+2026-11-09T18:01:08Z | qa | - | test-library | qa-result.json | ok | pass=12 fail=0 skip=0
+2026-11-09T18:01:10Z | utilities | - | verify-checksums | SHA256SUMS.txt | ok | files=57 findings=0
+2026-11-09T18:01:11Z | utilities | - | generate-manifest | MANIFEST.json | ok | tools=16 checkOnly=True
+2026-11-09T18:01:16Z | utilities | - | verify-checksums | SHA256SUMS.txt | ok | files=57 findings=0
