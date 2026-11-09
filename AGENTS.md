@@ -1,5 +1,18 @@
 # Project workflow — OBS-Toolkit
 
+## Scope (strict — no searching outside the project)
+- Treat the library root (`C:\Users\<user>\Documents\Project\OBS-Toolkit`) as the
+  only work boundary for this session.
+- Never list, search, read, glob, or grep outside the project root (for example
+  other project folders, personal files, or unrelated system directories)
+  without the user's explicit request and approval in advance.
+- Environment facts come from the documented utilities (`Get-OBSInfo.ps1`,
+  `Test-Library.ps1`) and from files inside the library — not from browsing the
+  machine.
+- If a helper file or generator outside the project is needed (for example the
+  document generators in the temp folder), say so and wait for the user's
+  approval first. Never reach for it silently.
+
 ## Before any work
 - `git switch main && git pull --ff-only` (if a remote exists); verify `git status` is clean.
 - Create a new branch per task: `feat/...`, `fix/...`, `docs/...`. Never edit `main` directly.
